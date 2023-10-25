@@ -2,8 +2,8 @@ package floor
 
 import (
 	"bufio"
-	"fmt"
 	"os"
+	"strconv"
 
 	"gitlab.univ-nantes.fr/jezequel-l/quadtree/configuration"
 	"gitlab.univ-nantes.fr/jezequel-l/quadtree/quadtree"
@@ -38,14 +38,29 @@ func readFloorFromFile(fileName string) (floorContent [][]int) {
 	}
 
 	file_scan := bufio.NewScanner(file)
-	file_scan.Split(bufio.ScanRunes)
-	numLigne := 0
+	file_scan.Split(bufio.ScanRunes) // scan char par char
+	lineContent := []int{}
+
 	for file_scan.Scan() {
-		// TODO changer de ligne dans floorContent[numLine][dataLigne]
-		ligneContent := file_scan.Text()
-		fmt.Println(ligneContent)
-		numLigne++
+		// TODO changer de ligne dans floorContent[numLine][dataLine]
+		str_content := file_scan.Text() // get content
+		if err != nil {
+			panic(err)
+		}
+
+		if str_content == "\n" { // if new line, do not add it to content
+			floorContent = append(floorContent, lineContent)
+			lineContent = nil
+		} else {
+			content, err := strconv.Atoi(str_content) // convert str to int
+			if err != nil {
+				panic(err)
+			}
+			lineContent = append(lineContent, content)
+		}
 	}
+	// else implicit for the last line (maybe found a better solution)
+	floorContent = append(floorContent, lineContent)
 
 	file.Close()
 	return floorContent
