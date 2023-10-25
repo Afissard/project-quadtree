@@ -19,6 +19,7 @@ Générer la map avec l'algo quadtree, détail dans le pdf
 - getContent
 ### Partie 3 : Extentions
 - Collisions
+- GUI
 - Monde procédural (donjons)
-- Entitée
+- Entitée (ia state machine)
 - etc

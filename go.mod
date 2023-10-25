@@ -1,3 +1,4 @@
+// module gitlab.univ-nantes.fr/jezequel-l/quadtree
 module gitlab.univ-nantes.fr/jezequel-l/quadtree
 
 go 1.21

@@ -2,6 +2,7 @@ package floor
 
 import (
 	"bufio"
+	"fmt"
 	"os"
 
 	"gitlab.univ-nantes.fr/jezequel-l/quadtree/configuration"
@@ -37,9 +38,12 @@ func readFloorFromFile(fileName string) (floorContent [][]int) {
 	}
 
 	file_scan := bufio.NewScanner(file)
+	file_scan.Split(bufio.ScanRunes)
 	numLigne := 0
 	for file_scan.Scan() {
 		// TODO changer de ligne dans floorContent[numLine][dataLigne]
+		ligneContent := file_scan.Text()
+		fmt.Println(ligneContent)
 		numLigne++
 	}
 
