@@ -42,7 +42,6 @@ func readFloorFromFile(fileName string) (floorContent [][]int) {
 	lineContent := []int{}
 
 	for file_scan.Scan() {
-		// TODO changer de ligne dans floorContent[numLine][dataLine]
 		str_content := file_scan.Text() // get content
 		if err != nil {
 			panic(err)
@@ -60,7 +59,7 @@ func readFloorFromFile(fileName string) (floorContent [][]int) {
 		}
 	}
 	// else implicit for the last line (maybe found a better solution)
-	floorContent = append(floorContent, lineContent)
+	floorContent = append(floorContent, lineContent) // not a good idea
 
 	file.Close()
 	return floorContent
