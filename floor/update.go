@@ -41,7 +41,17 @@ func (f *Floor) updateGridFloor(camXPos, camYPos int) {
 
 // le sol est récupéré depuis un tableau, qui a été lu dans un fichier
 func (f *Floor) updateFromFileFloor(camXPos, camYPos int) {
-	// TODO here
+	/*
+		En entré récupère une structure floor et les coordonée
+		de la caméra.
+		En sortie, la région de la map afficher (Floor.content)
+		par la caméra, soit une partie de Floor.fullContent, centré
+		sur les coordoné de la camera.
+		#TODO :
+		-> retourné quelque chose
+		-> fonction test
+		-> suivre le joueur
+	*/
 }
 
 // le sol est récupéré depuis un quadtree, qui a été lu dans un fichier
