@@ -20,6 +20,7 @@ Générer la map avec l'algo quadtree, détail dans le pdf
 ### Partie 3 : Extentions
 - Collisions
 - GUI
-- Monde procédural (donjons)
-- Entitée (ia state machine)
+- Monde procédural (donjons -> algo de génération)
+- Entitée (ia state machine algo + path-finding algo)
+- dynamic light (voir technique de dithering -> réutilise algo quadtree)
 - etc
