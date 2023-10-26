@@ -46,13 +46,17 @@ func (f *Floor) updateFromFileFloor(camXPos, camYPos int) {
 		de la caméra.
 		En sortie, la région de la map afficher (Floor.content)
 		par la caméra, soit une partie de Floor.fullContent, centré
-		sur les coordonné de la camera.
+		sur les coordonné de la camera (carré de 9*9 tuile). (voir pdf)
 		#TODO :
 		-> retourné une région de la map (Floor.content)
-		-> fonction test
-		-> suivre le joueur
+		-> fonction test ?
 	*/
-	f.content[1][0] = f.fullContent[0][0] // affiche un morceau de la map ? (test)
+	f.content[0][0] = f.fullContent[1][0] // affiche un morceau de la map ? (test)
+	for y := 0; y < configuration.Global.NumTileY; y++ {
+		for x := 0; x < configuration.Global.NumTileX; x++ {
+			// doit être centré sur la camera (exemple fonctionnement dans fonction updateGridFloor)
+		}
+	}
 }
 
 // le sol est récupéré depuis un quadtree, qui a été lu dans un fichier
