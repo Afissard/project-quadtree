@@ -51,10 +51,17 @@ func (f *Floor) updateFromFileFloor(camXPos, camYPos int) {
 		-> retourné une région de la map (Floor.content)
 		-> fonction test ?
 	*/
-	f.content[0][0] = f.fullContent[1][0] // affiche un morceau de la map ? (test)
-	for y := 0; y < configuration.Global.NumTileY; y++ {
-		for x := 0; x < configuration.Global.NumTileX; x++ {
-			// doit être centré sur la camera (exemple fonctionnement dans fonction updateGridFloor)
+	for y := 0; y < len(f.fullContent) || y < configuration.Global.NumTileY; y++ {
+		for x := 0; x < len(f.fullContent[y]) || x < configuration.Global.NumTileX; x++ {
+			// les coordonnées relatives doivent être centrées sur la camera
+			tileY := len(f.fullContent) - configuration.Global.NumTileY - camYPos + y
+			tileX := len(f.fullContent[y]) - configuration.Global.NumTileX - camXPos + x
+
+			if (tileY < 0 || tileY > len(f.fullContent)) || (tileX < 0 || tileX > len(f.fullContent[y])) { // case vide
+				f.content[y][x] = -1
+			} else {
+				f.content[y][x] = f.fullContent[tileY][tileX]
+			}
 		}
 	}
 }
