@@ -46,8 +46,9 @@ func readFloorFromFile(fileName string) (floorContent [][]int) {
 		if err != nil {
 			panic(err)
 		}
-
-		if str_content == "\n" { // if new line, do not add it to content
+		if str_content == "\r" { // est parfois détecté par Atoi()
+			continue
+		} else if str_content == "\n" { // if new line, do not add it to content
 			floorContent = append(floorContent, lineContent)
 			lineContent = nil
 		} else {
