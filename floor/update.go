@@ -54,8 +54,10 @@ func (f *Floor) updateFromFileFloor(camXPos, camYPos int) {
 	for y := 0; y < len(f.fullContent) || y < configuration.Global.NumTileY; y++ {
 		for x := 0; x < len(f.fullContent[y]) || x < configuration.Global.NumTileX; x++ {
 			// les coordonnées relatives doivent être centrées sur la camera
-			tileY := len(f.fullContent) - configuration.Global.NumTileY - camYPos + y
-			tileX := len(f.fullContent[y]) - configuration.Global.NumTileX - camXPos + x
+			tileY := 0
+			tileX := 0
+			//tileY = len(f.fullContent) - configuration.Global.NumTileY - camYPos + y
+			//tileX = len(f.fullContent[y]) - configuration.Global.NumTileX - camXPos + x
 
 			if (tileY < 0 || tileY > len(f.fullContent)) || (tileX < 0 || tileX > len(f.fullContent[y])) { // case vide
 				f.content[y][x] = -1
