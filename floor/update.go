@@ -47,27 +47,20 @@ func (f *Floor) updateFromFileFloor(camXPos, camYPos int) {
 		En sortie, la région de la map afficher (Floor.content)
 		par la caméra, soit une partie de Floor.fullContent, centré
 		sur les coordonné de la camera (carré de 9*9 tuile). (voir pdf)
-		#TODO :
-		-> retourné une région de la map (Floor.content)
-		-> fonction test ?
 	*/
 	for y := 0; y < configuration.Global.NumTileY; y++ {
 		for x := 0; x < configuration.Global.NumTileX; x++ {
-			// les coordonnées relatives doivent être centrées sur la camera
-			tileY := 0
-			tileX := 0
-
-			// Marche mais manque fonction pour test case vide
 			// Calcule les coordonnées des tuiles à afficher par rapport aux coordonnée de la caméra
-			tileY = camYPos - configuration.Global.ScreenCenterTileY + y
-			tileX = camYPos - configuration.Global.ScreenCenterTileX + x
+			tileY := camYPos - configuration.Global.ScreenCenterTileY + y
+			tileX := camYPos - configuration.Global.ScreenCenterTileX + x
 
-			emptiness := false                               // TODO: trouver test pour déterminer les tuiles vide
-			if (tileY < 0) || (tileY > len(f.fullContent)) { // si tileY hors porté
+			// Test tuile vide
+			emptiness := false
+			if (tileY < 0) || (tileY >= len(f.fullContent)) { // si tileY hors porté
 				emptiness = true
-			} else if (tileX < 0) || (tileX > len(f.fullContent[tileY])) { // si tileX hors porté
+			} else if (tileX < 0) || (tileX >= len(f.fullContent[tileY])) { // si tileX hors porté
 				emptiness = true
-			}
+			} // le code est optimizable, mais pas forcement très lisible si le test est sur une seul ligne
 
 			if emptiness { // case vide
 				f.content[y][x] = -1

@@ -8,5 +8,5 @@
     "NumTileForDebug": 6,
     "CameraMode": 0,
     "FloorKind": 1,
-    "FloorFile": "../floor-files/exemple"
+    "FloorFile": "../floor-files/validation"
 }
