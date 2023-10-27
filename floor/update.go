@@ -57,12 +57,13 @@ func (f *Floor) updateFromFileFloor(camXPos, camYPos int) {
 			tileY := 0
 			tileX := 0
 
-			//TODO: trouver une solution pour trouver les coordonnées des tuiles à afficher
-			//tileY = camYPos - configuration.Global.ScreenCenterTileY + y // marche peut être -> trouver test case vide ?
-			//tileX = camYPos - configuration.Global.ScreenCenterTileX + x
+			// Marche mais manque fonction pour test case vide
+			// Calcule les coordonnées des tuiles à afficher par rapport aux coordonnée de la caméra
+			tileY = camYPos - configuration.Global.ScreenCenterTileY + y
+			tileX = camYPos - configuration.Global.ScreenCenterTileX + x
 
-			emptiness := false                  // TODO: trouver test pour déterminer les tuile vide
-			if len(f.fullContent[tileY]) == 0 { // si tileY hors porté
+			emptiness := false                               // TODO: trouver test pour déterminer les tuiles vide
+			if (tileY < 0) || (tileY > len(f.fullContent)) { // si tileY hors porté
 				emptiness = true
 			} else if (tileX < 0) || (tileX > len(f.fullContent[tileY])) { // si tileX hors porté
 				emptiness = true
