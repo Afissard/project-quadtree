@@ -56,11 +56,13 @@ func (f *Floor) updateFromFileFloor(camXPos, camYPos int) {
 			// les coordonnées relatives doivent être centrées sur la camera
 			tileY := 0
 			tileX := 0
-			tileY = int(configuration.Global.NumTileY/2) - camYPos + y
-			tileX = int(configuration.Global.NumTileY/2) - camYPos + y
 
-			emptiness := f.fullContent == nil || f.fullContent[tileY] == nil
-			if emptiness { // case vide
+			//TODO: trouver une solution pour trouver les coordonnées des tuiles à afficher
+			//tileY = int(configuration.Global.NumTileY/2) - camYPos + y
+			//tileX = int(configuration.Global.NumTileY/2) - camYPos + y
+
+			emptiness := false // TODO: trouver test pour déterminer les tuile vide
+			if emptiness {     // case vide
 				f.content[y][x] = -1
 			} else {
 				f.content[y][x] = f.fullContent[tileY][tileX]
