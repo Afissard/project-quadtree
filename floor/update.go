@@ -58,11 +58,11 @@ func (f *Floor) updateFromFileFloor(camXPos, camYPos int) {
 			tileX := 0
 
 			//TODO: trouver une solution pour trouver les coordonnées des tuiles à afficher
-			//tileY = int(configuration.Global.NumTileY/2) - camYPos + y
-			//tileX = int(configuration.Global.NumTileY/2) - camYPos + y
+			tileY = camYPos - configuration.Global.ScreenCenterTileY + y // marche peut être -> trouver test case vide
+			tileX = camYPos - configuration.Global.ScreenCenterTileX + x
 
-			emptiness := false // TODO: trouver test pour déterminer les tuile vide
-			if emptiness {     // case vide
+			emptiness := (len(f.fullContent[tileY]) == 0) || (tileX < 0) || (tileX > len(f.fullContent[tileY])) // TODO: trouver test pour déterminer les tuile vide
+			if emptiness {                                                                                      // case vide
 				f.content[y][x] = -1
 			} else {
 				f.content[y][x] = f.fullContent[tileY][tileX]
