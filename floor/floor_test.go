@@ -1,8 +1,6 @@
 package floor
 
-import (
-	"testing"
-)
+import "testing"
 
 func Test_readFloorFromFile(t *testing.T) {
 	/*
@@ -22,7 +20,7 @@ func Test_readFloorFromFile(t *testing.T) {
 	for i := 0; i < len(expectedContent); i++ {
 		for j := 0; j < len(expectedContent[i]); j++ {
 			if floorContent[i][j] != expectedContent[i][j] {
-				t.Fatalf("For p = %q, expected %d. Got %d.", filepath, expectedContent[i], floorContent[i])
+				t.Fatalf("Pour la map : %q \nAttend : %d \nReçoit : %d", filepath, expectedContent[i], floorContent[i])
 			}
 		}
 	}
