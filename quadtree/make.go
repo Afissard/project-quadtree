@@ -48,7 +48,17 @@ func createNodesLayer(nodesList [][]node) (q Quadtree) {
 	/*
 		Sert à makeFromArray, associe les node entre elles dans un arbre récursif
 	*/
-	// calcul le nombre de nodes (en supposant que tout len(floorContent[x] = len(floorContent[0]) -> map rectangulaire)
+
+	// test racine de quadtree : si une seule node existe
+	if len(nodesList) == 1 && len(nodesList[0]) == 1 {
+		q.width = nodesList[0][0].width
+		q.height = nodesList[0][0].height
+		q.root = &nodesList[0][0]
+		return q
+	} else if len(nodesList) < 1 || len(nodesList[0]) < 1 {
+		panic("nodeList ne devrais être vide")
+	}
+	// sinon calcul d'une nouvelle couche
 	newNodesList := [][]node{}
 	for y := 0; y < len(nodesList); y += 2 { // +2 au lieu de +1 car une node couvre 4 nodes
 		nodesLine := []node{}
@@ -77,15 +87,6 @@ func createNodesLayer(nodesList [][]node) (q Quadtree) {
 		// tableau 2D de nodes
 		nodesList = append(nodesList, nodesLine)
 	}
-
-	// test racine de quadtree : si une seule node existe
-	if len(newNodesList) == 1 && len(newNodesList[0]) == 1 {
-		q.width = newNodesList[0][0].width
-		q.height = newNodesList[0][0].height
-		q.root = &newNodesList[0][0]
-		return q
-	}
-	// else implicite : nouvelle couche
 	q = createNodesLayer(newNodesList)
 
 	return q
