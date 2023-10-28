@@ -54,7 +54,9 @@ func createNodesLayer(nodesList [][]node) (q Quadtree) {
 
 	if nbrNodes > 1 {
 		// création des node pour cette couche
+		newNodesList := [][]node{}
 		for y := 0; y < len(nodesList); y += 2 { // +2 au lieu de +1 car une node couvre 4 nodes
+			nodesLine := []node{}
 			for x := 0; x < len(nodesList[y]); x += 2 {
 				currentNode := node{
 					topLeftX: x,
@@ -73,9 +75,11 @@ func createNodesLayer(nodesList [][]node) (q Quadtree) {
 						currentNode.bottomRightNode = &nodesList[y+1][x+1]
 					}
 				}
+				nodesLine = append(nodesLine, currentNode)
 			}
+			nodesList = append(nodesList, nodesLine)
 		}
-		q = createNodesLayer(nodesList)
+		q = createNodesLayer(newNodesList)
 	} else { // si une seule node possible
 		q.width = nodesList[0][0].width
 		q.height = nodesList[0][0].height
