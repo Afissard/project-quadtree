@@ -85,7 +85,7 @@ func createNodesLayer(nodesList [][]node) (q Quadtree) {
 			nodesLine = append(nodesLine, currentNode)
 		}
 		// tableau 2D de nodes
-		nodesList = append(nodesList, nodesLine)
+		newNodesList = append(newNodesList, nodesLine)
 	}
 	q = createNodesLayer(newNodesList)
 
