@@ -13,9 +13,9 @@ func MakeFromArray(floorContent [][]int) (q Quadtree) {
 		4. si couche 0 atteint (1 seule node à attacher) alors attacher la node restante à la racine.
 	*/
 	// calcul le nombre de nodes (en supposant que tout len(floorContent[x] = len(floorContent[0]) -> map rectangulaire)
-	var nbrNodes int = (len(floorContent) * len(floorContent[0])) / 4
+	nbrNodes := (len(floorContent) * len(floorContent[0])) / 4
 
-	if nbrNodes > 1 {
+	if nbrNodes > 1.0 {
 		// création des node pour la couche "feuille"
 		nodesList := [][]node{}
 		for y := 0; y < len(floorContent); y++ {
@@ -50,9 +50,9 @@ func MakeFromArray(floorContent [][]int) (q Quadtree) {
 
 func createNodesLayer(nodesList [][]node) (q Quadtree) {
 	// calcul le nombre de nodes (en supposant que tout len(floorContent[x] = len(floorContent[0]) -> map rectangulaire)
-	var nbrNodes int = (len(nodesList) * len(nodesList[0])) / 4
+	nbrNodes := (len(nodesList) * len(nodesList[0])) / 4
 
-	if nbrNodes > 1 {
+	if nbrNodes > 1.0 {
 		// création des node pour cette couche
 		newNodesList := [][]node{}
 		for y := 0; y < len(nodesList); y += 2 { // +2 au lieu de +1 car une node couvre 4 nodes
@@ -61,7 +61,7 @@ func createNodesLayer(nodesList [][]node) (q Quadtree) {
 				currentNode := node{
 					topLeftX: x,
 					topLeftY: y,
-					width:    nodesList[y][x].width * 2,
+					width:    nodesList[y][x].width * 2, // TODO: attention au potentiel tuile vide
 					height:   nodesList[y][x].height * 2,
 				}
 				// lie les nodes, en faisant attention au potentiel nodes inexistante
@@ -81,9 +81,26 @@ func createNodesLayer(nodesList [][]node) (q Quadtree) {
 		}
 		q = createNodesLayer(newNodesList)
 	} else { // si une seule node possible
-		q.width = nodesList[0][0].width
-		q.height = nodesList[0][0].height
-		q.root = &nodesList[0][0]
+		nodeAlone := node{
+			topLeftX: 0,
+			topLeftY: 0,
+			width:    1,
+			height:   1,
+		}
+		nodeAlone.topLeftNode = &nodesList[0][0]
+		if 1 > len(nodesList[0]) {
+			nodeAlone.topRightNode = &nodesList[0][1]
+		}
+		if 1 > len(nodesList) {
+			nodeAlone.bottomLeftNode = &nodesList[1][0]
+			if 1 > len(nodesList[0]) {
+				nodeAlone.bottomRightNode = &nodesList[1][1]
+			}
+		}
+
+		q.width = nodeAlone.width
+		q.height = nodeAlone.height
+		q.root = &nodeAlone
 	}
 	return q
 }
