@@ -19,8 +19,9 @@ func MakeFromArray(floorContent [][]int) (q Quadtree) {
 		emptiness = true
 	}
 
-	if !emptiness {
-		// création des node pour la couche "feuille"
+	if emptiness {
+		panic("floorContent vide")
+	} else { // création des node pour la couche "feuille"
 		nodesList := [][]node{}
 		for y := 0; y < len(floorContent); y++ {
 			nodesLine := []node{}
@@ -48,44 +49,44 @@ func createNodesLayer(nodesList [][]node) (q Quadtree) {
 		Sert à makeFromArray, associe les node entre elles dans un arbre récursif
 	*/
 	// calcul le nombre de nodes (en supposant que tout len(floorContent[x] = len(floorContent[0]) -> map rectangulaire)
-	var nbrNodes float32 = (float32(len(nodesList) * len(nodesList[0]))) / 4
-
-	if nbrNodes <= float32(1/4) { // on sait jamais
-		panic("nbrNodes <=0 ")
-	} else if nbrNodes > float32(1.0) { // plus d'une node -> création d'une couche
-		newNodesList := [][]node{}
-		for y := 0; y < len(nodesList); y += 2 { // +2 au lieu de +1 car une node couvre 4 nodes
-			nodesLine := []node{}
-			for x := 0; x < len(nodesList[y]); x += 2 {
-				currentNode := node{
-					topLeftX: x,
-					topLeftY: y,
-					width:    nodesList[y][x].width * 2, // TODO: attention aux potentiels tuiles vide ?
-					height:   nodesList[y][x].height * 2,
-				}
-
-				// lie les nodes, en faisant attention au potentiel nodes inexistante
-				currentNode.topLeftNode = &nodesList[y][x]
-				if x+1 > len(nodesList[y]) {
-					currentNode.topRightNode = &nodesList[y][x+1]
-				}
-				if y+1 > len(nodesList) {
-					currentNode.bottomLeftNode = &nodesList[y+1][x]
-					if x+1 > len(nodesList[y]) {
-						currentNode.bottomRightNode = &nodesList[y+1][x+1]
-					}
-				}
-				// ligne de nodes
-				nodesLine = append(nodesLine, currentNode)
+	newNodesList := [][]node{}
+	for y := 0; y < len(nodesList); y += 2 { // +2 au lieu de +1 car une node couvre 4 nodes
+		nodesLine := []node{}
+		for x := 0; x < len(nodesList[y]); x += 2 {
+			currentNode := node{
+				topLeftX: x,
+				topLeftY: y,
+				width:    nodesList[y][x].width * 2, // TODO: attention aux potentiels tuiles vide ?
+				height:   nodesList[y][x].height * 2,
 			}
-			// tableau 2D de nodes
-			nodesList = append(nodesList, nodesLine)
+
+			// lie les nodes, en faisant attention au potentiel nodes inexistante
+			currentNode.topLeftNode = &nodesList[y][x]
+			if x+1 > len(nodesList[y]) {
+				currentNode.topRightNode = &nodesList[y][x+1]
+			}
+			if y+1 > len(nodesList) {
+				currentNode.bottomLeftNode = &nodesList[y+1][x]
+				if x+1 > len(nodesList[y]) {
+					currentNode.bottomRightNode = &nodesList[y+1][x+1]
+				}
+			}
+			// ligne de nodes
+			nodesLine = append(nodesLine, currentNode)
 		}
-		q = createNodesLayer(newNodesList)
-	} else { // si une seule node existe
-		q.width = nodesList[0][0].width
-		q.height = nodesList[0][0].height
-		q.root = &nodesList[0][0]
+		// tableau 2D de nodes
+		nodesList = append(nodesList, nodesLine)
 	}
+
+	// test racine de quadtree : si une seule node existe
+	if len(newNodesList) == 1 && len(newNodesList[0]) == 1 {
+		q.width = newNodesList[0][0].width
+		q.height = newNodesList[0][0].height
+		q.root = &newNodesList[0][0]
+		return q
+	}
+	// else implicite : nouvelle couche
+	q = createNodesLayer(newNodesList)
+
 	return q
 }
