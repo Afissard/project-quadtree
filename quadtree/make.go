@@ -45,7 +45,7 @@ func MakeFromArray(floorContent [][]int) (q Quadtree) {
 
 func createNodesLayer(nodesList [][]node) (q Quadtree) {
 	/*
-		Sert à makeFromArray, est légèrement différente : associe les node entre elle dans un arbre récursif
+		Sert à makeFromArray, associe les node entre elles dans un arbre récursif
 	*/
 	// calcul le nombre de nodes (en supposant que tout len(floorContent[x] = len(floorContent[0]) -> map rectangulaire)
 	var nbrNodes float32 = (float32(len(nodesList) * len(nodesList[0]))) / 4
