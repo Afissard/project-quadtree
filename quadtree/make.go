@@ -7,10 +7,16 @@ func MakeFromArray(floorContent [][]int) (q Quadtree) {
 		En entré : la map (liste 2D)
 		En sortie : un quadtree qui stocke la map
 
-		Idée algo (user de fonctions récursives):
-		1. déterminer le nombre de nodes quadtree à lié -> nombre total "n" de nodes pour cette couche.
-		3. créer des nodes pour rattacher les node précédemment créés (ou aux données de la map à itération n°1).
-		4. si couche 0 atteint (1 seule node à attacher) alors attacher la node restante à la racine.
+		Algo :
+		1. créer la couche "feuille" de l'arbre quadtree : chaque node récupère le contenu de floorContent
+		2. Boucle récursive :
+			- si couche 0 atteint (1 seule node à attacher) alors attacher la node restante à la racine.
+			- sinon créer des nodes pour rattacher les node précédemment créés (ou aux données de la map à itération n°1).
+
+		TODO: optimiser les quadtree (fonction à part ?):
+		Si une node représente 4 fois le même contenu, alors "supprimer" les node d'en dessous,
+		node.content prend la valeur du contenu des nodes supprimées, le contenu d'en dessous
+		est déterminé grace avec node.width et node.height.
 	*/
 	emptiness := false
 	if len(floorContent) <= 0 {
@@ -55,10 +61,10 @@ func createNodesLayer(nodesList [][]node) (q Quadtree) {
 		q.height = nodesList[0][0].height
 		q.root = &nodesList[0][0]
 		return q
-	} else if len(nodesList) < 1 || len(nodesList[0]) < 1 {
+	} else if len(nodesList) < 1 || len(nodesList[0]) < 1 { // reliquat des tests, plus très utile
 		panic("nodeList ne devrais être vide")
 	}
-	// sinon calcul d'une nouvelle couche
+	// else implicite : calcul d'une nouvelle couche
 	newNodesList := [][]node{}
 	for y := 0; y < len(nodesList); y += 2 { // +2 au lieu de +1 car une node couvre 4 nodes
 		nodesLine := []node{}
