@@ -10,7 +10,7 @@ func Test_MakeFromArray(t *testing.T) {
 	/*
 		TODO: écrire un vrai test
 	*/
-	fmt.Println("\nTest : MakeFromArray :")
+	fmt.Println("\nTest MakeFromArray : ")
 	mapContent := [][]int{
 		{1, 1, 3, 4},
 		{1, 1, 4, 3},
@@ -20,13 +20,13 @@ func Test_MakeFromArray(t *testing.T) {
 	q := MakeFromArray(mapContent)
 	if q.root == nil {
 		t.Fatal("floorContent est vide")
+	} else {
+		fmt.Println("ok")
 	}
-	fmt.Println("quadtree : ", q, "\nnode root :", q.root)
-
 }
 
 func Test_GetContent(t *testing.T) {
-	fmt.Println("\nTest : GetContent :")
+	fmt.Println("\nTest GetContent :")
 	mapContent := [][]int{
 		{1, 1, 3, 4},
 		{1, 1, 4, 3},
@@ -44,6 +44,6 @@ func Test_GetContent(t *testing.T) {
 	if !reflect.DeepEqual(mapContent, contentHolder) {
 		t.Fatalf("mapContent : %d,\ndifférent de contentHolder : %d", mapContent, contentHolder)
 	} else {
-		fmt.Printf("mapContent : %d == contentHolder : %d\n", mapContent, contentHolder)
+		fmt.Printf("ok : mapContent : %d == contentHolder : %d\n", mapContent, contentHolder)
 	}
 }

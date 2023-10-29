@@ -25,7 +25,7 @@ func (q Quadtree) GetContent(topLeftX, topLeftY int, contentHolder [][]int) {
 	*/
 	getNodeContent(q.root, topLeftX, topLeftY, contentHolder)
 	// TODO : ajouter cases vide ?
-	fmt.Println("exit ?")
+	fmt.Println("\nexit with", contentHolder)
 }
 
 func getNodeContent(currentNode *node, topLeftX, topLeftY int, contentHolder [][]int) {
@@ -46,9 +46,10 @@ func getNodeContent(currentNode *node, topLeftX, topLeftY int, contentHolder [][
 
 			// alors append au bon endroit dans contentHolder
 			contentHolder[currentNode.topLeftY-topLeftY][currentNode.topLeftX-topLeftX] = currentNode.content
+			// HERE: retour en arrière vers les autres branches
 		}
 	} else { // si il y a des nodes attaché, alors, continué de remonter
-		// FIXME: pas de retour en arrière dans les branches ...
+		// FIXME: pas de retour en arrière dans les branches ... Solution programmation dynamique : array "Petit Poucet" ? et/ou algo backward
 		if currentNode.topLeftNode != nil {
 			fmt.Println("go to node x:", currentNode.topLeftNode.topLeftX, "y:", currentNode.topLeftNode.topLeftY)
 			getNodeContent(currentNode.topLeftNode, topLeftX, topLeftY, contentHolder)
