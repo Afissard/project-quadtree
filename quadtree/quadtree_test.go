@@ -2,6 +2,7 @@ package quadtree
 
 import (
 	"fmt"
+	"reflect"
 	"testing"
 )
 
@@ -20,4 +21,16 @@ func Test_MakeFromArray(t *testing.T) {
 		t.Fatal("floorContent est vide")
 	}
 	fmt.Println("quadtree : ", q, "\nnode root :", q.root)
+
+	// test "compatibilité avec get"
+	contentHolder := [][]int{
+		{-1, -1, -1, -1},
+		{-1, -1, -1, -1},
+		{-1, -1, -1, -1},
+		{-1, -1, -1, -1},
+	}
+	q.GetContent(0, 0, contentHolder)
+	if reflect.DeepEqual(mapContent, contentHolder) {
+		t.Fatalf("mapContent : %d, différent de contentHolder : %d", mapContent, contentHolder)
+	}
 }
