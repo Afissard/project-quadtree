@@ -44,12 +44,15 @@ func getNodeContent(currentNode *node, topLeftX, topLeftY int, contentHolder [][
 			currentNode.topLeftX >= topLeftX &&
 			(currentNode.topLeftX-topLeftX) < len(contentHolder[0]) { // si node dans coordonnée de contentHolder (supposé rectangulaire)
 
-			// alors append au bon endroit dans contentHolder
+			// alors ajout du contenu de la node au bon endroit dans contentHolder
 			contentHolder[currentNode.topLeftY-topLeftY][currentNode.topLeftX-topLeftX] = currentNode.content
 			// HERE: retour en arrière vers les autres branches
 		}
 	} else { // si il y a des nodes attaché, alors, continué de remonter
-		// FIXME: pas de retour en arrière dans les branches ... Solution programmation dynamique : array "Petit Poucet" ? et/ou algo backward
+		/*
+			FIXME: pas de retour en arrière dans les branches ...
+			Solution programmation dynamique : array "Petit Poucet" ? et/ou algo backward ?
+		*/
 		if currentNode.topLeftNode != nil {
 			fmt.Println("go to node x:", currentNode.topLeftNode.topLeftX, "y:", currentNode.topLeftNode.topLeftY)
 			getNodeContent(currentNode.topLeftNode, topLeftX, topLeftY, contentHolder)
