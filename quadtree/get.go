@@ -51,7 +51,9 @@ func getNodeContent(currentNode *node, topLeftX, topLeftY int, contentHolder [][
 	} else { // si il y a des nodes attaché, alors, continué de remonter
 		/*
 			FIXME: pas de retour en arrière dans les branches ...
-			Solution programmation dynamique : array "Petit Poucet" ? et/ou algo backward ?
+			Solutions :
+				- programmation "dynamique" : array "Petit Poucet" ?
+				- algo backward ? (on doit trouver tout les résultats, pas qu'un seul)
 		*/
 		if currentNode.topLeftNode != nil {
 			fmt.Println("go to node x:", currentNode.topLeftNode.topLeftX, "y:", currentNode.topLeftNode.topLeftY)
