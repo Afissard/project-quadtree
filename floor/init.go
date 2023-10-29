@@ -17,7 +17,7 @@ func (f *Floor) Init() {
 	}
 
 	switch configuration.Global.FloorKind { // INFO: dépend du config.json
-	case fromFileFloor: // TODO: utilise d'abord un fichier pour la map avant algo quadtree
+	case fromFileFloor: // INFO: utilise d'abord un fichier pour la map avant algo quadtree
 		f.fullContent = readFloorFromFile(configuration.Global.FloorFile)
 	case quadTreeFloor:
 		f.quadtreeContent = quadtree.MakeFromArray(readFloorFromFile(configuration.Global.FloorFile))
@@ -49,7 +49,7 @@ func readFloorFromFile(fileName string) (floorContent [][]int) {
 		// si nouvelle ligne, n'ajoute pas le caractère d’échappement
 		if str_content == "\r" { // est parfois détecté par Atoi()
 			continue
-		} else if str_content == "\n" {  // retour à la ligne
+		} else if str_content == "\n" { // retour à la ligne
 			floorContent = append(floorContent, lineContent) // ajoute la ligne à floorContent
 			lineContent = nil
 		} else {

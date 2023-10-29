@@ -17,7 +17,6 @@ type Floor struct {
 }
 
 // types d'affichage du terrain disponibles
-// TODO modif ici ?
 const (
 	gridFloor int = iota
 	fromFileFloor

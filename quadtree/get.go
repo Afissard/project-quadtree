@@ -35,25 +35,35 @@ func getNodeContent(currentNode *node, topLeftX, topLeftY int, contentHolder [][
 			- si coordonnées dans contentHolder alors append
 			- sinon échec
 	*/
-	fmt.Println("there ?")
+	fmt.Println("\nnode x:", currentNode.topLeftX, "y:", currentNode.topLeftY)
+
 	if currentNode.topLeftNode == nil { // si il n'y a pas de node attaché au bout
-		fmt.Println("try append")
+		fmt.Println("try append at x:", currentNode.topLeftX, "y:", currentNode.topLeftY)
 		if currentNode.topLeftY >= topLeftY &&
 			(currentNode.topLeftY-topLeftY) < len(contentHolder) &&
 			currentNode.topLeftX >= topLeftX &&
 			(currentNode.topLeftX-topLeftX) < len(contentHolder[0]) { // si node dans coordonnée de contentHolder (supposé rectangulaire)
 
-			fmt.Println("current contentHolder\t", contentHolder)
 			// alors append au bon endroit dans contentHolder
-			//contentHolder[currentNode.topLeftY-topLeftY] = append(contentHolder[currentNode.topLeftY-topLeftY], currentNode.content)
 			contentHolder[currentNode.topLeftY-topLeftY][currentNode.topLeftX-topLeftX] = currentNode.content
-			fmt.Println("new contentHolder\t", contentHolder)
 		}
 	} else { // si il y a des nodes attaché, alors, continué de remonter
-		fmt.Println("remonte")
-		getNodeContent(currentNode.topLeftNode, topLeftX, topLeftY, contentHolder)
-		getNodeContent(currentNode.topRightNode, topLeftX, topLeftY, contentHolder)
-		getNodeContent(currentNode.bottomLeftNode, topLeftX, topLeftY, contentHolder)
-		getNodeContent(currentNode.bottomRightNode, topLeftX, topLeftY, contentHolder)
+		// FIXME: pas de retour en arrière dans les branches ...
+		if currentNode.topLeftNode != nil {
+			fmt.Println("go to node x:", currentNode.topLeftNode.topLeftX, "y:", currentNode.topLeftNode.topLeftY)
+			getNodeContent(currentNode.topLeftNode, topLeftX, topLeftY, contentHolder)
+		}
+		if currentNode.topRightNode != nil {
+			fmt.Println("go to node x:", currentNode.topRightNode.topLeftX, "y:", currentNode.topRightNode.topLeftY)
+			getNodeContent(currentNode.topRightNode, topLeftX, topLeftY, contentHolder)
+		}
+		if currentNode.bottomLeftNode != nil {
+			fmt.Println("go to node x:", currentNode.bottomLeftNode.topLeftX, "y:", currentNode.bottomLeftNode.topLeftY)
+			getNodeContent(currentNode.bottomLeftNode, topLeftX, topLeftY, contentHolder)
+		}
+		if currentNode.bottomRightNode != nil {
+			fmt.Println("go to node x:", currentNode.bottomRightNode.topLeftX, "y:", currentNode.bottomRightNode.topLeftY)
+			getNodeContent(currentNode.bottomRightNode, topLeftX, topLeftY, contentHolder)
+		}
 	}
 }
