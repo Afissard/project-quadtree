@@ -28,12 +28,68 @@ func (q Quadtree) GetContent(topLeftX, topLeftY int, contentHolder [][]int) {
 	fmt.Println("\nexit with", contentHolder)
 }
 
+type nodeStalker struct {
+	previousNode     *node
+	currentNode      *node // permet d’accéder aux coordonnée de cette node
+	tl, tr, bl, br   bool  // branche déjà emprunté : true, sinon false
+	previousTrackPos int
+	currentTrackPos  int
+}
+
+func nodesTrack(track []nodeStalker, trackPos int, forward bool) (goToNode *node) {
+	if forward { // en avant
+		if !track[trackPos].tl && track[trackPos].currentNode.topLeftNode != nil { // go top left
+			track = append(track, nodeStalker{
+				previousNode:     track[trackPos].currentNode,
+				currentNode:      track[trackPos].currentNode.topLeftNode,
+				previousTrackPos: trackPos,
+				currentTrackPos:  len(track) - 1,
+			})
+			track[trackPos].tl = true // bloque l'accès
+			return track[trackPos].currentNode
+
+		} else if !track[trackPos].tr && track[trackPos].currentNode.topRightNode != nil { // go top right
+			track = append(track, nodeStalker{
+				previousNode:     track[trackPos].currentNode,
+				currentNode:      track[trackPos].currentNode.topRightNode,
+				previousTrackPos: trackPos,
+				currentTrackPos:  len(track) - 1})
+			track[trackPos].tr = true // bloque l'accès
+			return track[trackPos].currentNode
+
+		} else if !track[trackPos].bl && track[trackPos].currentNode.bottomLeftNode != nil { // go bottom left
+			track = append(track, nodeStalker{
+				previousNode:     track[trackPos].currentNode,
+				currentNode:      track[trackPos].currentNode.bottomLeftNode,
+				previousTrackPos: trackPos,
+				currentTrackPos:  len(track) - 1})
+			track[trackPos].bl = true // bloque l'accès
+			return track[trackPos].currentNode
+
+		} else if !track[trackPos].br && track[trackPos].currentNode.bottomRightNode != nil { // go bottom right
+			track = append(track, nodeStalker{
+				previousNode:     track[trackPos].currentNode,
+				currentNode:      track[trackPos].currentNode.bottomRightNode,
+				previousTrackPos: trackPos,
+				currentTrackPos:  len(track) - 1})
+			track[trackPos].br = true // bloque l'accès
+			return track[trackPos].currentNode
+
+		} else { // en avant pas possible alors en arrière
+			return nodesTrack(track, trackPos, false)
+		}
+	} else { // en arrière
+		return track[trackPos].previousNode
+	}
+
+}
+
 func getNodeContent(currentNode *node, topLeftX, topLeftY int, contentHolder [][]int) {
 	/*
 		Algo :
-			Remonte une branche de l'arbre jusqu'a ce que node.content != nil
-			- si coordonnées dans contentHolder alors append
-			- sinon échec
+		Remonte une branche de l'arbre jusqu'a ce que node.content != nil
+		- si coordonnées dans contentHolder alors append
+		- sinon échec
 	*/
 	fmt.Println("\nnode x:", currentNode.topLeftX, "y:", currentNode.topLeftY)
 
@@ -52,8 +108,8 @@ func getNodeContent(currentNode *node, topLeftX, topLeftY int, contentHolder [][
 		/*
 			FIXME: pas de retour en arrière dans les branches ...
 			Solutions :
-				- programmation "dynamique" : array "Petit Poucet" ?
-				- algo backward ? (on doit trouver tout les résultats, pas qu'un seul)
+			- programmation "dynamique" : array "Petit Poucet" ?
+			- algo backward ? (on doit trouver tout les résultats, pas qu'un seul)
 		*/
 		if currentNode.topLeftNode != nil {
 			fmt.Println("go to node x:", currentNode.topLeftNode.topLeftX, "y:", currentNode.topLeftNode.topLeftY)
