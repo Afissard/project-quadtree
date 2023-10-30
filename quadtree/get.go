@@ -61,8 +61,10 @@ func getNodeContent(currentNode *node, targetX, targetY int) (content int) {
 
 		fmt.Printf("\ntarget is contain in this node")
 
+		content := -1 // tuile vide par default
+
 		// détermine potentiel conteneur
-		if currentNode.topLeftNode != nil {
+		if content == -1 && currentNode.topLeftNode != nil {
 			nextNode := currentNode.topLeftNode
 			if targetY >= nextNode.topLeftY &&
 				targetY <= (nextNode.topLeftY+nextNode.height-1) &&
@@ -71,11 +73,11 @@ func getNodeContent(currentNode *node, targetX, targetY int) (content int) {
 
 				fmt.Printf("\n---> top left")
 
-				return getNodeContent(nextNode, targetX, targetY)
+				content = getNodeContent(nextNode, targetX, targetY)
 			}
 		}
 
-		if currentNode.topRightNode != nil {
+		if content == -1 && currentNode.topRightNode != nil {
 			nextNode := currentNode.topRightNode
 			if targetY >= nextNode.topLeftY &&
 				targetY <= (nextNode.topLeftY+nextNode.height-1) &&
@@ -83,11 +85,11 @@ func getNodeContent(currentNode *node, targetX, targetY int) (content int) {
 				targetX < (nextNode.topLeftX+nextNode.width-1) {
 
 				fmt.Printf("\n---> top right")
-				return getNodeContent(nextNode, targetX, targetY)
+				content = getNodeContent(nextNode, targetX, targetY)
 			}
 		}
 
-		if currentNode.bottomLeftNode != nil {
+		if content == -1 && currentNode.bottomLeftNode != nil {
 			nextNode := currentNode.bottomLeftNode
 			if targetY >= nextNode.topLeftY &&
 				targetY <= (nextNode.topLeftY+nextNode.height-1) &&
@@ -95,11 +97,11 @@ func getNodeContent(currentNode *node, targetX, targetY int) (content int) {
 				targetX <= (nextNode.topLeftX+nextNode.width-1) {
 
 				fmt.Printf("\n---> bottom left")
-				return getNodeContent(nextNode, targetX, targetY)
+				content = getNodeContent(nextNode, targetX, targetY)
 			}
 		}
 
-		if currentNode.bottomRightNode != nil {
+		if content == -1 && currentNode.bottomRightNode != nil {
 			nextNode := currentNode.bottomRightNode
 			if targetY >= nextNode.topLeftY &&
 				targetY <= (nextNode.topLeftY+nextNode.height-1) &&
@@ -107,9 +109,11 @@ func getNodeContent(currentNode *node, targetX, targetY int) (content int) {
 				targetX <= (nextNode.topLeftX+nextNode.width-1) {
 
 				fmt.Printf("\n---> bottom right")
-				return getNodeContent(nextNode, targetX, targetY)
+				content = getNodeContent(nextNode, targetX, targetY)
 			}
 		}
+		fmt.Printf("\nfound : %d, at x:%d y:%d \n", content, targetX, targetY)
+		return content
 	}
 	fmt.Printf("\nfound nothing for x:%d y:%d \n", targetX, targetY)
 	return -1 // tuile vide
