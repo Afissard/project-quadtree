@@ -64,7 +64,9 @@ func getNodeContent(currentNode *node, targetX, targetY int) (content int) {
 		content := -1 // tuile vide par default
 
 		// détermine potentiel conteneur
+		fmt.Printf("\ntl exist : %t", currentNode.topLeftNode != nil)
 		if content == -1 && currentNode.topLeftNode != nil {
+			fmt.Printf("\ntry tl")
 			nextNode := currentNode.topLeftNode
 			if targetY >= nextNode.topLeftY &&
 				targetY <= (nextNode.topLeftY+nextNode.height-1) &&
@@ -77,7 +79,9 @@ func getNodeContent(currentNode *node, targetX, targetY int) (content int) {
 			}
 		}
 
+		fmt.Printf("\ntr exist : %t", currentNode.topRightNode != nil)
 		if content == -1 && currentNode.topRightNode != nil {
+			fmt.Printf("\ntry tr")
 			nextNode := currentNode.topRightNode
 			if targetY >= nextNode.topLeftY &&
 				targetY <= (nextNode.topLeftY+nextNode.height-1) &&
@@ -89,7 +93,9 @@ func getNodeContent(currentNode *node, targetX, targetY int) (content int) {
 			}
 		}
 
+		fmt.Printf("\nbl exist : %t", currentNode.bottomLeftNode != nil)
 		if content == -1 && currentNode.bottomLeftNode != nil {
+			fmt.Printf("\ntry br")
 			nextNode := currentNode.bottomLeftNode
 			if targetY >= nextNode.topLeftY &&
 				targetY <= (nextNode.topLeftY+nextNode.height-1) &&
@@ -101,7 +107,9 @@ func getNodeContent(currentNode *node, targetX, targetY int) (content int) {
 			}
 		}
 
+		fmt.Printf("\nbr exist : %t", currentNode.bottomRightNode != nil)
 		if content == -1 && currentNode.bottomRightNode != nil {
+			fmt.Printf("\ntry bl")
 			nextNode := currentNode.bottomRightNode
 			if targetY >= nextNode.topLeftY &&
 				targetY <= (nextNode.topLeftY+nextNode.height-1) &&
@@ -115,6 +123,6 @@ func getNodeContent(currentNode *node, targetX, targetY int) (content int) {
 		fmt.Printf("\nfound : %d, at x:%d y:%d \n", content, targetX, targetY)
 		return content
 	}
-	fmt.Printf("\nfound nothing for x:%d y:%d \n", targetX, targetY)
+	fmt.Printf("\nWhy am'I here ? found nothing for x:%d y:%d \n", targetX, targetY)
 	return -1 // tuile vide
 }
