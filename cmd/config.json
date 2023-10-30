@@ -7,6 +7,6 @@
     "NumFramePerCharacterAnimImage": 5,
     "NumTileForDebug": 6,
     "CameraMode": 0,
-    "FloorKind": 1,
-    "FloorFile": "../floor-files/validation"
+    "FloorKind": 2,
+    "FloorFile": "../floor-files/test_9x9"
 }
