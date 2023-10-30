@@ -23,78 +23,92 @@ func (q Quadtree) GetContent(topLeftX, topLeftY int, contentHolder [][]int) {
 		Adapté l'algo pour prendre en compte les modifications réalisé sur la
 		structure des quadtree.
 	*/
-	getNodeContent(q.root, topLeftX, topLeftY, contentHolder)
-	// TODO : ajouter cases vide ?
-	fmt.Println("\nexit with", contentHolder)
-}
 
-type nodeStalker struct {
-	previousNode     *node
-	currentNode      *node // permet d’accéder aux coordonnée de cette node
-	tl, tr, bl, br   bool  // branche déjà emprunté : true, sinon false
-	previousTrackPos int
-	currentTrackPos  int
-}
-
-func nodesTrack(track []nodeStalker, trackPos int, forward bool) (goToNode *node) {
-	if forward { // en avant
-		if !track[trackPos].tl && track[trackPos].currentNode.topLeftNode != nil { // go top left
-			track = append(track, nodeStalker{
-				previousNode:     track[trackPos].currentNode,
-				currentNode:      track[trackPos].currentNode.topLeftNode,
-				previousTrackPos: trackPos,
-				currentTrackPos:  len(track) - 1,
-			})
-			track[trackPos].tl = true // bloque l'accès
-			return track[trackPos].currentNode
-
-		} else if !track[trackPos].tr && track[trackPos].currentNode.topRightNode != nil { // go top right
-			track = append(track, nodeStalker{
-				previousNode:     track[trackPos].currentNode,
-				currentNode:      track[trackPos].currentNode.topRightNode,
-				previousTrackPos: trackPos,
-				currentTrackPos:  len(track) - 1})
-			track[trackPos].tr = true // bloque l'accès
-			return track[trackPos].currentNode
-
-		} else if !track[trackPos].bl && track[trackPos].currentNode.bottomLeftNode != nil { // go bottom left
-			track = append(track, nodeStalker{
-				previousNode:     track[trackPos].currentNode,
-				currentNode:      track[trackPos].currentNode.bottomLeftNode,
-				previousTrackPos: trackPos,
-				currentTrackPos:  len(track) - 1})
-			track[trackPos].bl = true // bloque l'accès
-			return track[trackPos].currentNode
-
-		} else if !track[trackPos].br && track[trackPos].currentNode.bottomRightNode != nil { // go bottom right
-			track = append(track, nodeStalker{
-				previousNode:     track[trackPos].currentNode,
-				currentNode:      track[trackPos].currentNode.bottomRightNode,
-				previousTrackPos: trackPos,
-				currentTrackPos:  len(track) - 1})
-			track[trackPos].br = true // bloque l'accès
-			return track[trackPos].currentNode
-
-		} else { // en avant pas possible alors en arrière
-			return nodesTrack(track, trackPos, false)
+	for y := 0; y < len(contentHolder); y++ {
+		for x := 0; x < len(contentHolder[y]); x++ {
+			targetY, targetX := y+topLeftY, x+topLeftX
+			fmt.Printf("\nsearch for x:%d y:%d", targetX, targetY)
+			contentHolder[y][x] = getNodeContent(q.root, targetX, targetY)
+			// TODO : ajouter cases vide ?
 		}
-	} else { // en arrière
-		return track[trackPos].previousNode
 	}
-
 }
 
-func getNodeContent(currentNode *node, topLeftX, topLeftY int, contentHolder [][]int) {
+func getNodeContent(currentNode *node, targetX, targetY int) (content int) {
 	/*
 		Algo :
-		Remonte une branche de l'arbre jusqu'a ce que node.content != nil
-		- si coordonnées dans contentHolder alors append
-		- sinon échec
+		Si currentNode est une feuille, retourne currentNode.content
+		Sinon si currentNode peut contenir target : se rappel dans la node potentiel
+		Sinon retourne nil
 	*/
-	fmt.Println("\nnode x:", currentNode.topLeftX, "y:", currentNode.topLeftY)
+	if currentNode.topLeftNode == nil { // si au bout de la node (couche feuille)
+		if currentNode.topLeftX == targetX && currentNode.topLeftY == targetY {
+			fmt.Printf("\nfound : %d, at x:%d y:%d", currentNode.content, targetX, targetY)
+			return currentNode.content
+		}
+	} else if targetY >= currentNode.topLeftY &&
+		targetY <= (currentNode.topLeftY+currentNode.height) &&
+		targetX >= currentNode.topLeftX &&
+		targetX <= (currentNode.topLeftX+currentNode.width) { // si target dans node
+		fmt.Printf("\ntarget is in x:[%d <= %d <= %d], y:[%d <= %d <= %d]",
+			currentNode.topLeftX, targetX, (currentNode.topLeftX + currentNode.width),
+			currentNode.topLeftY, targetY, (currentNode.topLeftY + currentNode.height))
+
+		// détermine potentiel conteneur
+		if currentNode.topLeftNode != nil {
+			if targetY >= currentNode.topLeftNode.topLeftY &&
+				targetY <= (currentNode.topLeftNode.topLeftY+currentNode.topLeftNode.height) &&
+				targetX >= currentNode.topLeftNode.topLeftX &&
+				targetX <= (currentNode.topLeftNode.topLeftX+currentNode.topLeftNode.width) {
+
+				fmt.Println("\n---> top left")
+				return getNodeContent(currentNode.topLeftNode, targetX, targetY)
+			}
+
+		} else if currentNode.topRightNode != nil {
+			if targetY >= currentNode.topRightNode.topLeftY &&
+				targetY <= (currentNode.topRightNode.topLeftY+currentNode.topRightNode.height) &&
+				targetX >= currentNode.topRightNode.topLeftX &&
+				targetX <= (currentNode.topRightNode.topLeftX+currentNode.topRightNode.width) {
+
+				fmt.Println("\n---> top right")
+				return getNodeContent(currentNode.topRightNode, targetX, targetY)
+			}
+
+		} else if currentNode.bottomLeftNode != nil {
+			if targetY >= currentNode.bottomLeftNode.topLeftY &&
+				targetY <= (currentNode.bottomLeftNode.topLeftY+currentNode.bottomLeftNode.height) &&
+				targetX >= currentNode.bottomLeftNode.topLeftX &&
+				targetX <= (currentNode.bottomLeftNode.topLeftX+currentNode.bottomLeftNode.width) {
+
+				fmt.Println("\n---> bottom left")
+				return getNodeContent(currentNode.bottomLeftNode, targetX, targetY)
+			}
+
+		} else if currentNode.bottomRightNode != nil {
+			if targetY >= currentNode.bottomRightNode.topLeftY &&
+				targetY <= (currentNode.bottomRightNode.topLeftY+currentNode.bottomRightNode.height) &&
+				targetX >= currentNode.bottomRightNode.topLeftX &&
+				targetX <= (currentNode.bottomRightNode.topLeftX+currentNode.bottomRightNode.width) {
+
+				fmt.Println("\n---> bottom right")
+				return getNodeContent(currentNode.bottomRightNode, targetX, targetY)
+			}
+		}
+	}
+	fmt.Printf("\nfound nothing for x:%d y:%d \n", targetX, targetY)
+	return -1 // vide
+}
+
+/*
+func getNodeContent(currentNode *node, topLeftX, topLeftY int, contentHolder [][]int) {
+	// Algo :
+	// Remonte une branche de l'arbre jusqu'a ce que node.content != nil
+	// - si coordonnées dans contentHolder alors append
+	// - sinon échec
+	fmt.Println("wrong fonction")
 
 	if currentNode.topLeftNode == nil { // si il n'y a pas de node attaché au bout
-		fmt.Println("try append at x:", currentNode.topLeftX, "y:", currentNode.topLeftY)
 		if currentNode.topLeftY >= topLeftY &&
 			(currentNode.topLeftY-topLeftY) < len(contentHolder) &&
 			currentNode.topLeftX >= topLeftX &&
@@ -105,27 +119,22 @@ func getNodeContent(currentNode *node, topLeftX, topLeftY int, contentHolder [][
 			// HERE: retour en arrière vers les autres branches
 		}
 	} else { // si il y a des nodes attaché, alors, continué de remonter
-		/*
-			FIXME: pas de retour en arrière dans les branches ...
-			Solutions :
-			- programmation "dynamique" : array "Petit Poucet" ?
-			- algo backward ? (on doit trouver tout les résultats, pas qu'un seul)
-		*/
+			// FIXME: pas de retour en arrière dans les branches ...
+			// Solutions :
+			// - programmation "dynamique" : array "Petit Poucet" ?
+			// - algo backward ? (on doit trouver tout les résultats, pas qu'un seul)
 		if currentNode.topLeftNode != nil {
-			fmt.Println("go to node x:", currentNode.topLeftNode.topLeftX, "y:", currentNode.topLeftNode.topLeftY)
 			getNodeContent(currentNode.topLeftNode, topLeftX, topLeftY, contentHolder)
 		}
 		if currentNode.topRightNode != nil {
-			fmt.Println("go to node x:", currentNode.topRightNode.topLeftX, "y:", currentNode.topRightNode.topLeftY)
 			getNodeContent(currentNode.topRightNode, topLeftX, topLeftY, contentHolder)
 		}
 		if currentNode.bottomLeftNode != nil {
-			fmt.Println("go to node x:", currentNode.bottomLeftNode.topLeftX, "y:", currentNode.bottomLeftNode.topLeftY)
 			getNodeContent(currentNode.bottomLeftNode, topLeftX, topLeftY, contentHolder)
 		}
 		if currentNode.bottomRightNode != nil {
-			fmt.Println("go to node x:", currentNode.bottomRightNode.topLeftX, "y:", currentNode.bottomRightNode.topLeftY)
 			getNodeContent(currentNode.bottomRightNode, topLeftX, topLeftY, contentHolder)
 		}
 	}
 }
+*/
