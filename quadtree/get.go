@@ -27,7 +27,7 @@ func (q Quadtree) GetContent(topLeftX, topLeftY int, contentHolder [][]int) {
 	for y := 0; y < len(contentHolder); y++ {
 		for x := 0; x < len(contentHolder[y]); x++ {
 			targetY, targetX := y+topLeftY, x+topLeftX
-			fmt.Printf("\nsearch for x:%d y:%d", targetX, targetY)
+			fmt.Printf("\n----\nsearch for x:%d y:%d", targetX, targetY)
 			contentHolder[y][x] = getNodeContent(q.root, targetX, targetY)
 		}
 	}
@@ -40,65 +40,77 @@ func getNodeContent(currentNode *node, targetX, targetY int) (content int) {
 		Sinon si currentNode peut contenir target : se rappel dans la node potentiel
 		Sinon retourne nil
 	*/
+
+	fmt.Printf("\ntarget is in x:[%d <= %d <= %d], y:[%d <= %d <= %d]",
+		currentNode.topLeftX, targetX, (currentNode.topLeftX + currentNode.width - 1),
+		currentNode.topLeftY, targetY, (currentNode.topLeftY + currentNode.height - 1))
+
 	if currentNode.topLeftNode == nil { // si au bout de la node (couche feuille)
-		if currentNode.topLeftX == targetX && currentNode.topLeftY == targetY {
-			fmt.Printf("\nfound : %d, at x:%d y:%d", currentNode.content, targetX, targetY)
+		fmt.Printf("\nnode feuille, x: %d == %d = %t y: %d == %d = %t",
+			currentNode.topLeftX, targetX, (currentNode.topLeftX == targetX),
+			currentNode.topLeftY, targetY, (currentNode.topLeftY == targetY))
+
+		if (currentNode.topLeftX == targetX) && (currentNode.topLeftY == targetY) {
+			fmt.Printf("\nfound : %d, at x:%d y:%d \n", currentNode.content, targetX, targetY)
 			return currentNode.content
 		}
 	} else if targetY >= currentNode.topLeftY &&
-		targetY <= (currentNode.topLeftY+currentNode.height) &&
+		targetY <= (currentNode.topLeftY+currentNode.height-1) &&
 		targetX >= currentNode.topLeftX &&
-		targetX <= (currentNode.topLeftX+currentNode.width) { // si target dans node
-		fmt.Printf("\ntarget is in x:[%d <= %d <= %d], y:[%d <= %d <= %d]",
-			currentNode.topLeftX, targetX, (currentNode.topLeftX + currentNode.width),
-			currentNode.topLeftY, targetY, (currentNode.topLeftY + currentNode.height))
+		targetX <= (currentNode.topLeftX+currentNode.width-1) { // si target dans node
+
+		fmt.Printf("\ntarget is contain in this node")
 
 		// détermine potentiel conteneur
-		if currentNode.topLeftNode != nil { // FIXME: erreur ici : forcement vrai puisque pas racine
+		if currentNode.topLeftNode != nil {
 			nextNode := currentNode.topLeftNode
 			if targetY >= nextNode.topLeftY &&
-				targetY <= (nextNode.topLeftY+nextNode.height) &&
+				targetY <= (nextNode.topLeftY+nextNode.height-1) &&
 				targetX >= nextNode.topLeftX &&
-				targetX <= (nextNode.topLeftX+nextNode.width) {
+				targetX <= (nextNode.topLeftX+nextNode.width-1) {
 
-				fmt.Println("\n---> top left")
+				fmt.Printf("\n---> top left")
+
 				return getNodeContent(nextNode, targetX, targetY)
 			}
+		}
 
-		} else if currentNode.topRightNode != nil {
+		if currentNode.topRightNode != nil {
 			nextNode := currentNode.topRightNode
 			if targetY >= nextNode.topLeftY &&
-				targetY <= (nextNode.topLeftY+nextNode.height) &&
+				targetY <= (nextNode.topLeftY+nextNode.height-1) &&
 				targetX >= nextNode.topLeftX &&
-				targetX <= (nextNode.topLeftX+nextNode.width) {
+				targetX < (nextNode.topLeftX+nextNode.width-1) {
 
-				fmt.Println("\n---> top right")
+				fmt.Printf("\n---> top right")
 				return getNodeContent(nextNode, targetX, targetY)
 			}
+		}
 
-		} else if currentNode.bottomLeftNode != nil {
+		if currentNode.bottomLeftNode != nil {
 			nextNode := currentNode.bottomLeftNode
 			if targetY >= nextNode.topLeftY &&
-				targetY <= (nextNode.topLeftY+nextNode.height) &&
+				targetY <= (nextNode.topLeftY+nextNode.height-1) &&
 				targetX >= nextNode.topLeftX &&
-				targetX <= (nextNode.topLeftX+nextNode.width) {
+				targetX <= (nextNode.topLeftX+nextNode.width-1) {
 
-				fmt.Println("\n---> bottom left")
+				fmt.Printf("\n---> bottom left")
 				return getNodeContent(nextNode, targetX, targetY)
 			}
+		}
 
-		} else if currentNode.bottomRightNode != nil {
+		if currentNode.bottomRightNode != nil {
 			nextNode := currentNode.bottomRightNode
 			if targetY >= nextNode.topLeftY &&
-				targetY <= (nextNode.topLeftY+nextNode.height) &&
+				targetY <= (nextNode.topLeftY+nextNode.height-1) &&
 				targetX >= nextNode.topLeftX &&
-				targetX <= (nextNode.topLeftX+nextNode.width) {
+				targetX <= (nextNode.topLeftX+nextNode.width-1) {
 
-				fmt.Println("\n---> bottom right")
+				fmt.Printf("\n---> bottom right")
 				return getNodeContent(nextNode, targetX, targetY)
 			}
 		}
 	}
 	fmt.Printf("\nfound nothing for x:%d y:%d \n", targetX, targetY)
-	return -1 // vide
+	return -1 // tuile vide
 }
