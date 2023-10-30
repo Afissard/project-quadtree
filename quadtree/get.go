@@ -1,7 +1,5 @@
 package quadtree
 
-import "fmt"
-
 // GetContent remplit le tableau contentHolder (qui représente
 // un terrain dont la case le plus en haut à gauche a pour coordonnées
 // (topLeftX, topLeftY)) à partir du quadtree q.
@@ -27,7 +25,7 @@ func (q Quadtree) GetContent(topLeftX, topLeftY int, contentHolder [][]int) {
 	for y := 0; y < len(contentHolder); y++ {
 		for x := 0; x < len(contentHolder[y]); x++ {
 			targetY, targetX := y+topLeftY, x+topLeftX
-			fmt.Printf("\n----\nsearch for x:%d y:%d", targetX, targetY)
+			//fmt.Printf("\n----\nsearch for x:%d y:%d", targetX, targetY)
 			contentHolder[y][x] = getNodeContent(q.root, targetX, targetY)
 		}
 	}
@@ -41,13 +39,13 @@ func getNodeContent(currentNode *node, targetX, targetY int) (content int) {
 		Sinon retourne nil
 	*/
 
-	fmt.Printf("\ntarget is in x:[%d <= %d <= %d], y:[%d <= %d <= %d]",
-		currentNode.topLeftX, targetX, (currentNode.topLeftX + currentNode.width - 1),
-		currentNode.topLeftY, targetY, (currentNode.topLeftY + currentNode.height - 1))
+	// fmt.Printf("\ntarget is in x:[%d <= %d <= %d], y:[%d <= %d <= %d]",
+	// currentNode.topLeftX, targetX, (currentNode.topLeftX + currentNode.width - 1),
+	// currentNode.topLeftY, targetY, (currentNode.topLeftY + currentNode.height - 1))
 
 	if currentNode.topLeftNode == nil { // si au bout de la node (couche feuille)
 		if (currentNode.topLeftX == targetX) && (currentNode.topLeftY == targetY) {
-			fmt.Printf("\nfound : %d, at x:%d y:%d \n", currentNode.content, targetX, targetY)
+			//fmt.Printf("\nfound : %d, at x:%d y:%d \n", currentNode.content, targetX, targetY)
 			return currentNode.content
 		}
 	} else if targetY >= currentNode.topLeftY &&
@@ -65,7 +63,7 @@ func getNodeContent(currentNode *node, targetX, targetY int) (content int) {
 				targetX >= nextNode.topLeftX &&
 				targetX <= (nextNode.topLeftX+nextNode.width-1) {
 
-				fmt.Printf("\n---> top left")
+				//fmt.Printf("\n---> top left")
 
 				content = getNodeContent(nextNode, targetX, targetY)
 			}
@@ -76,9 +74,9 @@ func getNodeContent(currentNode *node, targetX, targetY int) (content int) {
 			if targetY >= nextNode.topLeftY &&
 				targetY <= (nextNode.topLeftY+nextNode.height-1) &&
 				targetX >= nextNode.topLeftX &&
-				targetX < (nextNode.topLeftX+nextNode.width-1) {
+				targetX <= (nextNode.topLeftX+nextNode.width-1) {
 
-				fmt.Printf("\n---> top right")
+				//fmt.Printf("\n---> top right")
 				content = getNodeContent(nextNode, targetX, targetY)
 			}
 		}
@@ -90,7 +88,7 @@ func getNodeContent(currentNode *node, targetX, targetY int) (content int) {
 				targetX >= nextNode.topLeftX &&
 				targetX <= (nextNode.topLeftX+nextNode.width-1) {
 
-				fmt.Printf("\n---> bottom left")
+				//fmt.Printf("\n---> bottom left")
 				content = getNodeContent(nextNode, targetX, targetY)
 			}
 		}
@@ -102,13 +100,15 @@ func getNodeContent(currentNode *node, targetX, targetY int) (content int) {
 				targetX >= nextNode.topLeftX &&
 				targetX <= (nextNode.topLeftX+nextNode.width-1) {
 
-				fmt.Printf("\n---> bottom right")
+				//fmt.Printf("\n---> bottom right")
 				content = getNodeContent(nextNode, targetX, targetY)
 			}
 		}
-		fmt.Printf("\nfound : %d, at x:%d y:%d \n", content, targetX, targetY)
+		//fmt.Printf("\nfound : %d, at x:%d y:%d \n", content, targetX, targetY)
 		return content
 	}
-	fmt.Printf("\nWhy am'I here ? found nothing for x:%d y:%d \n", targetX, targetY)
-	return -1 // tuile vide
+
+	// Normalement impossible d'arrivé ici
+	//fmt.Printf("\nWhy am'I here ? found nothing for x:%d y:%d \n", targetX, targetY)
+	return -1 // tuile vide pour évité les bugs
 }

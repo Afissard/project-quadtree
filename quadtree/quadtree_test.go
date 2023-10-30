@@ -23,17 +23,20 @@ func Test_MakeFromArray(t *testing.T) {
 	} else {
 		fmt.Println("ok")
 
-		fmt.Println("q :", q)
-		fmt.Println("root :", q.root)
+		// fmt.Println("q :", q)
+		// fmt.Println("root :", q.root)
 
-		fmt.Println("layer 1, tl :", q.root.topLeftNode)
-		fmt.Println("layer 1, tr :", q.root.topRightNode)
-		fmt.Println("layer 1, bl :", q.root.bottomLeftNode)
-		fmt.Println("layer 1, br :", q.root.bottomRightNode)
+		// fmt.Println("layer 1, tl :", q.root.topLeftNode)
+		// fmt.Println("layer 1, tr :", q.root.topRightNode)
+		// fmt.Println("layer 1, bl :", q.root.bottomLeftNode)
+		// fmt.Println("layer 1, br :", q.root.bottomRightNode)
 	}
 }
 
 func Test_GetContent(t *testing.T) {
+	/*
+		Test la validité de MakeFromArray et GetContent
+	*/
 	fmt.Println("\nTest GetContent :")
 	mapContent := [][]int{
 		{1, 1, 3, 4},
