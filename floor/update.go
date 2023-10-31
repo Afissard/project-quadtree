@@ -54,16 +54,10 @@ func (f *Floor) updateFromFileFloor(camXPos, camYPos int) {
 			tileY := camYPos - configuration.Global.ScreenCenterTileY + y
 			tileX := camYPos - configuration.Global.ScreenCenterTileX + x
 
-			// Test tuile vide
-			emptiness := false
-			if (tileY < 0) || (tileY >= len(f.fullContent)) { // si tileY hors porté
-				emptiness = true
-			} else if (tileX < 0) || (tileX >= len(f.fullContent[tileY])) { // si tileX hors porté
-				emptiness = true
-			} // le code est optimizable, mais pas forcement très lisible si le test est sur une seul ligne
-
-			if emptiness { // case vide
-				f.content[y][x] = -1
+			// Test tuile vide ou non
+			if (tileY < 0) || (tileY >= len(f.fullContent)) || // si tileY hors porté
+				(tileX < 0) || (tileX >= len(f.fullContent[tileY])) { // si tileX hors porté
+				f.content[y][x] = -1 // case vide
 			} else {
 				f.content[y][x] = f.fullContent[tileY][tileX]
 			}

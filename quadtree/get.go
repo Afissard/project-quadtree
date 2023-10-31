@@ -38,7 +38,7 @@ func getNodeContent(currentNode *node, targetX, targetY int) (content int) {
 		Sinon si currentNode peut contenir target : se rappel dans la node potentiel
 		Sinon retourne nil
 	*/
-
+	// fmt.Println("\ncurrent node is :", currentNode)
 	// fmt.Printf("\ntarget is in x:[%d <= %d <= %d], y:[%d <= %d <= %d]",
 	// currentNode.topLeftX, targetX, (currentNode.topLeftX + currentNode.width - 1),
 	// currentNode.topLeftY, targetY, (currentNode.topLeftY + currentNode.height - 1))
@@ -64,7 +64,6 @@ func getNodeContent(currentNode *node, targetX, targetY int) (content int) {
 				targetX <= (nextNode.topLeftX+nextNode.width-1) {
 
 				//fmt.Printf("\n---> top left")
-
 				content = getNodeContent(nextNode, targetX, targetY)
 			}
 		}

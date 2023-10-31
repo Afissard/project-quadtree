@@ -1,5 +1,7 @@
 package quadtree
 
+import "fmt"
+
 // MakeFromArray construit un quadtree représentant un terrain
 // étant donné un tableau représentant ce terrain.
 func MakeFromArray(floorContent [][]int) (q Quadtree) {
@@ -18,16 +20,11 @@ func MakeFromArray(floorContent [][]int) (q Quadtree) {
 		node.content prend la valeur du contenu des nodes supprimées, le contenu d'en dessous
 		est déterminé grace avec node.width et node.height.
 	*/
-	emptiness := false
-	if len(floorContent) <= 0 {
-		emptiness = true
-	} else if len(floorContent[0]) <= 0 {
-		emptiness = true
-	}
 
-	if emptiness {
-		panic("floorContent vide")
-	} else { // création des node pour la couche "feuille"
+	if len(floorContent) <= 0 || len(floorContent[0]) <= 0 {
+		panic("floorContent vide !")
+	} else {
+		// création des node pour la couche "feuille"
 		nodesList := [][]node{}
 		for y := 0; y < len(floorContent); y++ {
 			nodesLine := []node{}
@@ -77,6 +74,7 @@ func createNodesLayer(nodesList [][]node) (q Quadtree) {
 			}
 
 			// lie les nodes, en faisant attention aux potentiels nodes inexistante
+			fmt.Println(&nodesList[y][x]) //FIXME: ne vas pas au delà de x6 y6	
 			currentNode.topLeftNode = &nodesList[y][x]
 			if x+1 < len(nodesList[y]) {
 				currentNode.topRightNode = &nodesList[y][x+1]
@@ -88,13 +86,14 @@ func createNodesLayer(nodesList [][]node) (q Quadtree) {
 				}
 			}
 			// ligne de nodes
+			//fmt.Println(currentNode)
 			nodesLine = append(nodesLine, currentNode)
 		}
-		//fmt.Println("nodeLine :", nodesLine)
+		//fmt.Println("\nnodeLine :", nodesLine)
 		// tableau 2D de nodes
 		newNodesList = append(newNodesList, nodesLine)
 	}
-	//fmt.Println("newNodeList :", newNodesList)
+	//fmt.Println("\nnewNodeList :", newNodesList)
 	q = createNodesLayer(newNodesList)
 
 	return q

@@ -37,7 +37,7 @@ func Test_GetContent(t *testing.T) {
 	/*
 		Test la validité de MakeFromArray et GetContent
 	*/
-	fmt.Println("Test GetContent (n°1):")
+	fmt.Println("\nTest GetContent (n°1):")
 	mapContent := [][]int{
 		{1, 1, 3, 4},
 		{1, 1, 4, 3},
@@ -63,7 +63,7 @@ func Test_GetContent_n2(t *testing.T) {
 	/*
 		Test la validité de MakeFromArray et GetContent
 	*/
-	fmt.Println("Test GetContent (n°2):")
+	fmt.Println("\nTest GetContent (n°2):")
 	mapContent := [][]int{
 		{1, 1, 3, 4, 1, 1, 3, 4},
 		{1, 1, 4, 3, 1, 1, 4, 3},
