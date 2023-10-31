@@ -8,7 +8,8 @@ import (
 
 func Test_MakeFromArray(t *testing.T) {
 	/*
-		TODO: écrire un vrai test
+		n'est pas un véritable test
+		-> se fait testé avec GuetContent
 	*/
 	fmt.Println("Test MakeFromArray : ")
 	mapContent := [][]int{

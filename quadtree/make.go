@@ -74,7 +74,10 @@ func createNodesLayer(nodesList [][]node) (q Quadtree) {
 			}
 
 			// lie les nodes, en faisant attention aux potentiels nodes inexistante
-			fmt.Println(&nodesList[y][x]) //FIXME: ne vas pas au delà de x6 y6	
+			//FIXME: ne vas pas au delà de x6 y6
+			fmt.Printf("nodeTopCoord: %d:%d, loopCoord: %d:%d, nodeListSize: %d:%d \n",
+				nodesList[y][x].topLeftX, nodesList[y][x].topLeftY, x, y, len(nodesList[y]), len(nodesList))
+
 			currentNode.topLeftNode = &nodesList[y][x]
 			if x+1 < len(nodesList[y]) {
 				currentNode.topRightNode = &nodesList[y][x+1]
