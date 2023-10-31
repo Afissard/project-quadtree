@@ -10,7 +10,7 @@ func Test_MakeFromArray(t *testing.T) {
 	/*
 		TODO: écrire un vrai test
 	*/
-	fmt.Println("\nTest MakeFromArray : ")
+	fmt.Println("Test MakeFromArray : ")
 	mapContent := [][]int{
 		{1, 1, 3, 4},
 		{1, 1, 4, 3},
@@ -37,7 +37,7 @@ func Test_GetContent(t *testing.T) {
 	/*
 		Test la validité de MakeFromArray et GetContent
 	*/
-	fmt.Println("\nTest GetContent :")
+	fmt.Println("Test GetContent (n°1):")
 	mapContent := [][]int{
 		{1, 1, 3, 4},
 		{1, 1, 4, 3},
@@ -49,6 +49,40 @@ func Test_GetContent(t *testing.T) {
 		{-1, -1, -1, -1},
 		{-1, -1, -1, -1},
 		{-1, -1, -1, -1},
+	}
+	q := MakeFromArray(mapContent)
+	q.GetContent(0, 0, contentHolder)
+	if !reflect.DeepEqual(mapContent, contentHolder) {
+		t.Fatalf("mapContent : %d,\ndifférent de contentHolder : %d", mapContent, contentHolder)
+	} else {
+		fmt.Printf("ok : mapContent : %d == contentHolder : %d\n", mapContent, contentHolder)
+	}
+}
+
+func Test_GetContent_n2(t *testing.T) {
+	/*
+		Test la validité de MakeFromArray et GetContent
+	*/
+	fmt.Println("Test GetContent (n°2):")
+	mapContent := [][]int{
+		{1, 1, 3, 4, 1, 1, 3, 4},
+		{1, 1, 4, 3, 1, 1, 4, 3},
+		{0, 0, 2, 2, 0, 0, 2, 2},
+		{0, 0, 2, 2, 0, 0, 2, 2},
+		{1, 1, 3, 4, 1, 1, 3, 4},
+		{1, 1, 4, 3, 1, 1, 4, 3},
+		{0, 0, 2, 2, 0, 0, 2, 2},
+		{0, 0, 2, 2, 0, 0, 2, 2},
+	}
+	contentHolder := [][]int{
+		{-1, -1, -1, -1, -1, -1, -1, -1},
+		{-1, -1, -1, -1, -1, -1, -1, -1},
+		{-1, -1, -1, -1, -1, -1, -1, -1},
+		{-1, -1, -1, -1, -1, -1, -1, -1},
+		{-1, -1, -1, -1, -1, -1, -1, -1},
+		{-1, -1, -1, -1, -1, -1, -1, -1},
+		{-1, -1, -1, -1, -1, -1, -1, -1},
+		{-1, -1, -1, -1, -1, -1, -1, -1},
 	}
 	q := MakeFromArray(mapContent)
 	q.GetContent(0, 0, contentHolder)
