@@ -6,11 +6,10 @@ import (
 	"testing"
 )
 
+/*
 func Test_MakeFromArray(t *testing.T) {
-	/*
-		n'est pas un véritable test
-		-> se fait testé avec GuetContent
-	*/
+	// n'est pas un véritable test
+	// -> se fait testé avec GuetContent
 	fmt.Println("Test MakeFromArray : ")
 	mapContent := [][]int{
 		{1, 1, 3, 4},
@@ -33,8 +32,9 @@ func Test_MakeFromArray(t *testing.T) {
 		// fmt.Println("layer 1, br :", q.root.bottomRightNode)
 	}
 }
+*/
 
-func Test_GetContent(t *testing.T) {
+func Test_GetContent_n1(t *testing.T) {
 	/*
 		Test la validité de MakeFromArray et GetContent
 	*/

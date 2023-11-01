@@ -42,7 +42,8 @@ func MakeFromArray(floorContent [][]int) (q Quadtree) {
 			// tableau 2D de nodes
 			nodesList = append(nodesList, nodesLine)
 		}
-		q = createNodesLayer(nodesList)
+		//q = createNodesLayer(nodesList)
+		q = newCNL(nodesList)
 	}
 	return q
 }
@@ -75,8 +76,9 @@ func createNodesLayer(nodesList [][]node) (q Quadtree) {
 
 			// lie les nodes, en faisant attention aux potentiels nodes inexistante
 			//FIXME: ne vas pas au delà de x6 y6
-			fmt.Printf("nodeTopCoord: %d:%d, loopCoord: %d:%d, nodeListSize: %d:%d \n",
+			fmt.Printf("nodeContent :%d, nodeTopCoord: %d:%d, loopCoord: %d:%d, nodeListSize: %d:%d \n", nodesList[y][x].content,
 				nodesList[y][x].topLeftX, nodesList[y][x].topLeftY, x, y, len(nodesList[y]), len(nodesList))
+			//FIX idea : boucle classique, et détermine a partir des coordonnée le point d'attache ...
 
 			currentNode.topLeftNode = &nodesList[y][x]
 			if x+1 < len(nodesList[y]) {
@@ -98,6 +100,66 @@ func createNodesLayer(nodesList [][]node) (q Quadtree) {
 	}
 	//fmt.Println("\nnewNodeList :", newNodesList)
 	q = createNodesLayer(newNodesList)
+	return q
+}
 
+func newCNL(nodesList [][]node) (q Quadtree) {
+	// test racine de quadtree : si une seule node existe
+	if len(nodesList) == 1 && len(nodesList[0]) == 1 {
+		q.width = nodesList[0][0].width
+		q.height = nodesList[0][0].height
+		q.root = &nodesList[0][0]
+		return q
+	}
+	// else implicite : calcul d'une nouvelle couche
+	newNodesList := [][]node{}
+	for y := 0; y < len(nodesList); y++ {
+		nodesLine := []node{}
+		for x := 0; x < len(nodesList[y]); x++ {
+			fmt.Printf("\nx:%d, modulo2:%d, currentNodeCoord:%d", x, (x % 2), x-(x%2))
+			var currentNode node          // déclaration de currentNode ici car sinon hors porté dans if/else
+			if (x%2 == 0) && (y%2 == 0) { // créer nouvelle node ?
+				currentNode = node{
+					topLeftX: x,
+					topLeftY: y,
+					width:    nodesList[y][x].width * 2, // TODO: attention aux potentiels tuiles vide ?
+					height:   nodesList[y][x].height * 2,
+				}
+			} else { // sinon récupérer celle déjà créer
+				currentNode = nodesList[y-(y%2)][x-(x%2)]
+
+				// if y%2 == 1 {
+				// 	currentNode = nodesList[y-(y%2)][x-(x%2)]
+				// } else {
+				// 	currentNode = nodesLine[x-(x%2)]
+				// }
+			}
+
+			fmt.Printf("\nnodeContent :%d, nodeTopCoord: %d:%d, loopCoord: %d:%d, nodeListSize: %d:%d \n", nodesList[y][x].content,
+				nodesList[y][x].topLeftX, nodesList[y][x].topLeftY, x, y, len(nodesList[y]), len(nodesList))
+
+			// lie LA node, en faisant attention aux potentiels nodes inexistante
+			if (x%2 == 0) && (y%2 == 0) {
+				currentNode.topLeftNode = &nodesList[y][x]
+			} else if (x%2 == 1) && (y%2 == 0) {
+				currentNode.topRightNode = &nodesList[y][x]
+			} else if (x%2 == 0) && (y%2 == 1) {
+				currentNode.bottomLeftNode = &nodesList[y][x]
+			} else if (x%2 == 1) && (y%2 == 1) {
+				currentNode.bottomRightNode = &nodesList[y][x]
+			}
+
+			// ligne de nodes
+			if x%2 == 0 {
+				nodesLine = append(nodesLine, currentNode)
+			}
+		}
+		// tableau 2D de nodes
+		if y%2 == 0 {
+			newNodesList = append(newNodesList, nodesLine)
+		}
+	}
+	//fmt.Println("\nnewNodeList :", newNodesList)
+	q = newCNL(newNodesList)
 	return q
 }
