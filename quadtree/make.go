@@ -104,6 +104,7 @@ func createNodesLayer(nodesList [][]node) (q Quadtree) {
 }
 
 func newCNL(nodesList [][]node) (q Quadtree) {
+	fmt.Println("\n---New Call---")
 	// test racine de quadtree : si une seule node existe
 	if len(nodesList) == 1 && len(nodesList[0]) == 1 {
 		fmt.Printf("\nroot\n")
@@ -135,33 +136,37 @@ func newCNL(nodesList [][]node) (q Quadtree) {
 			// lie la node
 			if (x%2 == 0) && (y%2 == 0) {
 				currentNode.topLeftNode = &nodesList[y][x]
-				fmt.Printf("\nx:%d y:%d --> tl : %p", x, y, currentNode.topLeftNode)
+				//fmt.Printf("\nx:%d y:%d --> tl : %p", x, y, currentNode.topLeftNode)
 			} else if (x%2 == 1) && (y%2 == 0) {
 				currentNode.topRightNode = &nodesList[y][x]
-				fmt.Printf("\nx:%d y:%d --> tr : %p", x, y, currentNode.topRightNode)
+				//fmt.Printf("\nx:%d y:%d --> tr : %p", x, y, currentNode.topRightNode)
 			} else if (x%2 == 0) && (y%2 == 1) {
 				currentNode.bottomLeftNode = &nodesList[y][x]
-				fmt.Printf("\nx:%d y:%d --> bl : %p", x, y, currentNode.bottomLeftNode)
+				//fmt.Printf("\nx:%d y:%d --> bl : %p", x, y, currentNode.bottomLeftNode)
 			} else if (x%2 == 1) && (y%2 == 1) {
 				currentNode.bottomRightNode = &nodesList[y][x]
-				fmt.Printf("\nx:%d y:%d --> br : %p", x, y, currentNode.bottomRightNode)
+				//fmt.Printf("\nx:%d y:%d --> br : %p", x, y, currentNode.bottomRightNode)
 			}
-			//BUG: lost pointer somewhere between nodeLink and append to list
 			// ligne de nodes
 			if x%2 == 0 { // append si pair
-				fmt.Println("\nNODE :", currentNode)
+				//fmt.Println("\nNODE append :", currentNode)
 				nodesLine = append(nodesLine, currentNode)
 			}
 		}
+		fmt.Println("\nLine")
+		for x := 0; x < len(nodesLine); x++ {
+			fmt.Println(nodesLine[x])
+		}
+
 		// tableau 2D de nodes
 		if y%2 == 0 { // append si pair
 			//fmt.Println("\n line : ", nodesLine)
-			newNodesList = append(newNodesList, nodesLine)
+			newNodesList = append(newNodesList, nodesLine) //BUG: lost pointer when append it to list
 		}
 	}
-	fmt.Println("\nListe :")
+	fmt.Println("\nListe (full) :")
 	for y := 0; y < len(newNodesList); y++ {
-		fmt.Println("")
+		fmt.Println("line :", y)
 		for x := 0; x < len(newNodesList[y]); x++ {
 			fmt.Println(newNodesList[y][x])
 		}
