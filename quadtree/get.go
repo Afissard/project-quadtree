@@ -21,7 +21,6 @@ func (q Quadtree) GetContent(topLeftX, topLeftY int, contentHolder [][]int) {
 		Adapté l'algo pour prendre en compte les modifications réalisé sur la
 		structure des quadtree.
 	*/
-
 	for y := 0; y < len(contentHolder); y++ {
 		for x := 0; x < len(contentHolder[y]); x++ {
 			targetY, targetX := y+topLeftY, x+topLeftX

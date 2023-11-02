@@ -43,7 +43,7 @@ func MakeFromArray(floorContent [][]int) (q Quadtree) {
 			nodesList = append(nodesList, nodesLine)
 		}
 		//q = createNodesLayer(nodesList)
-		q = newCNL(nodesList)
+		q = createNodesLayer(nodesList)
 	}
 	return q
 }
@@ -54,7 +54,7 @@ func createNodesLayer(nodesList [][]node) (q Quadtree) {
 
 		BUG: ne marche pas avec grande map...
 	*/
-
+	fmt.Println("\n---New Call---")
 	// test racine de quadtree : si une seule node existe
 	if len(nodesList) == 1 && len(nodesList[0]) == 1 {
 		q.width = nodesList[0][0].width
@@ -76,9 +76,6 @@ func createNodesLayer(nodesList [][]node) (q Quadtree) {
 
 			// lie les nodes, en faisant attention aux potentiels nodes inexistante
 			//FIXME: ne vas pas au delà de x6 y6
-			fmt.Printf("nodeContent :%d, nodeTopCoord: %d:%d, loopCoord: %d:%d, nodeListSize: %d:%d \n", nodesList[y][x].content,
-				nodesList[y][x].topLeftX, nodesList[y][x].topLeftY, x, y, len(nodesList[y]), len(nodesList))
-			//FIX idea : boucle classique, et détermine a partir des coordonnée le point d'attache ...
 
 			currentNode.topLeftNode = &nodesList[y][x]
 			if x+1 < len(nodesList[y]) {
@@ -91,14 +88,19 @@ func createNodesLayer(nodesList [][]node) (q Quadtree) {
 				}
 			}
 			// ligne de nodes
-			//fmt.Println(currentNode)
 			nodesLine = append(nodesLine, currentNode)
 		}
-		//fmt.Println("\nnodeLine :", nodesLine)
 		// tableau 2D de nodes
 		newNodesList = append(newNodesList, nodesLine)
 	}
-	//fmt.Println("\nnewNodeList :", newNodesList)
+	fmt.Println("\nListe:")
+	for y := 0; y < len(newNodesList); y++ {
+		fmt.Println("line :", y)
+		for x := 0; x < len(newNodesList[y]); x++ {
+			fmt.Println(newNodesList[y][x])
+		}
+	}
+
 	q = createNodesLayer(newNodesList)
 	return q
 }
@@ -147,10 +149,13 @@ func newCNL(nodesList [][]node) (q Quadtree) {
 				currentNode.bottomRightNode = &nodesList[y][x]
 				//fmt.Printf("\nx:%d y:%d --> br : %p", x, y, currentNode.bottomRightNode)
 			}
+
 			// ligne de nodes
 			if x%2 == 0 { // append si pair
 				//fmt.Println("\nNODE append :", currentNode)
 				nodesLine = append(nodesLine, currentNode)
+			} else { // maj de la liste
+				nodesLine[x-1] = currentNode // produce error : out of range
 			}
 		}
 		fmt.Println("\nLine")
@@ -159,12 +164,14 @@ func newCNL(nodesList [][]node) (q Quadtree) {
 		}
 
 		// tableau 2D de nodes
-		if y%2 == 0 { // append si pair
+		if y%2 == 0 { // append si pair, mais contenu pas mis a jour ... -> utilisé ptr ?
 			//fmt.Println("\n line : ", nodesLine)
 			newNodesList = append(newNodesList, nodesLine) //BUG: lost pointer when append it to list
+		} else { // maj de la liste
+			newNodesList[y-1] = nodesLine
 		}
 	}
-	fmt.Println("\nListe (full) :")
+	fmt.Println("\nListe:")
 	for y := 0; y < len(newNodesList); y++ {
 		fmt.Println("line :", y)
 		for x := 0; x < len(newNodesList[y]); x++ {
