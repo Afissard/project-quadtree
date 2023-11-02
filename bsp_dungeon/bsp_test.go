@@ -19,6 +19,6 @@ func Test_createLevel(t *testing.T) {
 }
 
 func Test_toMapFile(t *testing.T) {
-	seed42 := createLevel(42, 4, 128, 128)
+	seed42 := createLevel(42, 4, 64, 64)
 	seed42.toMapFile("42")
 }

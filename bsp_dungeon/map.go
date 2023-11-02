@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"strconv"
 )
 
 func check(err error) {
@@ -31,7 +30,7 @@ func (level BSP_tree) toMapFile(fileName string) {
 	for y := 0; y <= level.height; y++ {
 		line := []int{}
 		for x := 0; x <= level.width; x++ {
-			defaultVal, _ := strconv.Atoi(" ")
+			defaultVal := 1
 			line = append(line, defaultVal)
 		}
 		mapContent = append(mapContent, line)
