@@ -6,6 +6,7 @@ type BSP_tree struct {
 	width, height int
 	root          *node
 	alea          *rand.Rand
+	roomList      []*room
 }
 
 type node struct {

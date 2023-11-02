@@ -21,7 +21,7 @@ func createLevel(seed, nbrDiv, width, height int) (level BSP_tree) {
 		alea:   rand.New(rand.NewSource(int64(seed))), // créé la seed à partir du int donné
 	}
 	level.root = createNode(level.alea, nil, nbrDiv, level.width, level.height, 0, 0)
-	addRoom(level.alea, level.root)
+	fmt.Println(level.roomList)
 	return level
 }
 
@@ -30,6 +30,7 @@ Fonction récursive pour générer procéduralement
 un donjon avec un algo de Binary Space Partition
 */
 func createNode(alea *rand.Rand, parent *node, nbrDivLeft, width, height, topLeftX, topLeftY int) (currentNode *node) {
+	// création de la node
 	currentNode = &node{
 		parent:   parent,
 		width:    width,
@@ -37,7 +38,7 @@ func createNode(alea *rand.Rand, parent *node, nbrDivLeft, width, height, topLef
 		topLeftX: topLeftX,
 		topLeftY: topLeftY,
 	}
-
+	// BSP
 	if nbrDivLeft > 0 {
 		if alea.Intn(2) == 1 {
 			width1 := alea.Intn(width/2 + 1)
@@ -55,34 +56,30 @@ func createNode(alea *rand.Rand, parent *node, nbrDivLeft, width, height, topLef
 			currentNode.children = append(currentNode.children, createNode(alea, currentNode, nbrDivLeft-1, width, height2, topLeftX, y2))
 		}
 	}
-	fmt.Println(currentNode)
+	currentNode.content = createRoom(currentNode, alea)
+	fmt.Println(currentNode.content)
 	return currentNode
 }
 
 /*
-Fonction qui parcourt les nodes générées :
+Fonction pour créer des salle ou des couloir
 - ajoute des salle au node feuille
 - créé un couloir entre les nodes enfant
 */
-func addRoom(alea *rand.Rand, currentNode *node) {
-	currentRoom := room{}
+func createRoom(currentNode *node, alea *rand.Rand) (newRoom *room) {
+	newRoom = &room{}
+
+	isRoom := true
 	if len(currentNode.children) > 0 { // couloir
-		// TODO: find algo to create corridor (need math or weird algo)
-		currentRoom = room{
-			isRoom: false,
-		}
-		addRoom(alea, currentNode.children[0])
-		addRoom(alea, currentNode.children[1])
-	} else { // salle
-		currentRoom = room{
-			isRoom:   true,
+		newRoom.isRoom = false
+	} else {
+		newRoom = &room{ // salle
+			isRoom:   isRoom,
 			topLeftX: currentNode.topLeftX + alea.Intn(int(currentNode.width/4)+1),
 			topLeftY: currentNode.topLeftY + alea.Intn(int(currentNode.height/4)+1),
+			width:    4, // TODO: trouvé une équation
+			height:   4,
 		}
-		currentRoom.width = 4 // TODO: find an equation
-		currentRoom.height = 4
-
 	}
-	currentNode.content = &currentRoom
-	fmt.Println(currentNode.content)
+	return newRoom
 }
