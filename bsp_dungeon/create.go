@@ -11,7 +11,7 @@ soit des salle et des couloir (et autres ajouts)
 
 Arguments :
 seed 			: seed de génération pour cet étage
-nbrDiv 			: nombre de division de l'espace exécuté par le programme (soit nombre de salle * 2)
+nbrDiv 			: nombre de division de l'espace exécuté par le programme (soit nombre de salle = 2^nbrDiv)
 width, height 	: dimensions de l'étage
 */
 func createLevel(seed, nbrDiv, width, height int) (level BSP_tree) {
@@ -21,7 +21,7 @@ func createLevel(seed, nbrDiv, width, height int) (level BSP_tree) {
 		alea:   rand.New(rand.NewSource(int64(seed))), // créé la seed à partir du int donné
 	}
 	level.root = createNode(level.alea, nil, nbrDiv, level.width, level.height, 0, 0)
-	// ajout des pièces et couloir
+	addRoom(level.alea, level.root)
 	return level
 }
 
@@ -65,16 +65,24 @@ Fonction qui parcourt les nodes générées :
 - créé un couloir entre les nodes enfant
 */
 func addRoom(alea *rand.Rand, currentNode *node) {
-	if len(currentNode.children) >= 0 { // couloir
-		// TODO: find algo to create corridor (need math)
-		currentNode.content = &room{
+	currentRoom := room{}
+	if len(currentNode.children) > 0 { // couloir
+		// TODO: find algo to create corridor (need math or weird algo)
+		currentRoom = room{
 			isRoom: false,
 		}
 		addRoom(alea, currentNode.children[0])
 		addRoom(alea, currentNode.children[1])
 	} else { // salle
-		currentNode.content = &room{
-			isRoom: true,
+		currentRoom = room{
+			isRoom:   true,
+			topLeftX: currentNode.topLeftX + alea.Intn(int(currentNode.width/4)+1),
+			topLeftY: currentNode.topLeftY + alea.Intn(int(currentNode.height/4)+1),
 		}
+		currentRoom.width = 4 // TODO: find an equation
+		currentRoom.height = 4
+
 	}
+	currentNode.content = &currentRoom
+	fmt.Println(currentNode.content)
 }

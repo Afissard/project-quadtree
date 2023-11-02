@@ -24,13 +24,13 @@ type node struct {
 }
 
 type room struct {
-	// room information
+	// room position
 	topLeftX int
 	topLeftY int
 	width    int
 	height   int
 
 	// other data
-	isRoom  bool // room or corridor
-	content int
+	isRoom       bool // room or corridor
+	floorContent int
 }
