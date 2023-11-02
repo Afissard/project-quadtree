@@ -18,9 +18,10 @@ func createLevel(seed, nbrDiv, width, height int) (level BSP_tree) {
 	level = BSP_tree{
 		width:  width,
 		height: height,
-		alea:   rand.New(rand.NewSource(int64(seed))), // créé la seed
+		alea:   rand.New(rand.NewSource(int64(seed))), // créé la seed à partir du int donné
 	}
 	level.root = createNode(level.alea, nil, nbrDiv, level.width, level.height, 0, 0)
+	// ajout des pièces et couloir
 	return level
 }
 
@@ -56,4 +57,24 @@ func createNode(alea *rand.Rand, parent *node, nbrDivLeft, width, height, topLef
 	}
 	fmt.Println(currentNode)
 	return currentNode
+}
+
+/*
+Fonction qui parcourt les nodes générées :
+- ajoute des salle au node feuille
+- créé un couloir entre les nodes enfant
+*/
+func addRoom(alea *rand.Rand, currentNode *node) {
+	if len(currentNode.children) >= 0 { // couloir
+		// TODO: find algo to create corridor (need math)
+		currentNode.content = &room{
+			isRoom: false,
+		}
+		addRoom(alea, currentNode.children[0])
+		addRoom(alea, currentNode.children[1])
+	} else { // salle
+		currentNode.content = &room{
+			isRoom: true,
+		}
+	}
 }
