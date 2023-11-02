@@ -10,6 +10,7 @@ func Test_createLevel(t *testing.T) {
 	if levelTest.root == nil {
 		t.Fatalf("\nL'étage est vide !\n")
 	} else {
+		fmt.Println("room list : ")
 		for i := 0; i < len(levelTest.roomList); i++ {
 			fmt.Println(levelTest.roomList[i])
 		}
