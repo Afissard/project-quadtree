@@ -28,9 +28,9 @@ func (level BSP_tree) toMapFile(fileName string) {
 	*/
 	mapContent := [][]int{}
 	// rempli mapContent avec une valeur par défaut
-	for y := 0; y <= level.height; y++ {
+	for y := 0; y < level.height; y++ {
 		line := []int{}
-		for x := 0; x <= level.width; x++ {
+		for x := 0; x < level.width; x++ {
 			defaultVal := 1
 			line = append(line, defaultVal)
 		}
@@ -40,8 +40,8 @@ func (level BSP_tree) toMapFile(fileName string) {
 	// réécrit certaine valeur de mapContent : salle et couloir
 	for i := 0; i < len(level.roomList); i++ {
 		currentRoom := level.roomList[i]
-		for y := currentRoom.topLeftY; y <= currentRoom.height; y++ {
-			for x := currentRoom.topLeftX; x <= currentRoom.width; x++ {
+		for y := currentRoom.topLeftY; y < currentRoom.height; y++ {
+			for x := currentRoom.topLeftX; x < currentRoom.width; x++ {
 				mapContent[x][y] = currentRoom.floorContent
 			}
 		}

@@ -39,20 +39,22 @@ func createNode(alea *rand.Rand, parent *node, nbrDivLeft, width, height, topLef
 	// BSP
 	if nbrDivLeft > 0 {
 		if alea.Intn(2) == 1 {
-			width1 := alea.Intn(width/2 + 1)
+			width1 := alea.Intn(int(float32(width)*0.75-float32(width)*0.25)) + int(float32(width)*0.25) // aléa entre width*25 et width*75
 			width2 := width - width1
-			x2 := topLeftX + width1
 			x1 := topLeftX
+			x2 := topLeftX + width1
+
 			child1, roomList1 := createNode(alea, currentNode, nbrDivLeft-1, width1, height, x1, topLeftY)
 			child2, roomList2 := createNode(alea, currentNode, nbrDivLeft-1, width2, height, x2, topLeftY)
 			currentNode.children = append(currentNode.children, child1, child2)
 			roomList = append(roomList, roomList1...)
 			roomList = append(roomList, roomList2...)
 		} else {
-			height1 := alea.Intn(height/2 + 1)
+			height1 := alea.Intn(int(float32(height)*0.75-float32(height)*0.25)) + int(float32(height)*0.25)
 			height2 := height - height1
-			y2 := topLeftY + height1
 			y1 := topLeftY
+			y2 := topLeftY + height1
+
 			child1, roomList1 := createNode(alea, currentNode, nbrDivLeft-1, width, height1, topLeftX, y1)
 			child2, roomList2 := createNode(alea, currentNode, nbrDivLeft-1, width, height2, topLeftX, y2)
 			currentNode.children = append(currentNode.children, child1, child2)
