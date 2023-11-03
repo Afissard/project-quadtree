@@ -48,7 +48,7 @@ func (level BSP_tree) toMapFile(fileName string) {
 	}
 
 	// créé et écrit dans mapFile
-	mapFile, err := os.Create("../floor-files/map") //path depuis exécutable
+	mapFile, err := os.Create("../floor-files/" + fileName) //path depuis exécutable
 	check(err)
 	defer mapFile.Close()
 

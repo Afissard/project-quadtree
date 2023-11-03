@@ -13,11 +13,19 @@ seed 			: seed de génération pour cet étage
 nbrDiv 			: nombre de division de l'espace exécuté par le programme (soit nombre de salle = 2^nbrDiv)
 width, height 	: dimensions de l'étage
 */
-func createLevel(seed, nbrDiv, width, height int) (level BSP_tree) {
+func createLevel(seed string, nbrDiv, width, height int) (level BSP_tree) {
+	// seed conversion
+	seedRune := []rune(seed)
+	seedInt := 0
+	for i := 0; i < len(seedRune); i++ {
+		currentSeedChar := int(seedRune[i])
+		seedInt += currentSeedChar
+	}
+	// level initialisation
 	level = BSP_tree{
 		width:  width,
 		height: height,
-		alea:   rand.New(rand.NewSource(int64(seed))), // créé la seed à partir du int donné
+		alea:   rand.New(rand.NewSource(int64(seedInt))), // créé la seed à partir du int donné
 	}
 	level.root, level.roomList = createNode(level.alea, nil, nbrDiv, level.width, level.height, 0, 0)
 	return level

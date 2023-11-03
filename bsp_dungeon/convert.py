@@ -1,8 +1,8 @@
 import PIL, sys
 from PIL import Image
 
-map_path = "../floor-files/map"
-width, height = int(sys.argv[1]), int(sys.argv[2])
+map_path = "../floor-files/"+sys.argv[1]
+width, height = int(sys.argv[2]), int(sys.argv[3])
 
 map_file = open(map_path, 'r')
 

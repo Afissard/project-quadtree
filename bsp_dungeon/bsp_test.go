@@ -9,7 +9,7 @@ import (
 
 func Test_createLevel(t *testing.T) {
 	debug := false
-	levelTest := createLevel(42, 4, 64, 64)
+	levelTest := createLevel("42", 4, 64, 64)
 	if levelTest.root == nil {
 		t.Fatalf("\nL'étage est vide !\n")
 	} else if debug {
@@ -24,15 +24,40 @@ func Test_createLevel(t *testing.T) {
 
 func Test_toMapFile(t *testing.T) {
 	debug := true
-	width, height := 512, 512
-	seed42 := createLevel(42, 3, width, height)
-	seed42.toMapFile("42")
+	seed, width, height := "42", 512, 512
+	seed42 := createLevel(seed, 3, width, height)
+	seed42.toMapFile(seed)
 
 	if debug {
-		cmd := exec.Command("py", "convert.py", strconv.Itoa(width), strconv.Itoa(height))
-		err := cmd.Run()
+		err := convertToImage(seed, width, height)
 		if err != nil {
 			t.Fatal(err)
 		}
 	}
+
+	seed = "Léa"
+	lea := createLevel(seed, 3, width, height)
+	lea.toMapFile(seed)
+	if debug {
+		err := convertToImage(seed, width, height)
+		if err != nil {
+			t.Fatal(err)
+		}
+	}
+
+	seed = "Sacha"
+	sacha := createLevel(seed, 3, width, height)
+	sacha.toMapFile(seed)
+	if debug {
+		err := convertToImage(seed, width, height)
+		if err != nil {
+			t.Fatal(err)
+		}
+	}
+}
+
+func convertToImage(seed string, width, height int) (err error) {
+	cmd := exec.Command("py", "convert.py", seed, strconv.Itoa(width), strconv.Itoa(height))
+	err = cmd.Run()
+	return err
 }
