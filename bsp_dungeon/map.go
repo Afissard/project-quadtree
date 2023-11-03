@@ -40,9 +40,12 @@ func (level BSP_tree) toMapFile(fileName string) {
 	// réécrit certaine valeur de mapContent : salle et couloir
 	for i := 0; i < len(level.roomList); i++ {
 		currentRoom := level.roomList[i]
-		for y := currentRoom.topLeftY; y < currentRoom.height; y++ {
+		//fmt.Println(currentRoom.topLeftX, currentRoom.topLeftY)
+		for y := currentRoom.topLeftY; y < currentRoom.height; y++ { //BUG: x and y doesn't take the right value
+			fmt.Println(currentRoom.topLeftY, y) //currentRoom.topLeftY/X est remis à 0 ?!
 			for x := currentRoom.topLeftX; x < currentRoom.width; x++ {
-				mapContent[x][y] = currentRoom.floorContent
+				mapContent[y][x] = currentRoom.floorContent
+				//fmt.Println(x, y)
 			}
 		}
 	}
