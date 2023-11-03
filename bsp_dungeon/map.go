@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"strings"
 )
 
 func check(err error) {
@@ -53,13 +54,13 @@ func (level BSP_tree) toMapFile(fileName string) {
 
 	w := bufio.NewWriter(mapFile)
 
-	n := 0
+	bytesWritten := 0
 	for y := 0; y < len(mapContent); y++ {
-		fmt.Println(mapContent[y])
-		ny, err := w.WriteString(fmt.Sprint(mapContent[y])) // Error somewhere, way to much byte
+		//TODO: add modification to convert mapContent value to its equivalent in ASCII
+		ny, err := w.WriteString(strings.Trim(strings.Join(strings.Fields(fmt.Sprint(mapContent[y])), ""), "[]") + "\n")
 		check(err)
-		n += ny
+		bytesWritten += ny
 	}
-	fmt.Printf("wrote %d bytes\n", n)
+	fmt.Printf("wrote %d bytes\n", bytesWritten)
 	w.Flush()
 }
