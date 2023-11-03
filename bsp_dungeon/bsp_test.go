@@ -24,7 +24,7 @@ func Test_createLevel(t *testing.T) {
 
 func Test_toMapFile(t *testing.T) {
 	debug := true
-	width, height := 256, 256
+	width, height := 512, 512
 	seed42 := createLevel(42, 3, width, height)
 	seed42.toMapFile("42")
 

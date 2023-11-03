@@ -39,7 +39,7 @@ func createNode(alea *rand.Rand, parent *node, nbrDivLeft, width, height, topLef
 	// BSP
 	if nbrDivLeft > 0 {
 		if alea.Intn(2) == 1 {
-			width1 := alea.Intn(int(float32(width)*0.75-float32(width)*0.25)) + int(float32(width)*0.25) // aléa entre width*25 et width*75
+			width1 := alea.Intn(int(float32(width)*0.60-float32(width)*0.40)) + int(float32(width)*0.40) // aléa entre width*25 et width*75
 			width2 := width - width1
 			x1 := topLeftX
 			x2 := topLeftX + width1
@@ -50,7 +50,7 @@ func createNode(alea *rand.Rand, parent *node, nbrDivLeft, width, height, topLef
 			roomList = append(roomList, roomList1...)
 			roomList = append(roomList, roomList2...)
 		} else {
-			height1 := alea.Intn(int(float32(height)*0.75-float32(height)*0.25)) + int(float32(height)*0.25)
+			height1 := alea.Intn(int(float32(height)*0.60-float32(height)*0.40)) + int(float32(height)*0.40)
 			height2 := height - height1
 			y1 := topLeftY
 			y2 := topLeftY + height1
@@ -81,12 +81,12 @@ func createRoom(currentNode *node, alea *rand.Rand) (newRoom *room) {
 	} else {
 		newRoom = &room{ // salle
 			isRoom:       isRoom,
-			width:        alea.Intn(int(float32(currentNode.width)*0.80-float32(currentNode.width)*0.25)) + int(float32(currentNode.width)*0.25),
-			height:       alea.Intn(int(float32(currentNode.height)*0.80-float32(currentNode.height)*0.25)) + int(float32(currentNode.height)*0.25),
-			topLeftX:     currentNode.topLeftX,
-			topLeftY:     currentNode.topLeftY,
+			width:        alea.Intn(int(float32(currentNode.width)*0.80-float32(currentNode.width)*0.30)) + int(float32(currentNode.width)*0.30),
+			height:       alea.Intn(int(float32(currentNode.height)*0.80-float32(currentNode.height)*0.30)) + int(float32(currentNode.height)*0.30),
 			floorContent: 0,
 		}
+		newRoom.topLeftX = alea.Intn(currentNode.width-newRoom.width) + currentNode.topLeftX
+		newRoom.topLeftY = alea.Intn(currentNode.height-newRoom.height) + currentNode.topLeftY
 	}
 	return newRoom
 }
