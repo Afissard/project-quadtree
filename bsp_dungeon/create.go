@@ -80,13 +80,11 @@ func createRoom(currentNode *node, alea *rand.Rand) (newRoom *room) {
 		newRoom.isRoom = false
 	} else {
 		newRoom = &room{ // salle
-			isRoom: isRoom,
-			// topLeftX:     currentNode.topLeftX + alea.Intn(int(currentNode.width/4)+1),
-			// topLeftY:     currentNode.topLeftY + alea.Intn(int(currentNode.height/4)+1),
+			isRoom:       isRoom,
+			width:        alea.Intn(int(float32(currentNode.width)*0.80-float32(currentNode.width)*0.25)) + int(float32(currentNode.width)*0.25),
+			height:       alea.Intn(int(float32(currentNode.height)*0.80-float32(currentNode.height)*0.25)) + int(float32(currentNode.height)*0.25),
 			topLeftX:     currentNode.topLeftX,
 			topLeftY:     currentNode.topLeftY,
-			width:        4, // TODO: trouvé une équation
-			height:       4,
 			floorContent: 0,
 		}
 	}

@@ -2,6 +2,8 @@ package bsp_dungeon
 
 import (
 	"fmt"
+	"os/exec"
+	"strconv"
 	"testing"
 )
 
@@ -21,14 +23,16 @@ func Test_createLevel(t *testing.T) {
 }
 
 func Test_toMapFile(t *testing.T) {
-	debug := false
-	seed42 := createLevel(42, 4, 128, 128)
-	fmt.Println("room list : ")
+	debug := true
+	width, height := 256, 256
+	seed42 := createLevel(42, 3, width, height)
+	seed42.toMapFile("42")
+
 	if debug {
-		for i := 0; i < len(seed42.roomList); i++ {
-			fmt.Printf("Room %d:%d\twidth: %d, height: %d \n",
-				seed42.roomList[i].topLeftX, seed42.roomList[i].topLeftY, seed42.roomList[i].width, seed42.roomList[i].height)
+		cmd := exec.Command("py", "convert.py", strconv.Itoa(width), strconv.Itoa(height))
+		err := cmd.Run()
+		if err != nil {
+			t.Fatal(err)
 		}
 	}
-	seed42.toMapFile("42")
 }
