@@ -78,7 +78,8 @@ func createNode(alea *rand.Rand, parent *node, nbrDivLeft, width, height, topLef
 /*
 Fonction pour créer des salle ou des couloir
 - ajoute des salle au node feuille
-- créé un couloir entre les nodes enfant
+- créé un couloir entre les nodes enfant (les couloir seront générer plus tard dans le programme)
+- le contenu des salle/couloir sera déterminé plus tard aussi
 */
 func createRoom(currentNode *node, alea *rand.Rand) (newRoom *room) {
 	newRoom = &room{}
@@ -89,8 +90,8 @@ func createRoom(currentNode *node, alea *rand.Rand) (newRoom *room) {
 	} else {
 		newRoom = &room{ // salle
 			isRoom:       isRoom,
-			width:        alea.Intn(int(float32(currentNode.width)*0.80-float32(currentNode.width)*0.30)) + int(float32(currentNode.width)*0.30),
-			height:       alea.Intn(int(float32(currentNode.height)*0.80-float32(currentNode.height)*0.30)) + int(float32(currentNode.height)*0.30),
+			width:        alea.Intn(int(float32(currentNode.width)*0.70-float32(currentNode.width)*0.30)) + int(float32(currentNode.width)*0.30),
+			height:       alea.Intn(int(float32(currentNode.height)*0.70-float32(currentNode.height)*0.30)) + int(float32(currentNode.height)*0.30),
 			floorContent: 0,
 		}
 		newRoom.topLeftX = alea.Intn(currentNode.width-newRoom.width) + currentNode.topLeftX

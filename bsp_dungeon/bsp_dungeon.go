@@ -5,14 +5,14 @@ import "math/rand"
 type BSP_tree struct {
 	width, height int
 	root          *node
-	alea          *rand.Rand
-	roomList      []*room
+	alea          *rand.Rand // seed du niveau
+	roomList      []*room    // salles et couloirs du niveau
 }
 
 type node struct {
 	// node data
 	parent   *node
-	children []*node // only 2 children even if more are "possible"
+	children []*node // uniquement 2 enfant (même si plus "possible")
 
 	// bsp data
 	topLeftX int
@@ -20,18 +20,18 @@ type node struct {
 	width    int
 	height   int
 
-	// room or corridor data
+	// salles / couloir
 	content *room
 }
 
 type room struct {
-	// room position
+	// position
 	topLeftX int
 	topLeftY int
 	width    int
 	height   int
 
-	// other data
-	isRoom       bool // room or corridor
-	floorContent int
+	// autres information
+	isRoom       bool // salle ou couloir
+	floorContent int  // TODO: à remplacé par une liste 2D, représentant chaque tuile
 }
