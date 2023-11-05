@@ -4,6 +4,7 @@ Code source initial pour le projet d'introduction au développement (R1.01) et d
 # Divers informations
 - lib : https://ebitengine.org/en/documents/install.html
 - repo source projet : https://gitlab.univ-nantes.fr/jezequel-l/project-quadtree/-/releases
+- Google doc avec nos idée : https://docs.google.com/document/d/1e6MvH3YVjEUX3oUGH9tsGn1JIZyKfRrJr4DWm7M6GVA/edit
 
 # TODO list:
 Suivre ordre de création des fonction proposer par le pdf (le temps de comprendre la structure du projet).
@@ -20,7 +21,7 @@ Générer la map avec l'algo quadtree, détail dans le pdf
 - fix le scroll de la camera (mal codé par le prof XD)
 - Collisions
 - GUI (paramètres, info joueur, (dialogue ?))
-- Monde procédural (donjons -> algo de génération (Wave Fonction Collapse, Graph, puzzle, vers))
+- Monde procédural (donjons -> algo de génération (Wave Fonction Collapse, BSP))
 - Ajouter de la vie (ia state machine algo + path-finding algo)
 - dynamic light (voir technique de dithering -> réutilise algo quadtree)
 - etc
