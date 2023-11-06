@@ -13,7 +13,7 @@ seed 			: seed de génération pour cet étage
 nbrDiv 			: nombre de division de l'espace exécuté par le programme (soit nombre de salle = 2^nbrDiv)
 width, height 	: dimensions de l'étage
 */
-func createLevel(seed string, nbrDiv, width, height int) (level BSP_tree) {
+func CreateLevel(seed string, nbrDiv, width, height int) (level BSP_tree) {
 	// seed conversion
 	seedRune := []rune(seed)
 	seedInt := 0

@@ -2,6 +2,13 @@ package bsp_dungeon
 
 import "math/rand"
 
+/*
+Structure détenant l'arbre BSP d'un niveau
+width, height : dimension du niveau
+root : départ de l'arbre BSP
+alea : seed du niveau
+roomList : liste de salle du niveau
+*/
 type BSP_tree struct {
 	width, height int
 	root          *node
