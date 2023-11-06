@@ -105,6 +105,7 @@ func createNodesLayer(nodesList [][]node) (q Quadtree) {
 	return q
 }
 
+/*
 func newCNL(nodesList [][]node) (q Quadtree) {
 	fmt.Println("\n---New Call---")
 	// test racine de quadtree : si une seule node existe
@@ -182,3 +183,4 @@ func newCNL(nodesList [][]node) (q Quadtree) {
 	q = newCNL(newNodesList)
 	return q
 }
+*/
