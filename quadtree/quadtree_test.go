@@ -54,9 +54,9 @@ func Test_GetContent_n1(t *testing.T) {
 	q := MakeFromArray(mapContent)
 	q.GetContent(0, 0, contentHolder)
 	if !reflect.DeepEqual(mapContent, contentHolder) {
-		t.Fatalf("mapContent : %d,\ndifférent de contentHolder : %d", mapContent, contentHolder)
+		t.Fatalf("\nmapContent : %d,\ndifférent de contentHolder : %d", mapContent, contentHolder)
 	} else {
-		fmt.Printf("ok : mapContent : %d == contentHolder : %d\n", mapContent, contentHolder)
+		fmt.Printf("\nok : mapContent : %d == contentHolder : %d\n", mapContent, contentHolder)
 	}
 }
 
@@ -88,8 +88,8 @@ func Test_GetContent_n2(t *testing.T) {
 	q := MakeFromArray(mapContent)
 	q.GetContent(0, 0, contentHolder)
 	if !reflect.DeepEqual(mapContent, contentHolder) {
-		t.Fatalf("mapContent : %d,\ndifférent de contentHolder : %d", mapContent, contentHolder)
+		t.Fatalf("\nmapContent : %d,\ndifférent de contentHolder : %d", mapContent, contentHolder)
 	} else {
-		fmt.Printf("ok : mapContent : %d == contentHolder : %d\n", mapContent, contentHolder)
+		fmt.Printf("\nok : mapContent : %d == contentHolder : %d\n", mapContent, contentHolder)
 	}
 }
