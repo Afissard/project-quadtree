@@ -2,6 +2,8 @@
 BSP Dungeon :
 Paquet destiné à la génération procédural de donjons
 à l'aide d'un algorithme de Binary Space Partition.
+Information sur la génération de donjon avec ce genre
+d'algo : https://www.roguebasin.com/index.php/Basic_BSP_Dungeon_generation
 
 Idéalement le temps de génération d'un niveau n'est pas
 important, en effet, celui est générer en parallèle du
