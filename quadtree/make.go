@@ -94,8 +94,11 @@ regarde les coordonnée et cherche la branche qui correspond :
 - si au bout d'une branche et taille<1 -> cherche/créé une branche -> récursion dans la branche
 - si au bout d'une branche et taille == 1 -> assigne la valeur -> fin (retourne pointeur de la node ?)
 - sinon erreur
+
+Problème avec assignation du contenu et/ou choix des branches
 */
 func addContent(currentNode *node, content, targetX, targetY int) {
+	fmt.Println("\ncurrent node : ", currentNode)
 	if currentNode.width == 1 && currentNode.height == 1 { // assignation de content
 		currentNode.content = content
 		fmt.Println("add", currentNode)
@@ -103,9 +106,9 @@ func addContent(currentNode *node, content, targetX, targetY int) {
 		// recherche topLeft
 		if targetX >= currentNode.topLeftX && targetX <= currentNode.topLeftX+currentNode.width/2 &&
 			targetY >= currentNode.topLeftY && targetY <= currentNode.topLeftY+currentNode.height/2 {
-			fmt.Println("top left")
+			fmt.Printf("top left -> ")
 			if currentNode.topLeftNode == nil { // si la node n'existe pas : création d'une node
-				fmt.Println("new")
+				fmt.Printf("new :")
 				newNode := node{
 					topLeftX: currentNode.topLeftX,
 					topLeftY: currentNode.topLeftY,
@@ -119,9 +122,9 @@ func addContent(currentNode *node, content, targetX, targetY int) {
 
 		} else if targetX >= currentNode.topLeftX+currentNode.width/2 && targetX <= currentNode.topLeftX+currentNode.width &&
 			targetY >= currentNode.topLeftY && targetY <= currentNode.topLeftY+currentNode.height/2 {
-			fmt.Println("top right")
+			fmt.Printf("top right -> ")
 			if currentNode.topRightNode == nil { // si la node n'existe pas : création d'une node
-				fmt.Println("new")
+				fmt.Printf("new :")
 				newNode := node{
 					topLeftX: currentNode.topLeftX + currentNode.width/2,
 					topLeftY: currentNode.topLeftY,
@@ -135,9 +138,9 @@ func addContent(currentNode *node, content, targetX, targetY int) {
 
 		} else if targetX >= currentNode.topLeftX && targetX <= currentNode.topLeftX+currentNode.width/2 &&
 			targetY >= currentNode.topLeftY+currentNode.height/2 && targetY <= currentNode.topLeftY+currentNode.width {
-			fmt.Println("bottom left")
+			fmt.Printf("bottom left -> ")
 			if currentNode.bottomRightNode == nil { // si la node n'existe pas : création d'une node
-				fmt.Println("new")
+				fmt.Printf("new :")
 				newNode := node{
 					topLeftX: currentNode.topLeftX,
 					topLeftY: currentNode.topLeftY + currentNode.height/2,
@@ -151,9 +154,9 @@ func addContent(currentNode *node, content, targetX, targetY int) {
 
 		} else if targetX >= currentNode.topLeftX+currentNode.width/2 && targetX <= currentNode.topLeftX+currentNode.width &&
 			targetY >= currentNode.topLeftY+currentNode.height/2 && targetY <= currentNode.topLeftY+currentNode.width {
-			fmt.Println("bottom right")
+			fmt.Printf("bottom right -> ")
 			if currentNode.bottomRightNode == nil { // si la node n'existe pas : création d'une node
-				fmt.Println("new")
+				fmt.Printf("new :")
 				newNode := node{
 					topLeftX: currentNode.topLeftX + currentNode.width/2,
 					topLeftY: currentNode.topLeftY + currentNode.height/2,
@@ -166,9 +169,9 @@ func addContent(currentNode *node, content, targetX, targetY int) {
 			addContent(currentNode.topLeftNode, content, targetX, targetY)
 		}
 	} else {
-		panic("quadtree malformé !")
+		panic("-> quadtree malformé !")
 	}
-	fmt.Println("exit")
+	fmt.Printf("-> exit ")
 }
 
 /*
@@ -178,12 +181,10 @@ Algo 1, défectueux pour map supérieur à 6*6:
 	- si couche 0 atteint (1 seule node à attacher) alors attacher la node restante à la racine.
 	- sinon créer des nodes pour rattacher les node précédemment créés (ou aux données de la map à itération n°1)
 */
+/*
 func createNodesLayer(nodesList [][]node) (q Quadtree) {
-	/*
-		Sert à makeFromArray, associe les node entre elles dans un arbre récursif
-
-		BUG: ne marche pas avec grande map...
-	*/
+	//Sert à makeFromArray, associe les node entre elles dans un arbre récursif
+	//BUG: ne marche pas avec grande map...
 	fmt.Println("\n---New Call---")
 	// test racine de quadtree : si une seule node existe
 	if len(nodesList) == 1 && len(nodesList[0]) == 1 {
@@ -234,3 +235,4 @@ func createNodesLayer(nodesList [][]node) (q Quadtree) {
 	q = createNodesLayer(newNodesList)
 	return q
 }
+*/
