@@ -98,8 +98,8 @@ regarde les coordonnée et cherche la branche qui correspond :
 Problème avec assignation du contenu et/ou choix des branches
 */
 func addContent(currentNode *node, content, targetX, targetY int) {
-	fmt.Printf("\ncurrent node : %v\n", currentNode)
-	if currentNode.width == 1 && currentNode.height == 1 { // assignation de content
+	fmt.Printf("\ntarget : (%d,%d),node : %v\n", targetX, targetY, currentNode)
+	if currentNode.width == 1 && currentNode.height == 1 && currentNode.content == -1 { // assignation de content
 		currentNode.content = content
 		fmt.Printf("add %+v", currentNode)
 	} else if currentNode.width > 1 { // recherche/création d'une branche
