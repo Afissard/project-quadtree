@@ -101,7 +101,7 @@ func addContent(currentNode *node, content, targetX, targetY int) {
 	fmt.Println("\ncurrent node : ", currentNode)
 	if currentNode.width == 1 && currentNode.height == 1 { // assignation de content
 		currentNode.content = content
-		fmt.Println("add", currentNode)
+		fmt.Printf("add %+v", currentNode)
 	} else if currentNode.width > 1 { // recherche/création d'une branche
 		// recherche topLeft
 		if targetX >= currentNode.topLeftX && targetX <= currentNode.topLeftX+currentNode.width/2 &&
