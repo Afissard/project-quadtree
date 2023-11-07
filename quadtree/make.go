@@ -134,7 +134,7 @@ func addContent(currentNode *node, content, targetX, targetY int) {
 			addContent(currentNode.topLeftNode, content, targetX, targetY)
 
 		} else if targetX >= currentNode.topLeftX && targetX <= currentNode.topLeftX+currentNode.width/2 &&
-			targetY >= currentNode.topLeftY+currentNode.height/2 && targetY <= currentNode.topLeftY+currentNode.width {
+			targetY >= currentNode.topLeftY+currentNode.height/2 && targetY <= currentNode.topLeftY+currentNode.height {
 			fmt.Println("bottom left")
 			if currentNode.bottomRightNode == nil { // si la node n'existe pas : création d'une node
 				fmt.Println("new")
@@ -150,7 +150,7 @@ func addContent(currentNode *node, content, targetX, targetY int) {
 			addContent(currentNode.topLeftNode, content, targetX, targetY)
 
 		} else if targetX >= currentNode.topLeftX+currentNode.width/2 && targetX <= currentNode.topLeftX+currentNode.width &&
-			targetY >= currentNode.topLeftY+currentNode.height/2 && targetY <= currentNode.topLeftY+currentNode.width {
+			targetY >= currentNode.topLeftY+currentNode.height/2 && targetY <= currentNode.topLeftY+currentNode.height {
 			fmt.Println("bottom right")
 			if currentNode.bottomRightNode == nil { // si la node n'existe pas : création d'une node
 				fmt.Println("new")
