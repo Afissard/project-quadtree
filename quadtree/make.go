@@ -98,7 +98,7 @@ regarde les coordonnée et cherche la branche qui correspond :
 Problème avec assignation du contenu et/ou choix des branches
 */
 func addContent(currentNode *node, content, targetX, targetY int) {
-	fmt.Println("\ncurrent node : ", currentNode)
+	fmt.Printf("\ncurrent node : %v\n", currentNode)
 	if currentNode.width == 1 && currentNode.height == 1 { // assignation de content
 		currentNode.content = content
 		fmt.Printf("add %+v", currentNode)
@@ -171,7 +171,7 @@ func addContent(currentNode *node, content, targetX, targetY int) {
 	} else {
 		panic("-> quadtree malformé !")
 	}
-	fmt.Printf("-> exit ")
+	fmt.Printf("-> exit\n")
 }
 
 /*
