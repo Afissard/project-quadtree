@@ -3,11 +3,11 @@ package bsp_dungeon
 import "fmt"
 
 /*
-Fonction pour créer et remplire le contenu des couloirs
+Fonction pour créer et remplir le contenu des couloirs
 Algo :
-Pacourt l'arbre BSP pour créer un couloir entre chaque node voisine :
+Parcourt l'arbre BSP pour créer un couloir entre chaque node voisine :
 1. Descend au bout de l'arbre :
-- tant que roomContant = nil ->appel récursif pour chacune des
+- tant que roomContant = nil -> appel récursif pour chacune des
 	deux node fille
 - sinon : retourner roomContent
 2. Création des couloir en remontant l'arbre
@@ -26,6 +26,8 @@ func createCorridor(currentNode *node) (content *room, roomList []*room) {
 			floorContent: 2,
 		}
 
+		//TODO: centré/positionné aléatoirement le couloir + taille ~fixe
+		// possibilité de virage dans les couloir si trop large -> Pythagore ?
 		if roomA.topLeftX < roomB.topLeftX {
 			corridor.topLeftX = roomA.topLeftX
 			corridor.width = roomB.topLeftX - roomA.topLeftX
