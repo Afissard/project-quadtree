@@ -28,6 +28,9 @@ func CreateLevel(seed string, nbrDiv, width, height int) (level BSP_tree) {
 		alea:   rand.New(rand.NewSource(int64(seedInt))), // créé la seed à partir du int donné
 	}
 	level.root, level.roomList = createNode(level.alea, nil, nbrDiv, level.width, level.height, 0, 0)
+
+	level.createCorridor() // work in progress
+
 	return level
 }
 
@@ -74,4 +77,3 @@ func createNode(alea *rand.Rand, parent *node, nbrDivLeft, width, height, topLef
 	roomList = append(roomList, currentNode.content)
 	return currentNode, roomList
 }
-
