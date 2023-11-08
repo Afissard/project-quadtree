@@ -14,15 +14,16 @@ Pacourt l'arbre BSP pour créer un couloir entre chaque node voisine :
 - Pour la node donnée en entrée, créer un couloir entre les deux
 	roomContent récupéré (retourné récursivement)
 */
-func createCorridor(currentNode *node) (content *room) {
-	fmt.Println(currentNode) // juste pour eviter erreur de compilation
+func createCorridor(currentNode *node) (content *room, roomList []*room) {
 	if len(currentNode.children) != 0 {
-		roomA := createCorridor(currentNode.children[0])
-		roomB := createCorridor(currentNode.children[1])
+		roomA, roomListA := createCorridor(currentNode.children[0])
+		roomB, roomListB := createCorridor(currentNode.children[1])
+		roomList = append(roomList, roomListA...)
+		roomList = append(roomList, roomListB...)
 
 		corridor := room{
 			isRoom:       false,
-			floorContent: 0,
+			floorContent: 2,
 		}
 
 		if roomA.topLeftX < roomB.topLeftX {
@@ -42,8 +43,10 @@ func createCorridor(currentNode *node) (content *room) {
 		}
 
 		currentNode.content = &corridor
-		return &corridor
+		roomList = append(roomList, currentNode.content)
+		fmt.Println(roomList)
+		return &corridor, roomList
 	} else { // si au bout de l'arbre
-		return currentNode.content
+		return currentNode.content, roomList
 	}
 }

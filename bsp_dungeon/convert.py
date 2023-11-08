@@ -13,6 +13,8 @@ for y in range(height) :
         char = map_file.read(1) 
         if char == "1":
             img_output.putpixel((x, y), (50, 50, 50))
+        elif char == "2":
+            img_output.putpixel((x, y), (75, 75, 75))
         else :
             img_output.putpixel((x, y), (100, 100, 100))
     char = map_file.read(1) # pour passer le \n

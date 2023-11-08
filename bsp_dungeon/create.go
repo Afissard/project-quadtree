@@ -29,7 +29,9 @@ func CreateLevel(seed string, nbrDiv, width, height int) (level BSP_tree) {
 	}
 	level.root, level.roomList = createNode(level.alea, nil, nbrDiv, level.width, level.height, 0, 0)
 
-	createCorridor(level.root) // work in progress
+	corridorList := []*room{}
+	level.root.content, corridorList = createCorridor(level.root) // work in progress
+	level.roomList = append(level.roomList, corridorList...)
 
 	return level
 }
@@ -74,6 +76,8 @@ func createNode(alea *rand.Rand, parent *node, nbrDivLeft, width, height, topLef
 		}
 	}
 	currentNode.content = createRoom(currentNode, alea)
-	roomList = append(roomList, currentNode.content)
+	if currentNode.content.isRoom == true {
+		roomList = append(roomList, currentNode.content)
+	}
 	return currentNode, roomList
 }
