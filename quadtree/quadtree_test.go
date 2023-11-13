@@ -122,9 +122,10 @@ func Test_GetContent_n2_optimized(t *testing.T) {
 	}
 	q := MakeFromArray(mapContent)
 	q.root.content = optimize(q.root)
-	fmt.Println("layer 1", q.root.topLeftNode, q.root.topRightNode, "\n", q.root.bottomLeftNode, q.root.bottomRightNode)
-	fmt.Println("layer 2", q.root.topLeftNode.topLeftNode)
 	q.GetContent(0, 0, contentHolder)
+	fmt.Println("root", q.root)
+	fmt.Println("layer 1", q.root.topLeftNode, q.root.topRightNode, q.root.bottomLeftNode, q.root.bottomRightNode)
+	fmt.Println("layer 2", q.root.topLeftNode.topLeftNode)
 	if !reflect.DeepEqual(mapContent, contentHolder) {
 		t.Fatalf("\nmapContent : %d,\ndifférent de contentHolder : %d", mapContent, contentHolder)
 	} else {

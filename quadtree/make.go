@@ -28,6 +28,7 @@ func MakeFromArray(floorContent [][]int) (q Quadtree) {
 			addContent(&rootNode, floorContent[y][x], x, y)
 		}
 	}
+	q.root.content = optimize(q.root)
 	return q
 }
 
