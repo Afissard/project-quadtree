@@ -94,7 +94,11 @@ regarde les coordonnée et cherche la branche qui correspond :
 - si au bout d'une branche et taille == 1 -> assigne la valeur -> fin (retourne pointeur de la node ?)
 - sinon erreur
 
-Problème avec assignation du contenu et/ou choix des branches
+BUG: Problème avec assignation du contenu et/ou choix des branches
+Voir les panic à la fin de la fonctions il servent à garantir l’intégrité
+du quadtree.
+La partie du code en commentaire est l’ancienne fonction qui marche pour une map de 6*6 max
+Hésite pas à rajouté des test dans le fichier quadtree_test.go
 */
 func addContent(currentNode *node, content, targetX, targetY int) {
 	fmt.Printf("\ntarget : (%d,%d), node : %v\n", targetX, targetY, currentNode)
