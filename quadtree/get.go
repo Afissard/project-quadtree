@@ -43,7 +43,8 @@ func getNodeContent(currentNode *node, targetX, targetY int) (content int) {
 	// currentNode.topLeftY, targetY, (currentNode.topLeftY + currentNode.height - 1))
 
 	if currentNode.topLeftNode == nil { // si au bout de la node (couche feuille)
-		if (currentNode.topLeftX == targetX) && (currentNode.topLeftY == targetY) {
+		if currentNode.topLeftX <= targetX && targetX <= currentNode.topLeftX+currentNode.width &&
+			currentNode.topLeftY <= targetY && targetY <= currentNode.topLeftY+currentNode.height {
 			//fmt.Printf("\nfound : %d, at x:%d y:%d \n", currentNode.content, targetX, targetY)
 			return currentNode.content
 		}
