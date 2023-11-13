@@ -71,13 +71,13 @@ func MakeFromArray(floorContent [][]int) (q Quadtree) {
 		topLeftY: 0,
 		width:    totalWidth,
 		height:   totalHeight,
-		content:  -1, // contenu à -1 par défaut
+		content:  -1 // contenu à -1 par défaut
 	}
 
 	q = Quadtree{
 		width:  totalWidth,
 		height: totalHeight,
-		root:   &rootNode,
+		root:   &rootNode
 	}
 	for y := 0; y < len(floorContent); y++ {
 		for x := 0; x < len(floorContent[y]); x++ {
@@ -101,75 +101,61 @@ La partie du code en commentaire est l’ancienne fonction qui marche pour une m
 Hésite pas à rajouté des test dans le fichier quadtree_test.go
 */
 func addContent(currentNode *node, content, targetX, targetY int) {
-	fmt.Printf("\ntarget : (%d,%d), node : %v\n", targetX, targetY, currentNode)
 	if currentNode.width == 1 && currentNode.height == 1 && currentNode.content == -1 { // assignation de content
 		currentNode.content = content
-		fmt.Printf("add %+v", currentNode)
 	} else if currentNode.width > 1 { // recherche/création d'une branche
-		// recherche topLeft
-		if currentNode.topLeftX <= targetX && targetX <= currentNode.topLeftX+currentNode.width/2 &&
-			currentNode.topLeftY <= targetY && targetY <= currentNode.topLeftY+currentNode.height/2 {
-			fmt.Printf("top left -> ")
-			if currentNode.topLeftNode == nil { // si la node n'existe pas : création d'une node
-				fmt.Printf("new :")
-				newNode := node{
-					topLeftX: currentNode.topLeftX,
-					topLeftY: currentNode.topLeftY,
-					width:    currentNode.width / 2,
-					height:   currentNode.height / 2,
-					content:  -1, // contenu à -1 par défaut
+		if targetX < currentNode.topLeftX+currentNode.width/2 {
+			if targetY < currentNode.topLeftY+currentNode.height/2 {
+				if currentNode.topLeftNode == nil {
+					newNode := node{
+						topLeftX: currentNode.topLeftX,
+						topLeftY: currentNode.topLeftY,
+						width:    currentNode.width / 2,
+						height:   currentNode.height / 2,
+						content:  -1,
+					}
+					currentNode.topLeftNode = &newNode
 				}
-				currentNode.topLeftNode = &newNode
-			}
-			addContent(currentNode.topLeftNode, content, targetX, targetY)
-
-		} else if currentNode.topLeftX+currentNode.width/2 <= targetX && targetX <= currentNode.topLeftX+currentNode.width &&
-			currentNode.topLeftY <= targetY && targetY <= currentNode.topLeftY+currentNode.height/2 {
-			fmt.Printf("top right -> ")
-			if currentNode.topRightNode == nil { // si la node n'existe pas : création d'une node
-				fmt.Printf("new :")
-				newNode := node{
-					topLeftX: currentNode.topLeftX + currentNode.width/2,
-					topLeftY: currentNode.topLeftY,
-					width:    currentNode.width / 2,
-					height:   currentNode.height / 2,
-					content:  -1,
+				addContent(currentNode.topLeftNode, content, targetX, targetY)
+			} else {
+				if currentNode.bottomLeftNode == nil {
+					newNode := node{
+						topLeftX: currentNode.topLeftX,
+						topLeftY: currentNode.topLeftY + currentNode.height/2,
+						width:    currentNode.width / 2,
+						height:   currentNode.height / 2,
+						content:  -1,
+					}
+					currentNode.bottomLeftNode = &newNode
 				}
-				currentNode.topRightNode = &newNode
+				addContent(currentNode.bottomLeftNode, content, targetX, targetY)
 			}
-			addContent(currentNode.topLeftNode, content, targetX, targetY)
-
-		} else if currentNode.topLeftX <= targetX && targetX <= currentNode.topLeftX+currentNode.width/2 &&
-			currentNode.topLeftY+currentNode.height/2 <= targetY && targetY <= currentNode.topLeftY+currentNode.height {
-			fmt.Printf("bottom left ->")
-			if currentNode.bottomRightNode == nil { // si la node n'existe pas : création d'une node
-				fmt.Printf("new :")
-				newNode := node{
-					topLeftX: currentNode.topLeftX,
-					topLeftY: currentNode.topLeftY + currentNode.height/2,
-					width:    currentNode.width / 2,
-					height:   currentNode.height / 2,
-					content:  -1,
+		} else {
+			if targetY < currentNode.topLeftY+currentNode.height/2 {
+				if currentNode.topRightNode == nil {
+					newNode := node{
+						topLeftX: currentNode.topLeftX + currentNode.width/2,
+						topLeftY: currentNode.topLeftY,
+						width:    currentNode.width / 2,
+						height:   currentNode.height / 2,
+						content:  -1,
+					}
+					currentNode.topRightNode = &newNode
 				}
-				currentNode.bottomRightNode = &newNode
-			}
-			addContent(currentNode.topLeftNode, content, targetX, targetY)
-
-		} else if currentNode.topLeftX+currentNode.width/2 <= targetX && targetX <= currentNode.topLeftX+currentNode.width &&
-			currentNode.topLeftY+currentNode.height/2 <= targetY && targetY <= currentNode.topLeftY+currentNode.height {
-			fmt.Printf("bottom right ->")
-			if currentNode.bottomRightNode == nil { // si la node n'existe pas : création d'une node
-				fmt.Printf("new :")
-				newNode := node{
-					topLeftX: currentNode.topLeftX + currentNode.width/2,
-					topLeftY: currentNode.topLeftY + currentNode.height/2,
-					width:    currentNode.width / 2,
-					height:   currentNode.height / 2,
-					content:  -1,
+				addContent(currentNode.topRightNode, content, targetX, targetY)
+			} else {
+				if currentNode.bottomRightNode == nil {
+					newNode := node{
+						topLeftX: currentNode.topLeftX + currentNode.width/2,
+						topLeftY: currentNode.topLeftY + currentNode.height/2,
+						width:    currentNode.width / 2,
+						height:   currentNode.height / 2,
+						content:  -1,
+					}
+					currentNode.bottomRightNode = &newNode
 				}
-				currentNode.bottomRightNode = &newNode
+				addContent(currentNode.bottomRightNode, content, targetX, targetY)
 			}
-			addContent(currentNode.topLeftNode, content, targetX, targetY)
 		}
 	} else {
 		if currentNode.content != -1 {
@@ -178,68 +164,6 @@ func addContent(currentNode *node, content, targetX, targetY int) {
 			panic("-> quadtree malformé !")
 		}
 	}
-	fmt.Printf("-> exit\n")
 }
 
-/*
-Algo 1, défectueux pour map supérieur à 6*6:
-1. créer la couche "feuille" de l'arbre quadtree : chaque node récupère le contenu de floorContent
-2. Boucle récursive :
-	- si couche 0 atteint (1 seule node à attacher) alors attacher la node restante à la racine.
-	- sinon créer des nodes pour rattacher les node précédemment créés (ou aux données de la map à itération n°1)
-*/
-/*
-func createNodesLayer(nodesList [][]node) (q Quadtree) {
-	//Sert à makeFromArray, associe les node entre elles dans un arbre récursif
-	//BUG: ne marche pas avec grande map...
-	fmt.Println("\n---New Call---")
-	// test racine de quadtree : si une seule node existe
-	if len(nodesList) == 1 && len(nodesList[0]) == 1 {
-		q.width = nodesList[0][0].width
-		q.height = nodesList[0][0].height
-		q.root = &nodesList[0][0]
-		return q
-	}
-	// else implicite : calcul d'une nouvelle couche
-	newNodesList := [][]node{}
-	for y := 0; y < len(nodesList); y += 2 { // +2 au lieu de +1 car une node couvre (2*2=4) nodes
-		nodesLine := []node{}
-		for x := 0; x < len(nodesList[y]); x += 2 {
-			currentNode := node{
-				topLeftX: x,
-				topLeftY: y,
-				width:    nodesList[y][x].width * 2, // TODO: attention aux potentiels tuiles vide ?
-				height:   nodesList[y][x].height * 2,
-			}
 
-			// lie les nodes, en faisant attention aux potentiels nodes inexistante
-			//FIXME: ne vas pas au delà de x6 y6
-
-			currentNode.topLeftNode = &nodesList[y][x]
-			if x+1 < len(nodesList[y]) {
-				currentNode.topRightNode = &nodesList[y][x+1]
-			}
-			if y+1 < len(nodesList) {
-				currentNode.bottomLeftNode = &nodesList[y+1][x]
-				if x+1 < len(nodesList[y]) {
-					currentNode.bottomRightNode = &nodesList[y+1][x+1]
-				}
-			}
-			// ligne de nodes
-			nodesLine = append(nodesLine, currentNode)
-		}
-		// tableau 2D de nodes
-		newNodesList = append(newNodesList, nodesLine)
-	}
-	fmt.Println("\nListe:")
-	for y := 0; y < len(newNodesList); y++ {
-		fmt.Println("line :", y)
-		for x := 0; x < len(newNodesList[y]); x++ {
-			fmt.Println(newNodesList[y][x])
-		}
-	}
-
-	q = createNodesLayer(newNodesList)
-	return q
-}
-*/
