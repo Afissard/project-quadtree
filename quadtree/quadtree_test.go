@@ -84,7 +84,7 @@ func Test_GetContent_n1_optimized(t *testing.T) {
 		{-1, -1, -1, -1},
 	}
 	q := MakeFromArray(mapContent)
-	q.root.content = q.root.optimize()
+	q.root.content = optimize(q.root)
 	fmt.Println("layer 1", q.root.topLeftNode, q.root.topRightNode, "\n", q.root.bottomLeftNode, q.root.bottomRightNode)
 	fmt.Println("layer 2", q.root.topLeftNode.topLeftNode)
 	q.GetContent(0, 0, contentHolder)

@@ -6,15 +6,15 @@ import "fmt"
 Fonction pour optimisé les quadtree :
 Parcours l'arbre et retire les branche inutile
 */
-func (n node) optimize() (content int) {
+func optimize(n *node) (content int) {
 	if n.topLeftNode == nil {
 		fmt.Printf("feuille : x%d y%d content: %d\n", n.topLeftX, n.topLeftY, n.content)
 		return n.content
 	} else {
-		topLeft := n.topLeftNode.optimize()
-		topRight := n.topRightNode.optimize()
-		bottomLeft := n.bottomLeftNode.optimize()
-		bottomRight := n.bottomRightNode.optimize()
+		topLeft := optimize(n.topLeftNode)
+		topRight := optimize(n.topRightNode)
+		bottomLeft := optimize(n.bottomLeftNode)
+		bottomRight := optimize(n.bottomRightNode)
 		fmt.Printf("%d %d\n%d %d\n", topLeft, topRight, bottomLeft, bottomRight)
 		if (topLeft == topRight) && (bottomLeft == bottomRight) && (topLeft == bottomLeft) {
 			n.content = n.topLeftNode.content
