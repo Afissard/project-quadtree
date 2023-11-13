@@ -84,7 +84,6 @@ func MakeFromArray(floorContent [][]int) (q Quadtree) {
 			addContent(&rootNode, floorContent[y][x], x, y)
 		}
 	}
-
 	return q
 }
 
@@ -98,14 +97,14 @@ regarde les coordonnée et cherche la branche qui correspond :
 Problème avec assignation du contenu et/ou choix des branches
 */
 func addContent(currentNode *node, content, targetX, targetY int) {
-	fmt.Printf("\ntarget : (%d,%d),node : %v\n", targetX, targetY, currentNode)
+	fmt.Printf("\ntarget : (%d,%d), node : %v\n", targetX, targetY, currentNode)
 	if currentNode.width == 1 && currentNode.height == 1 && currentNode.content == -1 { // assignation de content
 		currentNode.content = content
 		fmt.Printf("add %+v", currentNode)
 	} else if currentNode.width > 1 { // recherche/création d'une branche
 		// recherche topLeft
-		if targetX >= currentNode.topLeftX && targetX <= currentNode.topLeftX+currentNode.width/2 &&
-			targetY >= currentNode.topLeftY && targetY <= currentNode.topLeftY+currentNode.height/2 {
+		if currentNode.topLeftX <= targetX && targetX <= currentNode.topLeftX+currentNode.width/2 &&
+			currentNode.topLeftY <= targetY && targetY <= currentNode.topLeftY+currentNode.height/2 {
 			fmt.Printf("top left -> ")
 			if currentNode.topLeftNode == nil { // si la node n'existe pas : création d'une node
 				fmt.Printf("new :")
@@ -120,8 +119,8 @@ func addContent(currentNode *node, content, targetX, targetY int) {
 			}
 			addContent(currentNode.topLeftNode, content, targetX, targetY)
 
-		} else if targetX >= currentNode.topLeftX+currentNode.width/2 && targetX <= currentNode.topLeftX+currentNode.width &&
-			targetY >= currentNode.topLeftY && targetY <= currentNode.topLeftY+currentNode.height/2 {
+		} else if currentNode.topLeftX+currentNode.width/2 <= targetX && targetX <= currentNode.topLeftX+currentNode.width &&
+			currentNode.topLeftY <= targetY && targetY <= currentNode.topLeftY+currentNode.height/2 {
 			fmt.Printf("top right -> ")
 			if currentNode.topRightNode == nil { // si la node n'existe pas : création d'une node
 				fmt.Printf("new :")
@@ -136,8 +135,8 @@ func addContent(currentNode *node, content, targetX, targetY int) {
 			}
 			addContent(currentNode.topLeftNode, content, targetX, targetY)
 
-		} else if targetX >= currentNode.topLeftX && targetX <= currentNode.topLeftX+currentNode.width/2 &&
-			targetY >= currentNode.topLeftY+currentNode.height/2 && targetY <= currentNode.topLeftY+currentNode.height {
+		} else if currentNode.topLeftX <= targetX && targetX <= currentNode.topLeftX+currentNode.width/2 &&
+			currentNode.topLeftY+currentNode.height/2 <= targetY && targetY <= currentNode.topLeftY+currentNode.height {
 			fmt.Printf("bottom left ->")
 			if currentNode.bottomRightNode == nil { // si la node n'existe pas : création d'une node
 				fmt.Printf("new :")
@@ -152,8 +151,8 @@ func addContent(currentNode *node, content, targetX, targetY int) {
 			}
 			addContent(currentNode.topLeftNode, content, targetX, targetY)
 
-		} else if targetX >= currentNode.topLeftX+currentNode.width/2 && targetX <= currentNode.topLeftX+currentNode.width &&
-			targetY >= currentNode.topLeftY+currentNode.height/2 && targetY <= currentNode.topLeftY+currentNode.height {
+		} else if currentNode.topLeftX+currentNode.width/2 <= targetX && targetX <= currentNode.topLeftX+currentNode.width &&
+			currentNode.topLeftY+currentNode.height/2 <= targetY && targetY <= currentNode.topLeftY+currentNode.height {
 			fmt.Printf("bottom right ->")
 			if currentNode.bottomRightNode == nil { // si la node n'existe pas : création d'une node
 				fmt.Printf("new :")
@@ -169,7 +168,11 @@ func addContent(currentNode *node, content, targetX, targetY int) {
 			addContent(currentNode.topLeftNode, content, targetX, targetY)
 		}
 	} else {
-		panic("-> quadtree malformé !")
+		if currentNode.content != -1 {
+			panic("-> Erreur : réécriture de currentNode.content")
+		} else {
+			panic("-> quadtree malformé !")
+		}
 	}
 	fmt.Printf("-> exit\n")
 }
