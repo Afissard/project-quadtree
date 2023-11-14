@@ -77,12 +77,15 @@ func Test_GetContent_n1_optimized(t *testing.T) {
 		{0, 0, 2, 2},
 		{0, 0, 2, 2},
 	}
-	contentHolder := [][]int{
-		{-1, -1, -1, -1},
-		{-1, -1, -1, -1},
-		{-1, -1, -1, -1},
-		{-1, -1, -1, -1},
+	contentHolder := [][]int{}
+	for y := 0; y < len(mapContent); y++ {
+		line := []int{}
+		for x := 0; x < len(mapContent[0]); x++ {
+			line = append(line, -1)
+		}
+		contentHolder = append(contentHolder, line)
 	}
+
 	q := MakeFromArray(mapContent)
 	q.root.content = optimize(q.root)
 	fmt.Println("layer 1", q.root.topLeftNode, q.root.topRightNode, "\n", q.root.bottomLeftNode, q.root.bottomRightNode)
@@ -110,22 +113,57 @@ func Test_GetContent_n2_optimized(t *testing.T) {
 		{0, 0, 2, 2, 0, 0, 2, 2},
 		{0, 0, 2, 2, 0, 0, 2, 2},
 	}
-	contentHolder := [][]int{
-		{-1, -1, -1, -1, -1, -1, -1, -1},
-		{-1, -1, -1, -1, -1, -1, -1, -1},
-		{-1, -1, -1, -1, -1, -1, -1, -1},
-		{-1, -1, -1, -1, -1, -1, -1, -1},
-		{-1, -1, -1, -1, -1, -1, -1, -1},
-		{-1, -1, -1, -1, -1, -1, -1, -1},
-		{-1, -1, -1, -1, -1, -1, -1, -1},
-		{-1, -1, -1, -1, -1, -1, -1, -1},
+	contentHolder := [][]int{}
+	for y := 0; y < len(mapContent); y++ {
+		line := []int{}
+		for x := 0; x < len(mapContent[0]); x++ {
+			line = append(line, -1)
+		}
+		contentHolder = append(contentHolder, line)
 	}
+
 	q := MakeFromArray(mapContent)
 	q.root.content = optimize(q.root)
 	q.GetContent(0, 0, contentHolder)
 	fmt.Println("root", q.root)
 	fmt.Println("layer 1", q.root.topLeftNode, q.root.topRightNode, q.root.bottomLeftNode, q.root.bottomRightNode)
 	fmt.Println("layer 2", q.root.topLeftNode.topLeftNode)
+	if !reflect.DeepEqual(mapContent, contentHolder) {
+		t.Fatalf("\nmapContent : %d,\ndifférent de contentHolder : %d", mapContent, contentHolder)
+	} else {
+		fmt.Printf("\nok : mapContent : %d == contentHolder : %d\n", mapContent, contentHolder)
+	}
+}
+
+func Test_GetContent_n3_optimized(t *testing.T) {
+	/*
+		Test la validité de MakeFromArray et GetContent
+	*/
+	fmt.Println("\nTest GetContent (n°3 optimized):")
+	mapContent := [][]int{
+		{0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0},
+		{1, 2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 1, 2, 1, 2, 1, 2, 2, 2, 1},
+		{0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0},
+		{1, 2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1},
+		{0, 2, 0, 2, 0, 2, 2, 1, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0},
+		{1, 2, 2, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 0, 2, 0, 1, 2, 2, 2, 1},
+		{0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0},
+	}
+	contentHolder := [][]int{}
+	for y := 0; y < len(mapContent); y++ {
+		line := []int{}
+		for x := 0; x < len(mapContent[0]); x++ {
+			line = append(line, -1)
+		}
+		contentHolder = append(contentHolder, line)
+	}
+
+	// Fonctions
+	q := MakeFromArray(mapContent)
+	q.root.content = optimize(q.root)
+	q.GetContent(0, 0, contentHolder)
+
+	// Test réussite
 	if !reflect.DeepEqual(mapContent, contentHolder) {
 		t.Fatalf("\nmapContent : %d,\ndifférent de contentHolder : %d", mapContent, contentHolder)
 	} else {
