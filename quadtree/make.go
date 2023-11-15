@@ -129,4 +129,5 @@ func addContent(currentNode *node, content, targetX, targetY int) {
 			panic("-> quadtree malformé !")
 		}
 	}
+	// TODO : implémenté optimisation quadtree directement ici (garder fonction optimisation pour future usage...)
 }
