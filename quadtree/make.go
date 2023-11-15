@@ -7,7 +7,30 @@ import "fmt"
 func MakeFromArray(floorContent [][]int) (q Quadtree) {
 	totalWidth := len(floorContent[0])
 	totalHeight := len(floorContent)
-	if totalWidth%2 != 0 { // on s'assure que la taille est pair
+
+	// redimensionnement de floorContent
+	if totalWidth > totalHeight {
+		for y := totalHeight; y < totalWidth; y++ {
+			line := []int{}
+			for x := 0; x < totalWidth; x++ {
+				line = append(line, -1)
+			}
+			floorContent = append(floorContent, line)
+		}
+		fmt.Printf("ajout de %d ligne(s)\n", totalWidth-totalHeight)
+		totalHeight = totalWidth
+	} else if totalWidth < totalHeight {
+		for y := 0; y < totalHeight; y++ {
+			for x := totalWidth; x < totalHeight; x++ {
+				floorContent[y] = append(floorContent[y], -1)
+			}
+		}
+		totalWidth = totalHeight
+		fmt.Printf("ajout de %d colone(s)\n", totalHeight-totalWidth)
+	}
+
+	// on s'assure que la taille est pair pour les x/2 dans addContent
+	if totalWidth%2 != 0 {
 		totalWidth++
 	}
 	if totalHeight%2 != 0 {
