@@ -158,6 +158,29 @@ func Test_GetContent_n3_optimized(t *testing.T) {
 		contentHolder = append(contentHolder, line)
 	}
 
+	// redimensionnement de floorContent
+	totalWidth := len(mapContent[0])
+	totalHeight := len(mapContent)
+	if totalWidth > totalHeight {
+		for y := totalHeight; y < totalWidth; y++ {
+			line := []int{}
+			for x := 0; x < totalWidth; x++ {
+				line = append(line, -1)
+			}
+			mapContent = append(mapContent, line)
+		}
+		fmt.Printf("ajout de %d ligne(s)\n", totalWidth-totalHeight)
+		totalHeight = totalWidth
+	} else if totalWidth < totalHeight {
+		for y := 0; y < totalHeight; y++ {
+			for x := totalWidth; x < totalHeight; x++ {
+				mapContent[y] = append(mapContent[y], -1)
+			}
+		}
+		totalWidth = totalHeight
+		fmt.Printf("ajout de %d colone(s)\n", totalHeight-totalWidth)
+	}
+
 	// Fonctions
 	q := MakeFromArray(mapContent)
 	q.root.content = optimize(q.root)

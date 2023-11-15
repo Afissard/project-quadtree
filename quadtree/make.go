@@ -1,6 +1,8 @@
 package quadtree
 
-import "fmt"
+import (
+	"fmt"
+)
 
 // MakeFromArray construit un quadtree représentant un terrain
 // étant donné un tableau représentant ce terrain.
@@ -61,7 +63,7 @@ func MakeFromArray(floorContent [][]int) (q Quadtree) {
 }
 
 func addContent(currentNode *node, content, targetX, targetY int) {
-	fmt.Printf("x%d y%d node: %v\n", targetX, targetY, currentNode)
+	//fmt.Printf("x%d y%d node: %v\n", targetX, targetY, currentNode)
 	if currentNode.width == 1 && currentNode.height == 1 && currentNode.content == -1 { // assignation de content
 		currentNode.content = content
 	} else if currentNode.width > 1 { // recherche/création d'une branche
@@ -120,7 +122,9 @@ func addContent(currentNode *node, content, targetX, targetY int) {
 		}
 	} else {
 		if currentNode.content != -1 {
-			panic("-> Erreur : réécriture de currentNode.content")
+			// panic("-> Erreur : réécriture de currentNode.content")
+			err := fmt.Errorf(fmt.Sprintf("réécriture de content de la node : %v", currentNode))
+			fmt.Println(err.Error())
 		} else {
 			panic("-> quadtree malformé !")
 		}
