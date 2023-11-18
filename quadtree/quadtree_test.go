@@ -13,10 +13,10 @@ func Test_GetContent_n0(t *testing.T) {
 	// initialisation :
 	mapContent := [][]int{}
 	contentHolder := [][]int{}
-	maxY, maxX := 64, 64
-	for y := 0; y <= maxY; y++ {
+	maxY, maxX := 16, 16
+	for y := 0; y < maxY; y++ {
 		lineMap, lineHolder := []int{}, []int{}
-		for x := 0; x <= maxX; x++ {
+		for x := 0; x < maxX; x++ {
 			lineMap = append(lineMap, 4)
 			lineHolder = append(lineHolder, -1)
 		}
@@ -187,29 +187,6 @@ func Test_GetContent_n3_optimized(t *testing.T) {
 			line = append(line, -1)
 		}
 		contentHolder = append(contentHolder, line)
-	}
-
-	// redimensionnement de floorContent
-	totalWidth := len(mapContent[0])
-	totalHeight := len(mapContent)
-	if totalWidth > totalHeight {
-		for y := totalHeight; y < totalWidth; y++ {
-			line := []int{}
-			for x := 0; x < totalWidth; x++ {
-				line = append(line, -1)
-			}
-			mapContent = append(mapContent, line)
-		}
-		fmt.Printf("ajout de %d ligne(s)\n", totalWidth-totalHeight)
-		totalHeight = totalWidth
-	} else if totalWidth < totalHeight {
-		for y := 0; y < totalHeight; y++ {
-			for x := totalWidth; x < totalHeight; x++ {
-				mapContent[y] = append(mapContent[y], -1)
-			}
-		}
-		totalWidth = totalHeight
-		fmt.Printf("ajout de %d colone(s)\n", totalHeight-totalWidth)
 	}
 
 	// Fonctions

@@ -10,36 +10,6 @@ func MakeFromArray(floorContent [][]int) (q Quadtree) {
 	totalWidth := len(floorContent[0])
 	totalHeight := len(floorContent)
 
-	// redimensionnement de floorContent
-	if totalWidth > totalHeight {
-		for y := totalHeight; y < totalWidth; y++ {
-			line := []int{}
-			for x := 0; x < totalWidth; x++ {
-				line = append(line, -1)
-			}
-			floorContent = append(floorContent, line)
-		}
-		fmt.Printf("ajout de %d ligne(s)\n", totalWidth-totalHeight)
-		totalHeight = totalWidth
-	} else if totalWidth < totalHeight {
-		for y := 0; y < totalHeight; y++ {
-			for x := totalWidth; x < totalHeight; x++ {
-				floorContent[y] = append(floorContent[y], -1)
-			}
-		}
-		totalWidth = totalHeight
-		fmt.Printf("ajout de %d colone(s)\n", totalHeight-totalWidth)
-	}
-
-	// on s'assure que la taille est pair pour les x/2 dans addContent
-	if totalWidth%2 != 0 {
-		totalWidth++
-	}
-	if totalHeight%2 != 0 {
-		totalHeight++
-	}
-	fmt.Printf("width: %d, height: %d\n", totalWidth, totalHeight)
-
 	rootNode := node{
 		topLeftX: 0,
 		topLeftY: 0,
@@ -66,15 +36,26 @@ func addContent(currentNode *node, content, targetX, targetY int) {
 	//fmt.Printf("x%d y%d node: %v\n", targetX, targetY, currentNode)
 	if currentNode.width == 1 && currentNode.height == 1 && currentNode.content == -1 { // assignation de content
 		currentNode.content = content
-	} else if currentNode.width > 1 { // recherche/création d'une branche
-		if targetX < currentNode.topLeftX+currentNode.width/2 {
-			if targetY < currentNode.topLeftY+currentNode.height/2 {
+	} else if currentNode.width > 1 || currentNode.height > 1 { // recherche/création d'une branche
+
+		// on s'assure que la taille est pair pour les x/2 dans le calcul des dimension de la node
+		tempWidth, tempHeight := currentNode.width, currentNode.height
+		if tempWidth%2 != 0 {
+			tempWidth++
+		}
+		if tempHeight%2 != 0 {
+			tempHeight++
+		}
+		//fmt.Printf("width: %d, height: %d\n", tempWidth, tempHeight)
+
+		if targetX < currentNode.topLeftX+tempWidth/2 {
+			if targetY < currentNode.topLeftY+tempHeight/2 {
 				if currentNode.topLeftNode == nil {
 					newNode := node{
 						topLeftX: currentNode.topLeftX,
 						topLeftY: currentNode.topLeftY,
-						width:    currentNode.width / 2,
-						height:   currentNode.height / 2,
+						width:    tempWidth / 2,
+						height:   tempHeight / 2,
 						content:  -1,
 					}
 					currentNode.topLeftNode = &newNode
@@ -84,9 +65,9 @@ func addContent(currentNode *node, content, targetX, targetY int) {
 				if currentNode.bottomLeftNode == nil {
 					newNode := node{
 						topLeftX: currentNode.topLeftX,
-						topLeftY: currentNode.topLeftY + currentNode.height/2,
-						width:    currentNode.width / 2,
-						height:   currentNode.height / 2,
+						topLeftY: currentNode.topLeftY + tempHeight/2,
+						width:    tempWidth / 2,
+						height:   tempHeight / 2,
 						content:  -1,
 					}
 					currentNode.bottomLeftNode = &newNode
@@ -94,13 +75,13 @@ func addContent(currentNode *node, content, targetX, targetY int) {
 				addContent(currentNode.bottomLeftNode, content, targetX, targetY)
 			}
 		} else {
-			if targetY < currentNode.topLeftY+currentNode.height/2 {
+			if targetY < currentNode.topLeftY+tempHeight/2 {
 				if currentNode.topRightNode == nil {
 					newNode := node{
-						topLeftX: currentNode.topLeftX + currentNode.width/2,
+						topLeftX: currentNode.topLeftX + tempWidth/2,
 						topLeftY: currentNode.topLeftY,
-						width:    currentNode.width / 2,
-						height:   currentNode.height / 2,
+						width:    tempWidth / 2,
+						height:   tempHeight / 2,
 						content:  -1,
 					}
 					currentNode.topRightNode = &newNode
@@ -109,10 +90,10 @@ func addContent(currentNode *node, content, targetX, targetY int) {
 			} else {
 				if currentNode.bottomRightNode == nil {
 					newNode := node{
-						topLeftX: currentNode.topLeftX + currentNode.width/2,
-						topLeftY: currentNode.topLeftY + currentNode.height/2,
-						width:    currentNode.width / 2,
-						height:   currentNode.height / 2,
+						topLeftX: currentNode.topLeftX + tempWidth/2,
+						topLeftY: currentNode.topLeftY + tempHeight/2,
+						width:    tempWidth / 2,
+						height:   tempHeight / 2,
 						content:  -1,
 					}
 					currentNode.bottomRightNode = &newNode
@@ -122,7 +103,6 @@ func addContent(currentNode *node, content, targetX, targetY int) {
 		}
 	} else {
 		if currentNode.content != -1 {
-			// panic("-> Erreur : réécriture de currentNode.content")
 			err := fmt.Errorf(fmt.Sprintf("réécriture de content de la node : %v", currentNode))
 			fmt.Println(err.Error())
 		} else {
