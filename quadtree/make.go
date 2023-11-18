@@ -28,7 +28,7 @@ func MakeFromArray(floorContent [][]int) (q Quadtree) {
 			addContent(&rootNode, floorContent[y][x], x, y)
 		}
 	}
-	q.root.content = optimize(q.root)
+	fmt.Println("here")
 	return q
 }
 
@@ -101,6 +101,22 @@ func addContent(currentNode *node, content, targetX, targetY int) {
 				addContent(currentNode.bottomRightNode, content, targetX, targetY)
 			}
 		}
+		// Optimisation du quadtree pour currentNode
+		if currentNode.topLeftNode != nil && currentNode.topRightNode != nil &&
+			currentNode.bottomLeftNode != nil && currentNode.bottomRightNode != nil {
+			// si 4 branches alors on essai d'optimiser
+			if currentNode.topLeftNode.content == currentNode.topRightNode.content &&
+				currentNode.topLeftNode.content == currentNode.bottomLeftNode.content &&
+				currentNode.bottomLeftNode.content == currentNode.bottomRightNode.content {
+				// mise à jour de node.content -> prend la valeur des nodes enfant
+				currentNode.content = currentNode.topLeftNode.content
+				// suppression des nodes désormais inutiles
+				currentNode.topLeftNode = nil
+				currentNode.topRightNode = nil
+				currentNode.bottomLeftNode = nil
+				currentNode.bottomRightNode = nil
+			}
+		}
 	} else {
 		if currentNode.content != -1 {
 			err := fmt.Errorf(fmt.Sprintf("réécriture de content de la node : %v", currentNode))
@@ -108,6 +124,6 @@ func addContent(currentNode *node, content, targetX, targetY int) {
 		} else {
 			panic("-> quadtree malformé !")
 		}
+
 	}
-	// TODO : implémenté optimisation quadtree directement ici (garder fonction optimisation pour future usage...)
 }
