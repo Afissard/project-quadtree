@@ -107,7 +107,9 @@ func addContent(currentNode *node, content, targetX, targetY int) {
 			// si 4 branches alors on essai d'optimiser
 			if currentNode.topLeftNode.content == currentNode.topRightNode.content &&
 				currentNode.topLeftNode.content == currentNode.bottomLeftNode.content &&
-				currentNode.bottomLeftNode.content == currentNode.bottomRightNode.content {
+				currentNode.bottomLeftNode.content == currentNode.bottomRightNode.content &&
+				currentNode.topLeftNode.isLeave() && currentNode.topRightNode.isLeave() &&
+				currentNode.bottomLeftNode.isLeave() && currentNode.bottomRightNode.isLeave() {
 				// mise à jour de node.content -> prend la valeur des nodes enfant
 				currentNode.content = currentNode.topLeftNode.content
 				// suppression des nodes désormais inutiles
@@ -126,4 +128,13 @@ func addContent(currentNode *node, content, targetX, targetY int) {
 		}
 
 	}
+}
+
+// test si la node est une feuille
+func (n node) isLeave() (answer bool) {
+	answer = true
+	if n.topLeftNode != nil || n.topRightNode != nil || n.bottomLeftNode != nil || n.bottomRightNode != nil {
+		answer = false
+	}
+	return answer
 }
