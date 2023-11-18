@@ -21,7 +21,7 @@ Générer la map avec l'algo quadtree, détail dans le pdf
 - fix le scroll de la camera (mal codé par le prof XD)
 - Collisions
 - GUI (paramètres, info joueur, (dialogue ?))
-- Monde procédural (donjons -> algo de génération (Wave Fonction Collapse, BSP))
+- Monde procédural en direct (donjons -> algo de génération (Wave Fonction Collapse en live))
 - Ajouter de la vie (ia state machine algo + path-finding algo)
 - dynamic light (voir technique de dithering -> réutilise algo quadtree)
 - etc

@@ -1,7 +1,7 @@
 package floor
 
 import (
-	"gitlab.univ-nantes.fr/jezequel-l/quadtree/configuration"
+	"github.com/Afissard/project-quadtree/configuration"
 )
 
 // Update se charge de stocker dans la structure interne (un tableau)

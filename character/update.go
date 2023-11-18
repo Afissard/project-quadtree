@@ -1,7 +1,7 @@
 package character
 
 import (
-	"gitlab.univ-nantes.fr/jezequel-l/quadtree/configuration"
+	"github.com/Afissard/project-quadtree/configuration"
 
 	"github.com/hajimehoshi/ebiten/v2"
 )

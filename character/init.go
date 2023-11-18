@@ -1,8 +1,8 @@
 package character
 
 import (
-	"gitlab.univ-nantes.fr/jezequel-l/quadtree/camera"
-	"gitlab.univ-nantes.fr/jezequel-l/quadtree/configuration"
+	"github.com/Afissard/project-quadtree/camera"
+	"github.com/Afissard/project-quadtree/configuration"
 )
 
 // Init met en place un personnage. Pour le moment

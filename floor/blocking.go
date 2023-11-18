@@ -1,6 +1,6 @@
 package floor
 
-import "gitlab.univ-nantes.fr/jezequel-l/quadtree/configuration"
+import "github.com/Afissard/project-quadtree/configuration"
 
 // Blocking retourne, étant donnée la position du personnage,
 // un tableau de booléen indiquant si les cases au dessus (0),

@@ -3,8 +3,8 @@ package character
 import (
 	"image"
 
-	"gitlab.univ-nantes.fr/jezequel-l/quadtree/assets"
-	"gitlab.univ-nantes.fr/jezequel-l/quadtree/configuration"
+	"github.com/Afissard/project-quadtree/assets"
+	"github.com/Afissard/project-quadtree/configuration"
 
 	"github.com/hajimehoshi/ebiten/v2"
 )

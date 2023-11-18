@@ -1,6 +1,6 @@
 package camera
 
-import "gitlab.univ-nantes.fr/jezequel-l/quadtree/configuration"
+import "github.com/Afissard/project-quadtree/configuration"
 
 // Init met en place une caméra.
 func (c *Camera) Init() {

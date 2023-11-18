@@ -1,6 +1,6 @@
 package floor
 
-import "gitlab.univ-nantes.fr/jezequel-l/quadtree/quadtree"
+import "github.com/Afissard/project-quadtree/quadtree"
 
 // Floor représente les données du terrain. Pour le moment
 // aucun champs n'est exporté.

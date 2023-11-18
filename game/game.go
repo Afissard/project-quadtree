@@ -1,9 +1,9 @@
 package game
 
 import (
-	"gitlab.univ-nantes.fr/jezequel-l/quadtree/camera"
-	"gitlab.univ-nantes.fr/jezequel-l/quadtree/character"
-	"gitlab.univ-nantes.fr/jezequel-l/quadtree/floor"
+	"github.com/Afissard/project-quadtree/camera"
+	"github.com/Afissard/project-quadtree/character"
+	"github.com/Afissard/project-quadtree/floor"
 )
 
 // Game est le type permettant de représenter les données du jeu.

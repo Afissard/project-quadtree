@@ -5,8 +5,8 @@ import (
 	"os"
 	"strconv"
 
-	"gitlab.univ-nantes.fr/jezequel-l/quadtree/configuration"
-	"gitlab.univ-nantes.fr/jezequel-l/quadtree/quadtree"
+	"github.com/Afissard/project-quadtree/configuration"
+	"github.com/Afissard/project-quadtree/quadtree"
 )
 
 // Initialise les structures de données internes de f.

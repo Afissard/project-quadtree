@@ -1,5 +1,5 @@
 // module gitlab.univ-nantes.fr/jezequel-l/quadtree
-module gitlab.univ-nantes.fr/jezequel-l/quadtree
+module github.com/Afissard/project-quadtree
 
 go 1.21
 

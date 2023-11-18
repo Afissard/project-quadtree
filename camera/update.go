@@ -1,6 +1,6 @@
 package camera
 
-import "gitlab.univ-nantes.fr/jezequel-l/quadtree/configuration"
+import "github.com/Afissard/project-quadtree/configuration"
 
 // Update met à jour la position de la caméra à chaque pas
 // de temps, c'est-à-dire tous les 1/60 secondes.

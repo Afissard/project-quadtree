@@ -6,10 +6,10 @@ import (
 
 	"github.com/hajimehoshi/ebiten/v2"
 
-	"gitlab.univ-nantes.fr/jezequel-l/quadtree/configuration"
-	"gitlab.univ-nantes.fr/jezequel-l/quadtree/game"
+	"github.com/Afissard/project-quadtree/configuration"
+	"github.com/Afissard/project-quadtree/game"
 
-	"gitlab.univ-nantes.fr/jezequel-l/quadtree/assets"
+	"github.com/Afissard/project-quadtree/assets"
 )
 
 func main() {

@@ -3,7 +3,7 @@ package game
 import (
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
-	"gitlab.univ-nantes.fr/jezequel-l/quadtree/configuration"
+	"github.com/Afissard/project-quadtree/configuration"
 )
 
 // Update met à jour les données du jeu à chaque 1/60 de seconde.
