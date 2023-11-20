@@ -42,6 +42,8 @@ func getNodeContent(currentNode *node, targetX, targetY int) (content int) {
 	// currentNode.topLeftX, targetX, (currentNode.topLeftX + currentNode.width - 1),
 	// currentNode.topLeftY, targetY, (currentNode.topLeftY + currentNode.height - 1))
 
+	content = -1 // tuile vide par default
+
 	if currentNode.topLeftNode == nil && currentNode.topRightNode == nil &&
 		currentNode.bottomLeftNode == nil && currentNode.bottomRightNode == nil { // si au bout de la node (couche feuille)
 		return currentNode.content
@@ -49,8 +51,6 @@ func getNodeContent(currentNode *node, targetX, targetY int) (content int) {
 		targetY <= (currentNode.topLeftY+currentNode.height-1) &&
 		targetX >= currentNode.topLeftX &&
 		targetX <= (currentNode.topLeftX+currentNode.width-1) { // si target dans node
-
-		content := -1 // tuile vide par default
 
 		// détermine potentiel conteneur
 		if content == -1 && currentNode.topLeftNode != nil {
@@ -62,6 +62,7 @@ func getNodeContent(currentNode *node, targetX, targetY int) (content int) {
 
 				//fmt.Printf("\n---> top left")
 				content = getNodeContent(nextNode, targetX, targetY)
+				return content
 			}
 		}
 
@@ -74,6 +75,7 @@ func getNodeContent(currentNode *node, targetX, targetY int) (content int) {
 
 				//fmt.Printf("\n---> top right")
 				content = getNodeContent(nextNode, targetX, targetY)
+				return content
 			}
 		}
 
@@ -86,6 +88,7 @@ func getNodeContent(currentNode *node, targetX, targetY int) (content int) {
 
 				//fmt.Printf("\n---> bottom left")
 				content = getNodeContent(nextNode, targetX, targetY)
+				return content
 			}
 		}
 
@@ -98,13 +101,10 @@ func getNodeContent(currentNode *node, targetX, targetY int) (content int) {
 
 				//fmt.Printf("\n---> bottom right")
 				content = getNodeContent(nextNode, targetX, targetY)
+				return content
 			}
 		}
-		//fmt.Printf("\nfound : %d, at x:%d y:%d \n", content, targetX, targetY)
-		return content
 	}
-
-	// Normalement impossible d'arrivé ici
-	//fmt.Printf("\nWhy am'I here ? found nothing for x:%d y:%d \n", targetX, targetY)
-	return -1 // tuile vide pour évité les bugs
+	//fmt.Printf("\nfound : %d, at x:%d y:%d \n", content, targetX, targetY)
+	return content
 }
