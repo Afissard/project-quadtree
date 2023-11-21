@@ -52,7 +52,7 @@ func (f *Floor) updateFromFileFloor(camXPos, camYPos int) {
 		for x := 0; x < configuration.Global.NumTileX; x++ {
 			// Calcule les coordonnées des tuiles à afficher par rapport aux coordonnée de la caméra
 			tileY := camYPos - configuration.Global.ScreenCenterTileY + y
-			tileX := camYPos - configuration.Global.ScreenCenterTileX + x
+			tileX := camXPos - configuration.Global.ScreenCenterTileX + x
 
 			// Test tuile vide ou non
 			if (tileY < 0) || (tileY >= len(f.fullContent)) || // si tileY hors porté
