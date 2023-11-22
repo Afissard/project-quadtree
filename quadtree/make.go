@@ -22,7 +22,7 @@ func MakeFromArray(floorContent [][]int) (q Quadtree) {
 	}
 	for y := 0; y < len(floorContent); y++ {
 		for x := 0; x < len(floorContent[y]); x++ {
-			addContent(&rootNode, floorContent[y][x], x, y)
+			AddContent(&rootNode, floorContent[y][x], x, y)
 		}
 	}
 	return q

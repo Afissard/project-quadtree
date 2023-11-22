@@ -2,7 +2,7 @@ package quadtree
 
 import "fmt"
 
-func addContent(currentNode *node, content, targetX, targetY int) {
+func AddContent(currentNode *node, content, targetX, targetY int) {
 	//fmt.Printf("x%d y%d node: %v\n", targetX, targetY, currentNode)
 	if currentNode.width == 1 && currentNode.height == 1 && currentNode.content == -1 { // assignation de content
 		currentNode.content = content
@@ -30,7 +30,7 @@ func addContent(currentNode *node, content, targetX, targetY int) {
 					}
 					currentNode.topLeftNode = &newNode
 				}
-				addContent(currentNode.topLeftNode, content, targetX, targetY)
+				AddContent(currentNode.topLeftNode, content, targetX, targetY)
 			} else {
 				if currentNode.bottomLeftNode == nil {
 					newNode := node{
@@ -42,7 +42,7 @@ func addContent(currentNode *node, content, targetX, targetY int) {
 					}
 					currentNode.bottomLeftNode = &newNode
 				}
-				addContent(currentNode.bottomLeftNode, content, targetX, targetY)
+				AddContent(currentNode.bottomLeftNode, content, targetX, targetY)
 			}
 		} else {
 			if targetY < currentNode.topLeftY+tempHeight/2 {
@@ -56,7 +56,7 @@ func addContent(currentNode *node, content, targetX, targetY int) {
 					}
 					currentNode.topRightNode = &newNode
 				}
-				addContent(currentNode.topRightNode, content, targetX, targetY)
+				AddContent(currentNode.topRightNode, content, targetX, targetY)
 			} else {
 				if currentNode.bottomRightNode == nil {
 					newNode := node{
@@ -68,7 +68,7 @@ func addContent(currentNode *node, content, targetX, targetY int) {
 					}
 					currentNode.bottomRightNode = &newNode
 				}
-				addContent(currentNode.bottomRightNode, content, targetX, targetY)
+				AddContent(currentNode.bottomRightNode, content, targetX, targetY)
 			}
 		}
 		// Optimisation du quadtree pour currentNode

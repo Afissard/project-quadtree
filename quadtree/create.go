@@ -1,11 +1,12 @@
-package chunk
+package quadtree
 
 import (
+	"fmt"
+
 	"github.com/Afissard/project-quadtree/configuration"
-	"github.com/Afissard/project-quadtree/quadtree"
 )
 
-func createChunk(topX, topY, content int) (q quadtree.Quadtree) {
+func (q Quadtree) createChunk(topX, topY, content int) {
 	// Création du contenu du chunk
 	floorContent := [][]int{}
 
@@ -18,12 +19,13 @@ func createChunk(topX, topY, content int) (q quadtree.Quadtree) {
 			floorContent = append(floorContent, line)
 		}
 	} else if configuration.Global.InfiniteMap == 2 {
-		panic("Not yet Implemented")
+		err := fmt.Errorf(fmt.Sprintf("\nWave Fonction Collapse not yet Implemented but config.InfiniteMap = %d", configuration.Global.InfiniteMap))
+		fmt.Println(err.Error())
 	} else {
-		panic("Shouldn't ask for chunk generation")
+		panic("\nShouldn't ask for chunk generation")
 	}
 
+	q.AddFromArray(floorContent, topX, topY)
 	// Ajout du chunk au quadtree général
 
-	return quadtree.MakeFromArray(floorContent)
 }
