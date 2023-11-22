@@ -22,6 +22,7 @@ func MakeFromArray(floorContent [][]int) (q Quadtree) {
 		width:  totalWidth,
 		height: totalHeight,
 		root:   &rootNode,
+		// rajouté variable pour support coords négatives
 	}
 	for y := 0; y < len(floorContent); y++ {
 		for x := 0; x < len(floorContent[y]); x++ {
@@ -125,7 +126,6 @@ func addContent(currentNode *node, content, targetX, targetY int) {
 		} else {
 			panic("-> quadtree malformé !")
 		}
-
 	}
 }
 

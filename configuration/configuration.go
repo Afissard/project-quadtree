@@ -44,6 +44,8 @@ type Configuration struct {
 	CameraMode                    int
 	FloorKind                     int
 	FloorFile                     string
+	// Ajouts
+	InfiniteMap int // 0: SAE, 1: chunk simple, 2: génération WFC
 
 	ScreenWidth, ScreenHeight            int `json:"-"`
 	ScreenCenterTileX, ScreenCenterTileY int `json:"-"`
