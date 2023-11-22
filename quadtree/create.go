@@ -10,7 +10,8 @@ func (q Quadtree) createChunk(topX, topY, content int) {
 	// Création du contenu du chunk
 	floorContent := [][]int{}
 
-	if configuration.Global.InfiniteMap == 1 {
+	inTest := true
+	if configuration.Global.InfiniteMap == 1 || inTest {
 		for y := 0; y < CHUNK_SIZE; y++ {
 			line := []int{}
 			for x := 0; x < CHUNK_SIZE; x++ {
@@ -25,7 +26,6 @@ func (q Quadtree) createChunk(topX, topY, content int) {
 		panic("\nShouldn't ask for chunk generation")
 	}
 
-	q.AddFromArray(floorContent, topX, topY)
 	// Ajout du chunk au quadtree général
-
+	q.AppendToQuadtree(floorContent, topX, topY)
 }

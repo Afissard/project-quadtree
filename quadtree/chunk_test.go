@@ -1,16 +1,19 @@
 package quadtree
 
 import (
+	"fmt"
 	"reflect"
 	"testing"
 )
 
 func Test_newChunk_n1(t *testing.T) {
+	fmt.Println("\nTest newChunk n°1:")
+
 	// initialisation
 	wantedChunk := [][]int{}
-	quadNewChunk := [][]int{}
+	chunk := [][]int{}
 
-	totalWidth, totalHeight := CHUNK_SIZE, CHUNK_SIZE
+	totalWidth, totalHeight := 64, 64
 	rootNode := node{
 		topLeftX: 0,
 		topLeftY: 0,
@@ -34,8 +37,13 @@ func Test_newChunk_n1(t *testing.T) {
 	}
 
 	// fonctions
-	newChunk.createChunk(16, 16, 4)
-	newChunk.GetContent(0, 0, quadNewChunk)
+	newChunk.createChunk(32, 16, 2)
+	newChunk.GetContent(32, 16, chunk)
+
+	for y := 0; y < len(chunk); y++ {
+		fmt.Println(chunk[y])
+	}
+	fmt.Println("here")
 
 	// test
 	if !reflect.DeepEqual(wantedChunk, newChunk) {
