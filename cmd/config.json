@@ -9,5 +9,5 @@
     "CameraMode": 1,
     "FloorKind": 2,
     "FloorFile": "../floor-files/validation",
-    "InfiniteMap": 0
+    "InfiniteMap": 1
 }
