@@ -6,7 +6,7 @@ import (
 	"github.com/Afissard/project-quadtree/configuration"
 )
 
-func (q Quadtree) createChunk(topX, topY, content int) {
+func (q Quadtree) CreateChunk(topX, topY, content int) {
 	// Création du contenu du chunk
 	floorContent := [][]int{}
 
@@ -27,5 +27,6 @@ func (q Quadtree) createChunk(topX, topY, content int) {
 	}
 
 	// Ajout du chunk au quadtree général
+	// TODO: mettre à jour la taille du quadtree
 	q.AppendToQuadtree(floorContent, topX, topY)
 }
