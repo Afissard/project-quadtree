@@ -10,12 +10,10 @@ func Test_newChunk_n1(t *testing.T) {
 	fmt.Println("\nTest newChunk n°1:")
 
 	// initialisation
-	chunk := [][]int{}
-	wantedChunk := [][]int{}
 	wantedContent := 2
+	chunk := make([][]int, CHUNK_SIZE)
+	wantedChunk := make([][]int, CHUNK_SIZE)
 
-	chunk = make([][]int, CHUNK_SIZE)
-	wantedChunk = make([][]int, CHUNK_SIZE)
 	for y := 0; y < len(wantedChunk); y++ {
 		chunk[y] = make([]int, CHUNK_SIZE)
 		wantedChunk[y] = make([]int, CHUNK_SIZE)

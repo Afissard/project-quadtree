@@ -50,15 +50,15 @@ func getNodeContent(currentNode *node, targetX, targetY int) (content int) {
 	} else if targetY >= currentNode.topLeftY &&
 		targetY <= (currentNode.topLeftY+currentNode.height-1) &&
 		targetX >= currentNode.topLeftX &&
-		targetX <= (currentNode.topLeftX+currentNode.width-1) { // si target dans node
+		targetX <= (currentNode.topLeftX+currentNode.width-1) { // si target dans node (redondance)
 
 		// détermine potentiel conteneur
-		if content == -1 && currentNode.topLeftNode != nil {
+		if content == -1 && currentNode.topLeftNode != nil { // si node existe & content à -1
 			nextNode := currentNode.topLeftNode
 			if targetY >= nextNode.topLeftY &&
 				targetY <= (nextNode.topLeftY+nextNode.height-1) &&
 				targetX >= nextNode.topLeftX &&
-				targetX <= (nextNode.topLeftX+nextNode.width-1) {
+				targetX <= (nextNode.topLeftX+nextNode.width-1) { // si target est dans la future node
 
 				//fmt.Printf("\n---> top left")
 				content = getNodeContent(nextNode, targetX, targetY)
