@@ -1,12 +1,47 @@
 package quadtree
 
-func findWhereCut(accessCo, arbre avec toutes les nodes)
+func (q Quadtree) FindWhereMod(topX, topY int) *node {
+	// Start from the root of the quadtree
+	return findWhereModRecursive(q.root, topX, topY)
+}
 
+func findWhereModRecursive(currentNode *node, targetX, targetY int) *node {
+	if currentNode == nil {
+		// If the current node is nil, no suitable node is found
+		return nil
+	}
 
-	return pointeur de la node où on trouve les co
+	// Check if the target coordinates are within the bounds of the current node
+	if targetY >= currentNode.topLeftY &&
+		targetY <= (currentNode.topLeftY+currentNode.height-1) &&
+		targetX >= currentNode.topLeftX &&
+		targetX <= (currentNode.topLeftX+currentNode.width-1) {
 
-cas: où on peut mettre -> branche de libre : ajouter contenu dans la branche
+		// Check if the current node is a leaf node
+		if currentNode.topLeftNode == nil &&
+			currentNode.topRightNode == nil &&
+			currentNode.bottomLeftNode == nil &&
+			currentNode.bottomRightNode == nil {
+			// If it's a leaf node, return the current node for modification
+			return currentNode
+		}
 
-cas: où non -> tout reconstruire à partir de cet endroit
+		// If not a leaf node, recursively search in the child nodes
+		// You may need to adjust this based on your specific requirements
+		if modNode := findWhereModRecursive(currentNode.topLeftNode, targetX, targetY); modNode != nil {
+			return modNode
+		}
+		if modNode := findWhereModRecursive(currentNode.topRightNode, targetX, targetY); modNode != nil {
+			return modNode
+		}
+		if modNode := findWhereModRecursive(currentNode.bottomLeftNode, targetX, targetY); modNode != nil {
+			return modNode
+		}
+		if modNode := findWhereModRecursive(currentNode.bottomRightNode, targetX, targetY); modNode != nil {
+			return modNode
+		}
+	}
 
--> on vient la modifier ensuite
+	// If the target coordinates are not within the bounds of the current node, return nil
+	return nil
+}
