@@ -41,7 +41,7 @@ func Test_newChunk_n1(t *testing.T) {
 	}
 
 	// fonctions
-	quad.CreateChunk(0, 0, wantedContent)
+	quad.CreateChunk(0, 0)
 	quad.GetContent(0, 0, chunk)
 
 	fmt.Println("Created chunk :")
