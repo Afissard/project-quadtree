@@ -33,9 +33,9 @@ func (q Quadtree) CreateChunk(topX, topY int) {
 	}
 
 	// Trouve où ajouter le chunk généré dans le quadtree général
-	nodeToCut := q.FindWhereToCut(topX, topY)
+	nodeToMod := q.FindWhereMod(topX, topY)
 	// Ajout du chunk au quadtree général
-	q.AppendToQuadtree(&nodeToCut, &newChunkTree)
+	q.AppendToQuadtree(nodeToMod, &newChunkTree)
 }
 
 func createSimpleChunkContent(content int) (floorContent [][]int) {
