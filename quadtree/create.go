@@ -6,26 +6,45 @@ import (
 	"github.com/Afissard/project-quadtree/configuration"
 )
 
-func (q Quadtree) CreateChunk(topX, topY, content int) {
-	// Création du contenu du chunk
-	floorContent := make([][]int, CHUNK_SIZE)
-
-	inTest := true // TODO: retiré à la fin des test ou trouver alternative
-
-	if configuration.Global.InfiniteMap == 1 || inTest {
-		for y := 0; y < len(floorContent); y++ {
-			for x := 0; x < len(floorContent[y]); x++ {
-				floorContent[y][x] = content
-			}
-		}
-	} else if configuration.Global.InfiniteMap == 2 {
-		err := fmt.Errorf(fmt.Sprintf("\nWave Fonction Collapse not yet Implemented but config.InfiniteMap = %d", configuration.Global.InfiniteMap))
-		fmt.Println(err.Error())
+func (q Quadtree) CreateChunk(topX, topY int) {
+	//TODO: ajouté test configuration -> infiniteMap
+	// Création du contenu du chunk (TODO: à modifié avec implémentation de la génération avec WFC)
+	floorContent := [][]int{}
+	if configuration.Global.InfiniteMap == 2 {
+		// TODO: génération WFC
+		fmt.Println("not yet implemented")
 	} else {
-		panic("\nShouldn't ask for chunk generation")
+		floorContent = createSimpleChunkContent(2)
 	}
 
+	// la node qui contiendra le chunk
+	newChunkTree := node{
+		topLeftX: topX,
+		topLeftY: topY,
+		width:    CHUNK_SIZE,
+		height:   CHUNK_SIZE,
+		content:  -1,
+	}
+
+	for y := 0; y < len(floorContent); y++ {
+		for x := 0; x < len(floorContent[y]); x++ {
+			AddContent(&newChunkTree, floorContent[y][x], topX+x, topY+y)
+		}
+	}
+
+	// Trouve où ajouter le chunk généré dans le quadtree général
+	nodeToCut := q.FindWhereToCut(topX, topY)
 	// Ajout du chunk au quadtree général
-	// TODO: mettre à jour la taille du quadtree
-	q.AppendToQuadtree(floorContent, topX, topY)
+	q.AppendToQuadtree(&nodeToCut, &newChunkTree)
+}
+
+func createSimpleChunkContent(content int) (floorContent [][]int) {
+	// Création du contenu d'un chunk simple et uniforme
+	floorContent = make([][]int, CHUNK_SIZE)
+	for y := 0; y < len(floorContent); y++ {
+		for x := 0; x < len(floorContent[y]); x++ {
+			floorContent[y][x] = content
+		}
+	}
+	return floorContent
 }
