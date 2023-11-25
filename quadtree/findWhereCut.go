@@ -1,6 +1,6 @@
 package quadtree
 
-func findWhereCut(co de la où on veut ou on veut acceder, arbre avec toutes les nodes)
+func findWhereCut(accessCo, arbre avec toutes les nodes)
 
 
 	return pointeur de la node où on trouve les co
