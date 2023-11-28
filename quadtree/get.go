@@ -25,86 +25,87 @@ func (q Quadtree) GetContent(topLeftX, topLeftY int, contentHolder [][]int) {
 		for x := 0; x < len(contentHolder[y]); x++ {
 			targetY, targetX := y+topLeftY, x+topLeftX
 			//fmt.Printf("\n----\nsearch for x:%d y:%d", targetX, targetY)
-			contentHolder[y][x] = getNodeContent(q.root, targetX, targetY)
+			//contentHolder[y][x] = getNodeContent(q.root, targetX, targetY) // remove for seeker
+			contentHolder[y][x] = q.seek(targetX, targetY).content
 		}
 	}
 }
 
-func getNodeContent(currentNode *node, targetX, targetY int) (content int) {
-	/*
-		Algo :
-		Si currentNode est une feuille, retourne currentNode.content
-		Sinon si currentNode peut contenir target : se rappel dans la node potentiel
-		Sinon retourne nil
-	*/
-	// fmt.Println("\ncurrent node is :", currentNode)
-	// fmt.Printf("\ntarget is in x:[%d <= %d <= %d], y:[%d <= %d <= %d]",
-	// currentNode.topLeftX, targetX, (currentNode.topLeftX + currentNode.width - 1),
-	// currentNode.topLeftY, targetY, (currentNode.topLeftY + currentNode.height - 1))
+// func getNodeContent(currentNode *node, targetX, targetY int) (content int) {
+// 	/*
+// 		Algo :
+// 		Si currentNode est une feuille, retourne currentNode.content
+// 		Sinon si currentNode peut contenir target : se rappel dans la node potentiel
+// 		Sinon retourne nil
+// 	*/
+// 	// fmt.Println("\ncurrent node is :", currentNode)
+// 	// fmt.Printf("\ntarget is in x:[%d <= %d <= %d], y:[%d <= %d <= %d]",
+// 	// currentNode.topLeftX, targetX, (currentNode.topLeftX + currentNode.width - 1),
+// 	// currentNode.topLeftY, targetY, (currentNode.topLeftY + currentNode.height - 1))
 
-	content = -1 // tuile vide par default
+// 	content = -1 // tuile vide par default
 
-	if currentNode.topLeftNode == nil && currentNode.topRightNode == nil &&
-		currentNode.bottomLeftNode == nil && currentNode.bottomRightNode == nil { // si au bout de la node (couche feuille)
-		return currentNode.content
-	} else if targetY >= currentNode.topLeftY &&
-		targetY <= (currentNode.topLeftY+currentNode.height-1) &&
-		targetX >= currentNode.topLeftX &&
-		targetX <= (currentNode.topLeftX+currentNode.width-1) { // si target dans node (redondance)
+// 	if currentNode.topLeftNode == nil && currentNode.topRightNode == nil &&
+// 		currentNode.bottomLeftNode == nil && currentNode.bottomRightNode == nil { // si au bout de la node (couche feuille)
+// 		return currentNode.content
+// 	} else if targetY >= currentNode.topLeftY &&
+// 		targetY <= (currentNode.topLeftY+currentNode.height-1) &&
+// 		targetX >= currentNode.topLeftX &&
+// 		targetX <= (currentNode.topLeftX+currentNode.width-1) { // si target dans node (redondance)
 
-		// détermine potentiel conteneur
-		if content == -1 && currentNode.topLeftNode != nil { // si node existe & content à -1
-			nextNode := currentNode.topLeftNode
-			if targetY >= nextNode.topLeftY &&
-				targetY <= (nextNode.topLeftY+nextNode.height-1) &&
-				targetX >= nextNode.topLeftX &&
-				targetX <= (nextNode.topLeftX+nextNode.width-1) { // si target est dans la future node
+// 		// détermine potentiel conteneur
+// 		if content == -1 && currentNode.topLeftNode != nil { // si node existe & content à -1
+// 			nextNode := currentNode.topLeftNode
+// 			if targetY >= nextNode.topLeftY &&
+// 				targetY <= (nextNode.topLeftY+nextNode.height-1) &&
+// 				targetX >= nextNode.topLeftX &&
+// 				targetX <= (nextNode.topLeftX+nextNode.width-1) { // si target est dans la future node
 
-				//fmt.Printf("\n---> top left")
-				content = getNodeContent(nextNode, targetX, targetY)
-				return content
-			}
-		}
+// 				//fmt.Printf("\n---> top left")
+// 				content = getNodeContent(nextNode, targetX, targetY)
+// 				return content
+// 			}
+// 		}
 
-		if content == -1 && currentNode.topRightNode != nil {
-			nextNode := currentNode.topRightNode
-			if targetY >= nextNode.topLeftY &&
-				targetY <= (nextNode.topLeftY+nextNode.height-1) &&
-				targetX >= nextNode.topLeftX &&
-				targetX <= (nextNode.topLeftX+nextNode.width-1) {
+// 		if content == -1 && currentNode.topRightNode != nil {
+// 			nextNode := currentNode.topRightNode
+// 			if targetY >= nextNode.topLeftY &&
+// 				targetY <= (nextNode.topLeftY+nextNode.height-1) &&
+// 				targetX >= nextNode.topLeftX &&
+// 				targetX <= (nextNode.topLeftX+nextNode.width-1) {
 
-				//fmt.Printf("\n---> top right")
-				content = getNodeContent(nextNode, targetX, targetY)
-				return content
-			}
-		}
+// 				//fmt.Printf("\n---> top right")
+// 				content = getNodeContent(nextNode, targetX, targetY)
+// 				return content
+// 			}
+// 		}
 
-		if content == -1 && currentNode.bottomLeftNode != nil {
-			nextNode := currentNode.bottomLeftNode
-			if targetY >= nextNode.topLeftY &&
-				targetY <= (nextNode.topLeftY+nextNode.height-1) &&
-				targetX >= nextNode.topLeftX &&
-				targetX <= (nextNode.topLeftX+nextNode.width-1) {
+// 		if content == -1 && currentNode.bottomLeftNode != nil {
+// 			nextNode := currentNode.bottomLeftNode
+// 			if targetY >= nextNode.topLeftY &&
+// 				targetY <= (nextNode.topLeftY+nextNode.height-1) &&
+// 				targetX >= nextNode.topLeftX &&
+// 				targetX <= (nextNode.topLeftX+nextNode.width-1) {
 
-				//fmt.Printf("\n---> bottom left")
-				content = getNodeContent(nextNode, targetX, targetY)
-				return content
-			}
-		}
+// 				//fmt.Printf("\n---> bottom left")
+// 				content = getNodeContent(nextNode, targetX, targetY)
+// 				return content
+// 			}
+// 		}
 
-		if content == -1 && currentNode.bottomRightNode != nil {
-			nextNode := currentNode.bottomRightNode
-			if targetY >= nextNode.topLeftY &&
-				targetY <= (nextNode.topLeftY+nextNode.height-1) &&
-				targetX >= nextNode.topLeftX &&
-				targetX <= (nextNode.topLeftX+nextNode.width-1) {
+// 		if content == -1 && currentNode.bottomRightNode != nil {
+// 			nextNode := currentNode.bottomRightNode
+// 			if targetY >= nextNode.topLeftY &&
+// 				targetY <= (nextNode.topLeftY+nextNode.height-1) &&
+// 				targetX >= nextNode.topLeftX &&
+// 				targetX <= (nextNode.topLeftX+nextNode.width-1) {
 
-				//fmt.Printf("\n---> bottom right")
-				content = getNodeContent(nextNode, targetX, targetY)
-				return content
-			}
-		}
-	}
-	//fmt.Printf("\nfound : %d, at x:%d y:%d \n", content, targetX, targetY)
-	return content
-}
+// 				//fmt.Printf("\n---> bottom right")
+// 				content = getNodeContent(nextNode, targetX, targetY)
+// 				return content
+// 			}
+// 		}
+// 	}
+// 	//fmt.Printf("\nfound : %d, at x:%d y:%d \n", content, targetX, targetY)
+// 	return content
+// }
