@@ -1,8 +1,12 @@
 package quadtree
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
-func Test_seek(t *testing.T) {
+func Test_seek_n1(t *testing.T) {
+	fmt.Println("\nTest newChunk n°1:")
 	// initialisation
 	mapContent := [][]int{
 		{1, 1, 3, 4},
@@ -11,6 +15,7 @@ func Test_seek(t *testing.T) {
 		{0, 0, 2, 2},
 	}
 	quad := MakeFromArray(mapContent)
+	getError := false
 
 	for y := 0; y < len(mapContent); y++ {
 		for x := 0; x < len(mapContent[y]); x++ {
@@ -19,7 +24,11 @@ func Test_seek(t *testing.T) {
 			// test
 			if resultNode.content != mapContent[y][x] {
 				t.Fatalf("\n Contenu de la node différent de la map : %d != %d", resultNode.content, mapContent[y][x])
+				getError = true
 			}
 		}
+	}
+	if !getError {
+		fmt.Println("ok")
 	}
 }

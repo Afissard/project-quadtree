@@ -44,13 +44,13 @@ func Test_newChunk_n1(t *testing.T) {
 	quad.CreateChunk(0, 0)
 	quad.GetContent(0, 0, chunk)
 
-	fmt.Println("Created chunk :")
+	//fmt.Println("Created chunk :")
 	for y := 0; y < len(chunk); y++ {
-		fmt.Println(y, chunk[y])
+		//fmt.Println(y, chunk[y])
 	}
-	fmt.Println("Wanted chunk :")
+	//fmt.Println("Wanted chunk :")
 	for y := 0; y < len(wantedChunk); y++ {
-		fmt.Println(y, wantedChunk[y])
+		//fmt.Println(y, wantedChunk[y])
 	}
 
 	// test

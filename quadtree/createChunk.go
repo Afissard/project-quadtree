@@ -16,26 +16,12 @@ func (q Quadtree) CreateChunk(topX, topY int) {
 	} else {
 		floorContent = createSimpleChunkContent(2)
 	}
-
-	// la node qui contiendra le chunk
-	newChunkTree := node{
-		topLeftX: topX,
-		topLeftY: topY,
-		width:    CHUNK_SIZE,
-		height:   CHUNK_SIZE,
-		content:  -1,
-	}
-
-	for y := 0; y < len(floorContent); y++ {
-		for x := 0; x < len(floorContent[y]); x++ {
-			AddContent(&newChunkTree, floorContent[y][x], topX+x, topY+y)
-		}
-	}
+	newChunkTree := MakeFromArray(floorContent) // quadtree temporaire
 
 	// Trouve où ajouter le chunk généré dans le quadtree général
-	nodeToMod := q.FindWhereMod(topX, topY)
+	nodeToMod := q.seek(topX, topY)
 	// Ajout du chunk au quadtree général
-	q.AppendToQuadtree(nodeToMod, &newChunkTree)
+	q.AppendToQuadtree(nodeToMod, newChunkTree.root)
 }
 
 func createSimpleChunkContent(content int) (floorContent [][]int) {
