@@ -16,7 +16,7 @@ func (q Quadtree) CreateChunk(topX, topY int) {
 	} else {
 		floorContent = createSimpleChunkContent(2)
 	}
-	newChunkTree := MakeFromArray(floorContent) // quadtree temporaire
+	newChunkTree := MakeFromArray(floorContent) // quadtree temporaire, todo: modif coords
 
 	// Trouve où ajouter le chunk généré dans le quadtree général
 	nodeToMod := q.seek(topX, topY)
