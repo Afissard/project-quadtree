@@ -15,11 +15,7 @@ func (q Quadtree) GetContent(topLeftX, topLeftY int, contentHolder [][]int) {
 			- si coordonnées dans contentHolder alors append
 			- sinon échec
 		2. Si toutes les branches ont été explorées et contentHolder pas remplit,
-			alors le remplir de tuiles vide ?
-
-		TODO: quand MakeFromArray optimisera les quadtree :
-		Adapté l'algo pour prendre en compte les modifications réalisé sur la
-		structure des quadtree.
+			alors le remplir de tuiles vide (tuile par default)
 	*/
 	for y := 0; y < len(contentHolder); y++ {
 		for x := 0; x < len(contentHolder[y]); x++ {

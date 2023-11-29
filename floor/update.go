@@ -69,6 +69,7 @@ func (f *Floor) updateFromFileFloor(camXPos, camYPos int) {
 
 // le sol est récupéré depuis un quadtree, qui a été lu dans un fichier
 func (f *Floor) updateQuadtreeFloor(camXPos, camYPos int) {
+	// BUG: rend des coordonné négative dans integration de genBSP ?!
 	topLeftX := camXPos - configuration.Global.ScreenCenterTileX
 	topLeftY := camYPos - configuration.Global.ScreenCenterTileY
 	f.quadtreeContent.GetContent(topLeftX, topLeftY, f.content)

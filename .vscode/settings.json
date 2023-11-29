@@ -1,8 +1,9 @@
 {
     "cSpell.words": [
         "ebitenutil",
+        "hajimehoshi",
         "jezequel",
         "quadtree"
     ],
-    "todo-tree.tree.scanMode": "workspace"
+    "todo-tree.tree.scanMode": "workspace only"
 }
