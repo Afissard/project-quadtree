@@ -19,6 +19,8 @@ func (f *Floor) Update(camXPos, camYPos int) {
 		f.updateFromFileFloor(camXPos, camYPos)
 	case quadTreeFloor:
 		f.updateQuadtreeFloor(camXPos, camYPos)
+	case genBSPFloor:
+		f.updateQuadtreeFloor(camXPos, camYPos) // TODO: modif coords player
 	}
 }
 

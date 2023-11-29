@@ -29,7 +29,7 @@ func CreateLevel(seed string, nbrDiv, width, height int) (level BSP_tree) {
 	}
 	level.root, level.roomList = createNode(level.alea, nil, nbrDiv, level.width, level.height, 0, 0)
 
-	corridorList := []*room{} // Work in progress
+	corridorList := []*room{}                                     // Work in progress
 	level.root.content, corridorList = createCorridor(level.root) // work in progress
 	level.roomList = append(level.roomList, corridorList...)
 

@@ -5,6 +5,7 @@ import (
 	"os"
 	"strconv"
 
+	"github.com/Afissard/project-quadtree/bspDungeon"
 	"github.com/Afissard/project-quadtree/configuration"
 	"github.com/Afissard/project-quadtree/quadtree"
 )
@@ -21,6 +22,8 @@ func (f *Floor) Init() {
 		f.fullContent = readFloorFromFile(configuration.Global.FloorFile)
 	case quadTreeFloor:
 		f.quadtreeContent = quadtree.MakeFromArray(readFloorFromFile(configuration.Global.FloorFile))
+	case genBSPFloor:
+		_, f.content = bspDungeon.GetLevel("Léa à dit seed 22.", 128, 128)
 	}
 }
 

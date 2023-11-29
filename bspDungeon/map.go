@@ -28,7 +28,7 @@ func (level BSP_tree) ToMap() (mapContent [][]int) {
 	*/
 	mapContent = make([][]int, level.height, level.width)
 	// rempli mapContent avec une valeur par défaut
-	for y := 0; y < level.height; y++ {
+	for y := 0; y < level.height; y++ { // out of ranche by 0
 		for x := 0; x < level.width; x++ {
 			defaultVal := 1
 			mapContent[y][x] = defaultVal

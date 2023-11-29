@@ -21,4 +21,5 @@ const (
 	gridFloor int = iota
 	fromFileFloor
 	quadTreeFloor
+	genBSPFloor
 )
