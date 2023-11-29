@@ -1,4 +1,4 @@
-package bsp_dungeon
+package bspDungeon
 
 import (
 	"fmt"
@@ -22,37 +22,39 @@ func Test_createLevel(t *testing.T) {
 	}
 }
 
-func Test_toMapFile(t *testing.T) {
-	debug := true
+func Test_toMapFile_n1(t *testing.T) {
 	seed, width, height := "42", 128, 128
-	seed42 := CreateLevel(seed, 3, width, height)
-	seed42.toMapFile(seed)
 
-	if debug {
-		err := convertToImage(seed, width, height)
-		if err != nil {
-			t.Fatal(err)
-		}
+	level, floorContent := GetLevel(seed, width, height)
+	level.SaveToMapFile(floorContent, seed)
+
+	err := convertToImage(seed, width, height)
+	if err != nil {
+		t.Fatal(err)
 	}
+}
 
-	seed = "Léa"
-	lea := CreateLevel(seed, 3, width, height)
-	lea.toMapFile(seed)
-	if debug {
-		err := convertToImage(seed, width, height)
-		if err != nil {
-			t.Fatal(err)
-		}
+func Test_toMapFile_n2(t *testing.T) {
+	seed, width, height := "Léa", 128, 128
+
+	level, floorContent := GetLevel(seed, width, height)
+	level.SaveToMapFile(floorContent, seed)
+
+	err := convertToImage(seed, width, height)
+	if err != nil {
+		t.Fatal(err)
 	}
+}
 
-	seed = "Sacha"
-	sacha := CreateLevel(seed, 3, width, height)
-	sacha.toMapFile(seed)
-	if debug {
-		err := convertToImage(seed, width, height)
-		if err != nil {
-			t.Fatal(err)
-		}
+func Test_toMapFile_n3(t *testing.T) {
+	seed, width, height := "Sacha", 128, 128
+
+	level, floorContent := GetLevel(seed, width, height)
+	level.SaveToMapFile(floorContent, seed)
+
+	err := convertToImage(seed, width, height)
+	if err != nil {
+		t.Fatal(err)
 	}
 }
 

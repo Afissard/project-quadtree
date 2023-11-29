@@ -1,4 +1,4 @@
-package bsp_dungeon
+package bspDungeon
 
 import "math/rand"
 

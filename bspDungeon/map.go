@@ -1,4 +1,4 @@
-package bsp_dungeon
+package bspDungeon
 
 import (
 	"bufio"
@@ -17,7 +17,7 @@ func check(err error) {
 Fonction pour créer un ficher map a partir
 du donjon généré précédemment
 */
-func (level BSP_tree) toMapFile(fileName string) {
+func (level BSP_tree) ToMap() (mapContent [][]int) {
 	/*
 		Algo :
 		- créer un fichier map
@@ -26,15 +26,13 @@ func (level BSP_tree) toMapFile(fileName string) {
 		- ferme et sauvegarde le ficher map (créer json pour
 			plus de data plus tard ...)
 	*/
-	mapContent := [][]int{}
+	mapContent = make([][]int, level.height, level.width)
 	// rempli mapContent avec une valeur par défaut
 	for y := 0; y < level.height; y++ {
-		line := []int{}
 		for x := 0; x < level.width; x++ {
 			defaultVal := 1
-			line = append(line, defaultVal)
+			mapContent[y][x] = defaultVal
 		}
-		mapContent = append(mapContent, line)
 	}
 
 	// réécrit certaine valeur de mapContent : salle et couloir
@@ -46,7 +44,10 @@ func (level BSP_tree) toMapFile(fileName string) {
 			}
 		}
 	}
+	return mapContent
+}
 
+func (level BSP_tree) SaveToMapFile(mapContent [][]int, fileName string) {
 	// créé et écrit dans mapFile
 	mapFile, err := os.Create("../floor-files/" + fileName) //path depuis exécutable
 	check(err)

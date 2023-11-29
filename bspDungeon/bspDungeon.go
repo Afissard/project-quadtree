@@ -1,4 +1,4 @@
-package bsp_dungeon
+package bspDungeon
 
 import "math/rand"
 
@@ -42,3 +42,5 @@ type room struct {
 	isRoom       bool // salle ou couloir
 	floorContent int  // TODO: à remplacé par une liste 2D, représentant chaque tuile
 }
+
+const NBR_DIV = 3

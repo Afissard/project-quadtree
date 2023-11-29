@@ -1,4 +1,4 @@
-package bsp_dungeon
+package bspDungeon
 
 import (
 	"math/rand"
@@ -29,7 +29,7 @@ func CreateLevel(seed string, nbrDiv, width, height int) (level BSP_tree) {
 	}
 	level.root, level.roomList = createNode(level.alea, nil, nbrDiv, level.width, level.height, 0, 0)
 
-	corridorList := []*room{}
+	corridorList := []*room{} // Work in progress
 	level.root.content, corridorList = createCorridor(level.root) // work in progress
 	level.roomList = append(level.roomList, corridorList...)
 
@@ -76,7 +76,7 @@ func createNode(alea *rand.Rand, parent *node, nbrDivLeft, width, height, topLef
 		}
 	}
 	currentNode.content = createRoom(currentNode, alea)
-	if currentNode.content.isRoom == true {
+	if currentNode.content.isRoom {
 		roomList = append(roomList, currentNode.content)
 	}
 	return currentNode, roomList

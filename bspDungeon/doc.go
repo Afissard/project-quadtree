@@ -16,4 +16,4 @@ Contient :
   - génération d'un fichier map à partir de la
     structure de données créer.
 */
-package bsp_dungeon
+package bspDungeon

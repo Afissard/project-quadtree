@@ -1,4 +1,4 @@
-package bsp_dungeon
+package bspDungeon
 
 /*
 Fonction pour créer et remplir le contenu des couloirs
