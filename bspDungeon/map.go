@@ -26,13 +26,17 @@ func (level BSP_tree) ToMap() (mapContent [][]int) {
 		- ferme et sauvegarde le ficher map (créer json pour
 			plus de data plus tard ...)
 	*/
-	mapContent = make([][]int, level.height, level.width)
+	mapContent = [][]int{}
+	// fmt.Println(mapContent)
 	// rempli mapContent avec une valeur par défaut
 	for y := 0; y < level.height; y++ { // out of ranche by 0
+		line := []int{}
 		for x := 0; x < level.width; x++ {
 			defaultVal := 1
-			mapContent[y][x] = defaultVal
+			line = append(line, defaultVal)
 		}
+		mapContent = append(mapContent, line)
+		// fmt.Println(y, mapContent[y])
 	}
 
 	// réécrit certaine valeur de mapContent : salle et couloir
