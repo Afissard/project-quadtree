@@ -7,7 +7,7 @@
     "NumFramePerCharacterAnimImage": 5,
     "NumTileForDebug": 6,
     "CameraMode": 1,
-    "FloorKind": 2,
+    "FloorKind": 3,
     "FloorFile": "../floor-files/Léa",
     "InfiniteMap": 1
 }

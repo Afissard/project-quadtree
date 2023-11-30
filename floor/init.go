@@ -23,7 +23,7 @@ func (f *Floor) Init() {
 	case quadTreeFloor:
 		f.quadtreeContent = quadtree.MakeFromArray(readFloorFromFile(configuration.Global.FloorFile))
 	case genBSPFloor:
-		_, f.content = bspDungeon.GetLevel("Léa à dit seed 22.", 128, 128)
+		f.quadtreeContent = quadtree.MakeFromArray(bspDungeon.GetLevelNoTree("Léa à dit seed 22.", 64, 64))
 	}
 }
 
