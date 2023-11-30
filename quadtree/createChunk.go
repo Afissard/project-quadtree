@@ -26,11 +26,13 @@ func (q Quadtree) CreateChunk(topX, topY int) {
 
 func createSimpleChunkContent(content int) (floorContent [][]int) {
 	// Création du contenu d'un chunk simple et uniforme
-	floorContent = make([][]int, CHUNK_SIZE)
-	for y := 0; y < len(floorContent); y++ {
-		for x := 0; x < len(floorContent[y]); x++ {
-			floorContent[y][x] = content
+	for y := 0; y < CHUNK_SIZE; y++ {
+		line := []int{}
+		for x := 0; x < CHUNK_SIZE; x++ {
+			line = append(line, content)
 		}
+		floorContent = append(floorContent, line)
 	}
+	fmt.Println("floorContent: ", floorContent)
 	return floorContent
 }

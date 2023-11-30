@@ -3,8 +3,6 @@ github.com/ebitengine/purego v0.5.0 h1:JrMGKfRIAM4/QVKaesIIT7m/UVjTj5GYhRSQYwfVd
 github.com/ebitengine/purego v0.5.0/go.mod h1:ah1In8AOtksoNK6yk5z1HTJeUkC1Ez4Wk2idgGslMwQ=
 github.com/gabstv/cimgui-go v0.0.0-20231031221758-68bd718f94cc h1:wOd6OYf4MjbBpSuWizOD/5YrDhbRiGuS4j7gDy/LEoI=
 github.com/gabstv/cimgui-go v0.0.0-20231031221758-68bd718f94cc/go.mod h1:YFpLc8WCZGvPU5UBGs9H7XZdTpUe3Ae5jWaDSDwv94s=
-github.com/gabstv/ebiten-imgui v0.5.0 h1:xtRm2x4RGwCAuyhrZALK4enoSvHH1Kro69NdGn0JZ0w=
-github.com/gabstv/ebiten-imgui v0.5.0/go.mod h1:1JdlgqWYHSNxWfrBfCeNyp8S4WtXq8uH8wFvpZqfxpc=
 github.com/gabstv/ebiten-imgui/v3 v3.0.0 h1:Ya2E8q57YiqDIEmJcdSeqO8SZJdwz9s9nxu/qhFRjX0=
 github.com/gabstv/ebiten-imgui/v3 v3.0.0/go.mod h1:dey4DrT0OltL0OQvG1iqaJRY8/C/988HX+Lu/LrDC5s=
 github.com/hajimehoshi/ebiten/v2 v2.6.2 h1:tVa3ZJbp4Uz/VSjmpgtQIOvwd7aQH290XehHBLr2iWk=
