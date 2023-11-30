@@ -10,7 +10,7 @@ func (gui *WinGui) MainMenu() {
 	ebimgui.Update(1.0 / 60.0)
 	ebimgui.BeginFrame()
 
-	// Windonw
+	// Window
 	if imgui.Button("Poem") { // Buttons return true when clicked (most widgets return true when edited/activated)
 		gui.Poem = !gui.Poem
 	}
