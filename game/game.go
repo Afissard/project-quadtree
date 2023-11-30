@@ -4,6 +4,7 @@ import (
 	"github.com/Afissard/project-quadtree/camera"
 	"github.com/Afissard/project-quadtree/character"
 	"github.com/Afissard/project-quadtree/floor"
+	"github.com/Afissard/project-quadtree/gui"
 )
 
 // Game est le type permettant de représenter les données du jeu.
@@ -17,4 +18,5 @@ type Game struct {
 	camera    camera.Camera
 	floor     floor.Floor
 	character character.Character
+	gui       gui.WinGui
 }
