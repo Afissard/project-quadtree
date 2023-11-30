@@ -2,7 +2,7 @@ package game
 
 import (
 	"github.com/Afissard/project-quadtree/configuration"
-	//"github.com/Afissard/project-quadtree/gui"
+	"github.com/Afissard/project-quadtree/gui"
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
 )
@@ -25,9 +25,9 @@ func (g *Game) Update() error {
 	g.camera.Update(g.character.X, g.character.Y)
 	g.floor.Update(g.camera.X, g.camera.Y)
 
-	// if configuration.Global.Gui {
-	// 	gui.LoresIpsum()
-	// }
+	if configuration.Global.Gui {
+		gui.LoresIpsum()
+	}
 
 	return nil
 }
