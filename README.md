@@ -21,7 +21,6 @@ Build :
 cd cmd && go build . && .\cmd
 ```
 Run :
-Build :
 ```powershell
 cd cmd && .\cmd
 ```
