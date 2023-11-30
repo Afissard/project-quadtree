@@ -1,9 +1,10 @@
 package game
 
 import (
+	"github.com/Afissard/project-quadtree/configuration"
+	//"github.com/Afissard/project-quadtree/gui"
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
-	"github.com/Afissard/project-quadtree/configuration"
 )
 
 // Update met à jour les données du jeu à chaque 1/60 de seconde.
@@ -16,10 +17,17 @@ func (g *Game) Update() error {
 	if inpututil.IsKeyJustPressed(ebiten.KeyD) {
 		configuration.Global.DebugMode = !configuration.Global.DebugMode
 	}
+	if inpututil.IsKeyJustPressed(ebiten.KeyP) {
+		configuration.Global.Gui = !configuration.Global.Gui
+	}
 
 	g.character.Update(g.floor.Blocking(g.character.X, g.character.Y, g.camera.X, g.camera.Y))
 	g.camera.Update(g.character.X, g.character.Y)
 	g.floor.Update(g.camera.X, g.camera.Y)
+
+	// if configuration.Global.Gui {
+	// 	gui.LoresIpsum()
+	// }
 
 	return nil
 }

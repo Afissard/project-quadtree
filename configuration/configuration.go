@@ -44,8 +44,9 @@ type Configuration struct {
 	CameraMode                    int
 	FloorKind                     int
 	FloorFile                     string
-	// Ajouts
-	InfiniteMap int // 0: SAE, 1: chunk simple, 2: génération WFC
+	// Ajouts (peuvent overlap les paramètres ci dessus)
+	InfiniteMap int  // 0: SAE, 1: chunk simple, 2: génération WFC
+	Gui         bool // active le gui (activable in-game)
 
 	ScreenWidth, ScreenHeight            int `json:"-"`
 	ScreenCenterTileX, ScreenCenterTileY int `json:"-"`

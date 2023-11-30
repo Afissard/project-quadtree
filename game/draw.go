@@ -9,6 +9,7 @@ import (
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 	"github.com/hajimehoshi/ebiten/v2/vector"
+	// ebimgui "github.com/gabstv/ebiten-imgui/v3"
 )
 
 // Draw permet d'afficher à l'écran tous les éléments du jeu
@@ -21,7 +22,13 @@ func (g *Game) Draw(screen *ebiten.Image) {
 
 	if configuration.Global.DebugMode {
 		g.drawDebug(screen)
+		ebitenutil.DebugPrint(screen, fmt.Sprintf("TPS: %.2f", ebiten.ActualTPS()))
 	}
+
+	// if configuration.Global.Gui {
+	// 	ebimgui.Draw(screen)
+	// }
+
 }
 
 // drawDebug se charge d'afficher les informations de debug si

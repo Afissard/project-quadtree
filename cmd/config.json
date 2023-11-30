@@ -9,5 +9,6 @@
     "CameraMode": 1,
     "FloorKind": 3,
     "FloorFile": "../floor-files/Léa",
-    "InfiniteMap": 1
+    "InfiniteMap": 1,
+    "Gui": false
 }

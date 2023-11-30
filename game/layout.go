@@ -1,6 +1,9 @@
 package game
 
-import "github.com/Afissard/project-quadtree/configuration"
+import (
+	"github.com/Afissard/project-quadtree/configuration"
+	//ebimgui "github.com/gabstv/ebiten-imgui/v3"
+)
 
 // Layout détermine la taille de l'image sur laquelle Ebitengine
 // affiche les images du jeu en fonction de la taille de la fenêtre
@@ -13,5 +16,7 @@ func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeigh
 		screenWidth += configuration.Global.NumTileForDebug * configuration.Global.TileSize
 		screenHeight += configuration.Global.TileSize
 	}
+
+	//ebimgui.SetDisplaySize(float32(800), float32(600))
 	return
 }
