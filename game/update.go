@@ -2,7 +2,6 @@ package game
 
 import (
 	"github.com/Afissard/project-quadtree/configuration"
-	// "github.com/Afissard/project-quadtree/gui"
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
 )

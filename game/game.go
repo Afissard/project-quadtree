@@ -4,7 +4,6 @@ import (
 	"github.com/Afissard/project-quadtree/camera"
 	"github.com/Afissard/project-quadtree/character"
 	"github.com/Afissard/project-quadtree/floor"
-	// "github.com/Afissard/project-quadtree/gui"
 )
 
 // Game est le type permettant de représenter les données du jeu.

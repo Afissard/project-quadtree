@@ -2,7 +2,6 @@ package game
 
 import (
 	"github.com/Afissard/project-quadtree/configuration"
-	// ebimgui "github.com/gabstv/ebiten-imgui/v3"
 )
 
 // Layout détermine la taille de l'image sur laquelle Ebitengine

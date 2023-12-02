@@ -5,8 +5,6 @@ import (
 	"image/color"
 
 	"github.com/Afissard/project-quadtree/configuration"
-
-	// ebimgui "github.com/gabstv/ebiten-imgui/v3"
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 	"github.com/hajimehoshi/ebiten/v2/vector"
