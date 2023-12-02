@@ -7,5 +7,4 @@ func (g *Game) Init() {
 	g.character.Init()
 	g.camera.Init()
 	g.floor.Init()
-	g.gui.Init()
 }

@@ -6,7 +6,7 @@ import (
 
 	"github.com/Afissard/project-quadtree/configuration"
 
-	ebimgui "github.com/gabstv/ebiten-imgui/v3"
+	// ebimgui "github.com/gabstv/ebiten-imgui/v3"
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 	"github.com/hajimehoshi/ebiten/v2/vector"
@@ -24,11 +24,6 @@ func (g *Game) Draw(screen *ebiten.Image) {
 		g.drawDebug(screen)
 		ebitenutil.DebugPrint(screen, fmt.Sprintf("TPS: %.2f", ebiten.ActualTPS()))
 	}
-
-	if g.gui.ActiveWin {
-		ebimgui.Draw(screen)
-	}
-
 }
 
 // drawDebug se charge d'afficher les informations de debug si
