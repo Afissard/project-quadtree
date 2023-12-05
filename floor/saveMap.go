@@ -16,7 +16,6 @@ func check(err error) {
 func (f *Floor) SaveMap(fileName string) (err error) {
 	_, errFileExist := os.Stat("../floor-files/" + fileName) // test l'existence du fichier save
 	if errFileExist == nil {
-		fmt.Println(errFileExist.Error())
 		err := os.Remove("../floor-files/" + fileName) // Ouvre le fichier save pour le réécrire
 		check(err)
 	}
