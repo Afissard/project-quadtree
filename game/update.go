@@ -17,7 +17,7 @@ func (g *Game) Update() error {
 		configuration.Global.DebugMode = !configuration.Global.DebugMode
 	}
 	if inpututil.IsKeyJustPressed(ebiten.KeyS) {
-		g.SaveGame("save1")
+		g.SaveGame("autoSave")
 		// TODO: si debug : montré sauvegarde
 	}
 

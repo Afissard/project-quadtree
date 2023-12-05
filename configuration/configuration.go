@@ -45,7 +45,8 @@ type Configuration struct {
 	FloorKind                     int
 	FloorFile                     string
 	// Ajouts (peuvent overlap les paramètres ci dessus)
-	InfiniteMap int // 0: SAE, 1: chunk simple, 2: génération WFC
+	SaveMode    bool // Charge la map depuis le fichier autoSave, si le fichier n'existe pas charge FloorFile
+	InfiniteMap int  // 0: SAE, 1: chunk simple, 2: génération WFC
 
 	ScreenWidth, ScreenHeight            int `json:"-"`
 	ScreenCenterTileX, ScreenCenterTileY int `json:"-"`
