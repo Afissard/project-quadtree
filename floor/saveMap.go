@@ -15,6 +15,7 @@ func check(err error) {
 
 func (f *Floor) SaveMap(fileName string) (err error) {
 	// Récupération de la map actuelle
+	// fmt.Println(f.quadtreeContent.root, f.quadtreeContent.width, f.quadtreeContent.height) // doesn't work
 	f.quadtreeContent.GetContent(0, 0, f.fullContent) // BUG : vide
 	fmt.Println("fullContent : ", f.fullContent)
 
