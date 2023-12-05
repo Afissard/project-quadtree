@@ -16,6 +16,10 @@ func (g *Game) Update() error {
 	if inpututil.IsKeyJustPressed(ebiten.KeyD) {
 		configuration.Global.DebugMode = !configuration.Global.DebugMode
 	}
+	if inpututil.IsKeyJustPressed(ebiten.KeyS) {
+		g.SaveGame("save1")
+		// TODO: si debug : montré sauvegarde
+	}
 
 	g.character.Update(g.floor.Blocking(g.character.X, g.character.Y, g.camera.X, g.camera.Y))
 	g.camera.Update(g.character.X, g.character.Y)
