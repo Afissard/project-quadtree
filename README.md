@@ -1,6 +1,18 @@
 # Project-Quadtree
 Projet d'introduction au développement (R1.01) et de SAÉ implémentation d'un besoin client (SAE1.01), année 2023-2024.
 
+# Contenu actuel
+## SAE
+- floor : readFromFile
+- floor : updateFromFile
+- quadtree : MakeFromArray
+- quadtree : GetContent
+## Extensions
+- optimisation quadtree 
+- map aléatoire (donjon BSP, TODO : BSP -> WFC)
+- sauvegarde de la map (TODO : sauvegarde du joueur)
+- 
+
 # Build & exécution du projet
 ## Linux
 Si la librairie X11-dev n'est pas installé :
