@@ -14,18 +14,15 @@ func check(err error) {
 }
 
 func (f *Floor) SaveMap(fileName string) (err error) {
-	mapFile := &os.File{}
 	_, errFileExist := os.Stat("../floor-files/" + fileName) // test l'existence du fichier save
 	if errFileExist == nil {
-		mapFile, err := os.Open("../floor-files/" + fileName) // Ouvre le fichier save pour le réécrire
+		fmt.Println(errFileExist.Error())
+		err := os.Remove("../floor-files/" + fileName) // Ouvre le fichier save pour le réécrire
 		check(err)
-		defer mapFile.Close()
-	} else {
-		mapFile, err := os.Create("../floor-files/" + fileName) // Créer le fichier save
-		check(err)
-		defer mapFile.Close()
 	}
-
+	mapFile, err := os.Create("../floor-files/" + fileName) // Créer le fichier save
+	check(err)
+	defer mapFile.Close()
 	w := bufio.NewWriter(mapFile)
 
 	bytesWritten := 0
@@ -36,7 +33,7 @@ func (f *Floor) SaveMap(fileName string) (err error) {
 		bytesWritten += ny
 	}
 	if bytesWritten <= 0 {
-		err := fmt.Errorf(fmt.Sprintf("byte écrits : %d", bytesWritten))
+		err := fmt.Errorf(fmt.Sprintf("Error : %d bytes écrits", bytesWritten))
 		check(err)
 	}
 	fmt.Printf("wrote %d bytes\n", bytesWritten)
