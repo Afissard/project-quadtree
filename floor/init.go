@@ -21,15 +21,20 @@ func (f *Floor) Init() {
 	_, errFileExist := os.Stat("../floor-files/" + saveFile) // test l'existence du fichier save
 	// fmt.Println(configuration.Global.SaveMode, errFileExist)
 	if configuration.Global.SaveMode && errFileExist == nil {
+		f.fullContent = readFloorFromFile("../floor-files/" + saveFile) // TODO: trouvé alternative : pour le moment requis pour créer fullContent
 		f.quadtreeContent = quadtree.MakeFromArray(readFloorFromFile("../floor-files/" + saveFile))
 	} else {
 		switch configuration.Global.FloorKind { // INFO: dépend du config.json
 		case fromFileFloor: // INFO: utilise d'abord un fichier pour la map avant algo quadtree
 			f.fullContent = readFloorFromFile(configuration.Global.FloorFile)
 		case quadTreeFloor:
+			if configuration.Global.SaveMode {
+				f.fullContent = readFloorFromFile(configuration.Global.FloorFile)
+			}
 			f.quadtreeContent = quadtree.MakeFromArray(readFloorFromFile(configuration.Global.FloorFile))
 		case genBSPFloor:
-			f.quadtreeContent = quadtree.MakeFromArray(bspDungeon.GetLevelNoTree("Léa à dit seed 22.", 64, 64))
+			f.fullContent = bspDungeon.GetLevelNoTree("Léa à dit seed 22.", 64, 64)
+			f.quadtreeContent = quadtree.MakeFromArray(f.fullContent)
 		}
 	}
 }

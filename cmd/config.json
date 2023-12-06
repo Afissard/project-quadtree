@@ -8,7 +8,7 @@
     "NumTileForDebug": 6,
     "CameraMode": 1,
     "FloorKind": 2,
-    "FloorFile": "../floor-files/Léa",
-    "SaveMode": false,
+    "FloorFile": "../floor-files/Sacha",
+    "SaveMode": true,
     "InfiniteMap": 0
 }
