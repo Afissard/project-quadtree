@@ -10,8 +10,8 @@ Projet d'introduction au développement (R1.01) et de SAÉ implémentation d'un 
 ## Extensions
 - optimisation quadtree 
 - map aléatoire (donjon BSP, TODO : BSP -> WFC)
-- sauvegarde de la map (TODO : sauvegarde du joueur)
-- 
+- sauvegarde de la map (TODO : sauvegarde du joueur et camera)
+- Graphical User Interface (GUI) (réécriture complete en cour)
 
 # Build & exécution du projet
 ## Linux
@@ -63,6 +63,7 @@ Générer la map avec l'algo quadtree, détail dans le pdf
 - Monde procédural en direct (taille fixe) (donjons -> algo de génération (Wave Fonction Collapse en live))
 - Déplacement du joueur indépendant des tuiles (=> fix le scrolling de la caméra)
 - GUI (paramètres, info joueur, (dialogue ?))
+- Sauvegarde de la map, du joueur et autres informations
 - Collisions
 - Ajouter de la vie (ia state machine algo + path-finding algo)
 - dynamic light (voir technique de dithering)
