@@ -18,6 +18,9 @@ func (f *Floor) SaveMap(fileName string) (err error) {
 	// fmt.Println(f.quadtreeContent.root, f.quadtreeContent.width, f.quadtreeContent.height) // doesn't work
 	f.quadtreeContent.GetContent(0, 0, f.fullContent) // BUG : vide
 	fmt.Println("fullContent : ", f.fullContent)
+	if len(f.fullContent) == 0 {
+		panic("fullContent vide !")
+	}
 
 	// Création du fichier de sauvegarde
 	_, errFileExist := os.Stat("../floor-files/" + fileName) // test l'existence du fichier save
