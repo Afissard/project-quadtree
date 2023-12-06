@@ -44,6 +44,9 @@ cd cmd && .\cmd
 ## Autres informations
 - repo source projet : https://gitlab.univ-nantes.fr/jezequel-l/project-quadtree/-/releases
 - Google doc des idées : https://docs.google.com/document/d/1e6MvH3YVjEUX3oUGH9tsGn1JIZyKfRrJr4DWm7M6GVA/edit
+## Ressources Wave Fonction Collapse
+- WFC repository : https://github.com/mxgmn/WaveFunctionCollapse
+- WFC implemented in Golang : https://github.com/shawnridgeway/wfc
 
 # TODO list:
 Suivre ordre de création des fonction proposer par le pdf (le temps de comprendre la structure du projet).
