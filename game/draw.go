@@ -15,6 +15,15 @@ import (
 // Il faut faire attention à l'ordre d'affichage pour éviter d'avoir
 // des éléments qui en cachent d'autres.
 func (g *Game) Draw(screen *ebiten.Image) {
+	switch g.state {
+	case mainMenu:
+		ebitenutil.DebugPrint(screen, "Main Menu is work in progress.\nPress G Play")
+	case inGame:
+		g.DrawInGame(screen)
+	}
+}
+
+func (g *Game) DrawInGame(screen *ebiten.Image) {
 	g.floor.Draw(screen)
 	g.character.Draw(screen, g.camera.X, g.camera.Y)
 

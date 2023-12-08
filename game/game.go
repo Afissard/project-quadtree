@@ -17,4 +17,6 @@ type Game struct {
 	camera    camera.Camera
 	floor     floor.Floor
 	character character.Character
+
+	state int
 }
