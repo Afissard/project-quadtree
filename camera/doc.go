@@ -1,6 +1,6 @@
 /*
 camera est le paquet qui prend en charge la gestion d'une
-caméra abtraite. L'idée est que la position de la caméra
+caméra abstraite. L'idée est que la position de la caméra
 représente toujours le centre de l'affichage à l'écran.
 
 Pour le moment, la caméra peut soit suivre le personnage soit

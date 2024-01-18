@@ -6,11 +6,13 @@ package camera
 // se trouve mais vous pourrez ajouter des choses
 // au besoin lors de votre développement.
 type Camera struct {
-	X, Y int
+	X int
+	Y int
 }
 
 // types de caméra disponibles
 const (
 	Static int = iota
 	FollowCharacter
+	FreeCam
 )

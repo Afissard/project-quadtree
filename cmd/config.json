@@ -1,5 +1,5 @@
 {
-    "DebugMode": true,
+    "DebugMode": false,
     "NumTileX": 16,
     "NumTileY": 16,
     "TileSize": 16,
@@ -7,8 +7,12 @@
     "NumFramePerCharacterAnimImage": 5,
     "NumTileForDebug": 6,
     "CameraMode": 1,
-    "FloorKind": 2,
-    "FloorFile": "../floor-files/Sacha",
-    "SaveMode": true,
-    "InfiniteMap": 0
+    "FloorKind": 3,
+    "FilePath": "../floor-files/",
+    "FloorFile": "validation",
+    "SaveFile": "autoSave",
+    "FixedGenWidth": 64,
+    "FixedGenHeight": 64,
+    "Seed": "random",
+    "AlgoGeneration": 0
 }

@@ -7,7 +7,7 @@ const (
 	orientedUp
 )
 
-// Character définit les charactéristiques du personnage.
+// Character définit les caractéristiques du personnage.
 // Pour le moment seules les coordonnées absolues de l'endroit
 // où il se trouve sont exportées, mais vous pourrez
 // ajouter des choses au besoins lors de votre développement.
@@ -22,12 +22,15 @@ const (
 //     coordonnées absolues.
 //   - animationFrameCount : le nombre d'appels à update (ou de 1/60 de seconde) qui
 //     ont eu lieu depuis la dernière étape d'animation.
+
 type Character struct {
-	X, Y                int
-	orientation         int
-	animationStep       int
-	xInc, yInc          int
-	moving              bool
-	shift               int
-	animationFrameCount int
+	X                   int
+	Y                   int
+	Orientation         int
+	AnimationStep       int
+	XInc                int
+	YInc                int
+	Moving              bool
+	Shift               int
+	AnimationFrameCount int
 }

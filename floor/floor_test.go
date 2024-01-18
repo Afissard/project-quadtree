@@ -1,8 +1,10 @@
 package floor
 
-import "testing"
+import (
+	"testing"
+)
 
-func Test_readFloorFromFile(t *testing.T) {
+func Test_readFloorFromFile_n1(t *testing.T) {
 	/*
 		test the "exemple" file map
 	*/
@@ -26,7 +28,7 @@ func Test_readFloorFromFile(t *testing.T) {
 	}
 }
 
-func Test_readFloorFromFile_2(t *testing.T) {
+func Test_readFloorFromFile_n2(t *testing.T) {
 	/*
 		test the "validation" file map
 	*/

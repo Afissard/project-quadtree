@@ -5,42 +5,44 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/Afissard/project-quadtree/bspDungeon"
-	"github.com/Afissard/project-quadtree/configuration"
-	"github.com/Afissard/project-quadtree/quadtree"
+	// "github.com/Afissard/project-quadtree/bspDungeon"
+	// "github.com/Afissard/project-quadtree/configuration"
+	// "github.com/Afissard/project-quadtree/quadtree"
+
+	"gitlab.univ-nantes.fr/pub/but/but1/r1.01/sae1.01/groupe4/eq-4-05_chauvel-sacha_cortet-lea/configuration"
+	"gitlab.univ-nantes.fr/pub/but/but1/r1.01/sae1.01/groupe4/eq-4-05_chauvel-sacha_cortet-lea/dungeon"
+	"gitlab.univ-nantes.fr/pub/but/but1/r1.01/sae1.01/groupe4/eq-4-05_chauvel-sacha_cortet-lea/quadtree"
 )
 
 // Initialise les structures de données internes de f.
-func (f *Floor) Init() {
+func (f *Floor) Init() (spawnX, spawnY int, listPortal []dungeon.Portal) {
 	f.content = make([][]int, configuration.Global.NumTileY)
 	for y := 0; y < len(f.content); y++ {
 		f.content[y] = make([]int, configuration.Global.NumTileX)
 	}
 
-	saveFile := "autoSave"                                   // TODO: add it to settings
-	_, errFileExist := os.Stat("../floor-files/" + saveFile) // test l'existence du fichier save
-	// fmt.Println(configuration.Global.SaveMode, errFileExist)
-	if configuration.Global.SaveMode && errFileExist == nil {
-		f.fullContent = readFloorFromFile("../floor-files/" + saveFile) // FIXME: trouvé alternative : pour le moment requis pour créer fullContent
-		f.quadtreeContent = quadtree.MakeFromArray(readFloorFromFile("../floor-files/" + saveFile))
-	} else {
-		switch configuration.Global.FloorKind { // INFO: dépend du config.json
-		case fromFileFloor: // INFO: utilise d'abord un fichier pour la map avant algo quadtree
-			f.fullContent = readFloorFromFile(configuration.Global.FloorFile)
-		case quadTreeFloor:
-			if configuration.Global.SaveMode {
-				f.fullContent = readFloorFromFile(configuration.Global.FloorFile) // FIXME: trouvé alternative
-			}
-			f.quadtreeContent = quadtree.MakeFromArray(readFloorFromFile(configuration.Global.FloorFile))
-		case genBSPFloor:
-			f.fullContent = bspDungeon.GetLevelNoTree("Léa à dit seed 22.", 64, 64) // FIXME: trouvé alternative
-			f.quadtreeContent = quadtree.MakeFromArray(f.fullContent)
+	spawnX, spawnY = 0, 0
+	switch configuration.Global.FloorKind { // INFO: dépend du config.json
+	case fromFileFloor: // INFO: utilise d'abord un fichier pour la map avant algo quadtree
+		f.fullContent = readFloorFromFile(configuration.Global.FilePath + configuration.Global.FloorFile)
+	case quadTreeFloor:
+		f.QuadtreeContent = quadtree.MakeFromArray(readFloorFromFile(configuration.Global.FilePath + configuration.Global.FloorFile))
+	case bspDungeonFloor:
+		if configuration.Global.FloorFile == configuration.Global.SaveFile {
+			f.QuadtreeContent = quadtree.MakeFromArray(readFloorFromFile(configuration.Global.FilePath + configuration.Global.FloorFile))
+		} else {
+			f.QuadtreeContent, spawnX, spawnY, listPortal = dungeon.NewDungeon(configuration.Global.FixedGenWidth, configuration.Global.FixedGenHeight, configuration.Global.Seed)
 		}
+	case infiniteWorld:
+		f.QuadtreeContent.Init(2, 2) // taille minimal du quadtree (1, 1 est possible aussi)
 	}
+	return spawnX, spawnY, listPortal
 }
 
-// lecture du contenu d'un fichier représentant un terrain
-// pour le stocker dans un tableau
+/*
+lecture du contenu d'un fichier représentant un terrain
+pour le stocker dans un tableau
+*/
 func readFloorFromFile(fileName string) (floorContent [][]int) {
 	/*
 		Récupère les données du fichier map : floor-files/filename
@@ -70,7 +72,8 @@ func readFloorFromFile(fileName string) (floorContent [][]int) {
 		} else {
 			content, err := strconv.Atoi(str_content) // str -> int
 			if err != nil {
-				panic(err)
+				// panic(err)
+				content = -1
 			}
 			lineContent = append(lineContent, content)
 		}

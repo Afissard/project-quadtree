@@ -1,26 +1,30 @@
 package quadtree
 
-// Quadtree est la structure de données pour les arbres
-// quaternaires. Les champs non exportés sont :
-//   - width, height : la taille en cases de la zone représentée
-//     par l'arbre.
-//   - root : le nœud qui est la racine de l'arbre.
+/*
+Quadtree est la structure de données pour les arbres quaternaires.
+Les champs non exportés sont :
+  - width, height : la taille en cases de la zone représentée
+    par l'arbre.
+  - root : le nœud qui est la racine de l'arbre.
+*/
 type Quadtree struct {
-	width, height int
+	Width, Height int
 	root          *node
 }
 
-// node représente un nœud d'arbre quaternaire. Les champs sont :
-//   - topLeftX, topLeftY : les coordonnées (en cases) de la case
-//     située en haut à gauche de la zone du terrain représentée
-//     par ce nœud.
-//   - width, height :  la taille en cases de la zone représentée
-//     par ce nœud.
-//   - content : le type de terrain de la zone représentée par ce
-//     nœud (seulement s'il s'agit d'une feuille).
-//   - xxxNode : Une représentation de la partie xxx de la zone
-//     représentée par ce nœud, différent de nil si et seulement
-//     si le nœud actuel n'est pas une feuille.
+/*
+node représente un nœud d'arbre quaternaire. Les champs sont :
+  - topLeftX, topLeftY : les coordonnées (en cases) de la case
+    située en haut à gauche de la zone du terrain représentée
+    par ce nœud.
+  - width, height :  la taille en cases de la zone représentée
+    par ce nœud.
+  - content : le type de terrain de la zone représentée par ce
+    nœud (seulement s'il s'agit d'une feuille).
+  - xxxNode : Une représentation de la partie xxx de la zone
+    représentée par ce nœud, différent de nil si et seulement
+    si le nœud actuel n'est pas une feuille.
+*/
 type node struct {
 	topLeftX, topLeftY int
 	width, height      int
@@ -33,5 +37,6 @@ type node struct {
 
 /*
 Un chunk est un carré, CHUNK_SIZE est sa dimension (CHUNK_SIZE*CHUNK_SIZE)
+Cette constante est utilisé pour la création de monde infini procéduraux
 */
-const CHUNK_SIZE = 16
+const CHUNK_SIZE = 2 // taille d'origine : 16

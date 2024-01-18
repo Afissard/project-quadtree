@@ -5,7 +5,13 @@ import (
 	"testing"
 )
 
-func Test_seek_n1(t *testing.T) {
+/*
+Test de la validité de la fonction Seek
+
+Le test reste valide, bien que désormais MakeFromArray
+utilise aussi Seek via AddNode pour la création du quadtree
+*/
+func Test_Seek_n1(t *testing.T) {
 	fmt.Println("\nTest newChunk n°1:")
 	// initialisation
 	mapContent := [][]int{
@@ -14,13 +20,13 @@ func Test_seek_n1(t *testing.T) {
 		{0, 0, 2, 2},
 		{0, 0, 2, 2},
 	}
-	quad := MakeFromArray(mapContent)
+	quad := MakeFromArray(mapContent) // Utilise désormais Seek pour la création du quadtree ...
 	getError := false
 
 	for y := 0; y < len(mapContent); y++ {
 		for x := 0; x < len(mapContent[y]); x++ {
 			//fonction
-			resultNode := quad.seek(x, y)
+			resultNode := quad.Seek(x, y)
 			// test
 			if resultNode.content != mapContent[y][x] {
 				t.Fatalf("\n Contenu de la node différent de la map : %d != %d", resultNode.content, mapContent[y][x])

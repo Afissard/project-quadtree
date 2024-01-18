@@ -6,8 +6,8 @@ import (
 	"os"
 )
 
-// Configuration définit les élèments de la configuration
-// du jeu. Pour ajouter un élèment de configuration il
+// Configuration définit les éléments de la configuration
+// du jeu. Pour ajouter un élément de configuration il
 // suffit d'ajouter un champs dans cette structure.
 //
 // Les champs directement lus dans le fichier de configuration sont :
@@ -42,14 +42,18 @@ type Configuration struct {
 	NumFramePerCharacterAnimImage int
 	NumTileForDebug               int
 	CameraMode                    int
-	FloorKind                     int
+	FloorKind                     int    // 0: default, 1: FromFileFloor, 2: QuadtreeFloor, 3:BSP Dungeon taille fixe, 4: InfiniteWorld
+	FilePath                      string // à été ajouté
 	FloorFile                     string
-	// Ajouts (peuvent overlap les paramètres ci dessus)
-	SaveMode    bool // Charge la map depuis le fichier autoSave, si le fichier n'existe pas charge FloorFile
-	InfiniteMap int  // 0: SAE, 1: chunk simple, 2: génération WFC
+	SaveFile                      string
+	FixedGenWidth                 int
+	FixedGenHeight                int
+	Seed                          string
+	AlgoGeneration                int // 0: chunk simple 1: TODO: BSP
 
 	ScreenWidth, ScreenHeight            int `json:"-"`
 	ScreenCenterTileX, ScreenCenterTileY int `json:"-"`
+	OriginNumTileX, OriginNumTileY       int `json:"-"`
 }
 
 // Global est la variable qui contient la configuration
@@ -76,6 +80,20 @@ func Load(configurationFileName string) {
 	setComputedFields()
 }
 
+func LoadFromSave(characterFileName string) {
+	content, err := os.ReadFile(characterFileName)
+	if err != nil {
+		log.Fatal("Error while opening configuration file: ", err)
+	}
+
+	err = json.Unmarshal(content, &Global)
+	if err != nil {
+		log.Fatal("Error while reading configuration file: ", err)
+	}
+
+	setComputedFields()
+}
+
 // setComputedFields se charge de remplir les champs calculés
 // de la configuration à partir des autres champs.
 func setComputedFields() {
@@ -83,4 +101,7 @@ func setComputedFields() {
 	Global.ScreenHeight = Global.NumTileY * Global.TileSize
 	Global.ScreenCenterTileX = Global.NumTileX / 2
 	Global.ScreenCenterTileY = Global.NumTileY / 2
+
+	Global.OriginNumTileX = Global.NumTileX
+	Global.OriginNumTileY = Global.NumTileY
 }
