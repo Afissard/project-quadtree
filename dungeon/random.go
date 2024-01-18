@@ -48,6 +48,6 @@ func randomIntBetween(min, max int) (res int) {
 	} else if min == max {
 		return min
 	}
-	res = rand.Intn(max-min+1) + min
+	res = alea.Intn(max-min+1) + min
 	return res
 }
