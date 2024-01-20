@@ -25,7 +25,7 @@ Projet d'introduction au développement (R1.01) et de SAÉ implémentation d'un 
 - UI : interface utilisateur (menu principal, sauvegarde, chargement de la sauvegarde)
 - Zoom camera (sert aussi de minimap)
 - Nouvelle tuiles etc (collision et autre interaction), (FloorKind = 3)
-- Monde procédural (génération aléatoire, taille fixe) : donjons -> algo de génération BSP, (FloorKind = 3)
+- Monde procédural (génération aléatoire, taille fixe) : donjons -> algo de génération BSP, (FloorKind = 3). La seed est déterministe, donc les même niveaux seront toujours généré à la suite des uns et des autres, sauf pour la seed "random" et "" où la seed est choisie de manière aléatoire.
 - Portail de téléportation (générer dans le donjon (FloorKind = 3))
 ## Extensions en cours d'implémentation
 - Monde infini à la volé (sans algo de génération), (FloorKind = 4)
@@ -71,7 +71,6 @@ cd cmd && .\cmd
 # Bugs connus
 - Le dé-zoom peu causé des chute de FPS, de plus pour une grande map affiché avec un dé-zoom au maximum (supérieur à 6) la rendering pipeline d'Ebitengine peut causé un crash du jeu
 - En floorKing 4, lorsque la taille du quadtree est augmenté, son contenu disparais (la génération infinie à la volé est toujours WIP)
-- Seed non déterministe lors de la génération de donjons.
 - Jouer dans un niveau charger depuis une sauvegarde rend les téléporteur inutilisable pour cet étage.
 - Dans de très rare cas il est possible d'allez sur une tuile normalement incessible (exemple mur) en sortant d'un téléporteur et en continuant de marcher.
 
